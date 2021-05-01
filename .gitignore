@@ -1,0 +1,6 @@
+*.o
+Ceriumd
+
+# osx stuff 
+.DS_Store
+.vscode

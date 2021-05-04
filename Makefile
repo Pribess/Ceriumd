@@ -7,10 +7,13 @@ COMPILE_FLAGS=-std=c++17
 
 SRC_PATH=src/
 
+ECHO_FLAGS=[Ceriumd]
+
 CFILES=${SRC_PATH}Ceriumd.cpp
 
 ${TARGET}: ${CFILES}
-	${CC} ${CFILES} ${CXXFLAGS} ${TARGET}
+	@${CC} ${CFILES} ${CXXFLAGS} ${TARGET}
+	@echo ${ECHO_FLAGS} ${CC} ${CFILES} ${CXXFLAGS} ${TARGET}
 
 .PHONY: clean install
 
@@ -18,5 +21,5 @@ install:
 	@echo install
 
 clean:
-	@echo Cleaning...
+	@echo ${ECHO_FLAGS} Cleaning...
 	@rm -f ${TARGET}

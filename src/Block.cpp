@@ -10,8 +10,8 @@ Block::Block(
         char RootHash[32],
         unsigned int TimeStamp
     ) {
-    Block::BlockVersion = this->BlockVersion;
-    strcpy(Block::PreviousHash, this->PreviousHash);
-    strcpy(Block::PreviousHash, this->RootHash);
-    Block::TimeStamp = this->TimeStamp;
+    this->BlockVersion = BlockVersion;
+    strcpy(this->PreviousHash, PreviousHash);
+    strcpy(this->PreviousHash, RootHash);
+    this->TimeStamp = TimeStamp;
 }

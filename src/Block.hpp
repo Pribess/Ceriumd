@@ -1,7 +1,7 @@
 class Block
 {
 private:
-    short BlockVersion;
+    unsigned int BlockVersion;
 public:
-    Block(short BlockVersion);
+    Block(unsigned int BlockVersion);
 };  

@@ -2,3 +2,6 @@
 
 #include "Block.hpp"
 
+Block::Block(short BlockVersion) {
+    Block::BlockVersion = this->BlockVersion;
+}

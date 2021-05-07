@@ -9,7 +9,7 @@ SRC_PATH=src/
 
 ECHO_FLAGS=[Ceriumd]
 
-CFILES=${SRC_PATH}Ceriumd.cpp
+CFILES=src/Ceriumd.cpp
 
 ${TARGET}: ${CFILES}
 	@${CC} ${CFILES} ${CXXFLAGS} ${TARGET}

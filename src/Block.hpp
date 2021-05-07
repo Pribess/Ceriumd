@@ -2,7 +2,6 @@ class Block
 {
 private:
     short BlockVersion;
-    
 public:
-    Block();
-};
+    Block(short BlockVersion);
+};  

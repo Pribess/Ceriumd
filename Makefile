@@ -3,7 +3,7 @@
 CC=g++
 TARGET=Ceriumd
 CXXFLAGS=-o
-COMPILE_FLAGS=-std=c++17 -W -Wall
+COMPILE_FLAGS=-std=c++17 
 
 SRC_PATH=src/
 

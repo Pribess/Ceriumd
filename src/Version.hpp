@@ -1,0 +1,2 @@
+#define CERIUMD_VERSION 1
+#define BLOCK_VERSION 1

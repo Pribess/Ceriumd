@@ -4,6 +4,8 @@
 
 #include <cstring>
 
+#include "crypto/Crypto.hpp"
+
 Block::Block(
         unsigned int BlockVersion,
         char PreviousHash[32],
@@ -19,3 +21,7 @@ Block::Block(
     this->bits = bits;
     this->nonce = nonce;
 }
+/*
+char Block::CalculateBlockHash() {
+
+}*/

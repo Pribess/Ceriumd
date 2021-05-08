@@ -1,7 +1,6 @@
 //Copyright (c) 2021 Heewon Cho
 
-class Block
-{
+class Block {
 private:
     unsigned int BlockVersion;
     char PreviousHash[32];

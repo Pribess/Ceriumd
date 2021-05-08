@@ -2,7 +2,7 @@
 ### Integration between cloud computing and blockchain
 
 
-   ___          _                 
+   ___          _                   
   / __\___ _ __(_)_   _ _ __ ___  
  / /  / _ \ '__| | | | | '_ ` _ \  
 / /__|  __/ |  | | |_| | | | | | |  

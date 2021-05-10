@@ -17,9 +17,6 @@ ECHO_FLAGS=[Ceriumd]
 SOURCES:=${shell find ${SRC_PATH} -name "*.${SRC_EXT}" | tr -d "\n" | sed "s/.cpp/.cpp /g"}
 OBJECTS:=${shell find ${SRC_PATH} -name "*.${SRC_EXT}" | rev | cut -f 1 -d "/" | rev | tr -d "\n" | sed "s/.cpp/.o /g"}
 
-${OBJECTS}: ${SOURCES}
-	@${ECHO} "Amount of Source Files to Compile : ${words $^}"
-	@for var in $^ ; do ${ECHO} "Compiling... $$var -> " | tr -d "\n" && echo "$$var" | rev | cut -f 1 -d "/" | rev | sed "s/.cpp/.o/g" && ${CC} ${CXXFLAGSC} $$var; done
 
 ${TARGET}: ${OBJECTS}
 	@${ECHO} "Linking... *.o -> TARGET"
@@ -27,6 +24,9 @@ ${TARGET}: ${OBJECTS}
 	@${ECHO} "Clearing Object Files..."
 	@${RM} *.o
 
+${OBJECTS}: ${SOURCES}
+	@${ECHO} "Amount of Source Files to Compile : ${words $^}"
+	@for var in $^ ; do ${ECHO} "Compiling... $$var -> " | tr -d "\n" && echo "$$var" | rev | cut -f 1 -d "/" | rev | sed "s/.cpp/.o/g" && ${CC} ${CXXFLAGSC} $$var; done
 
 .PHONY: install
 

@@ -1,7 +1,7 @@
 # Cerium
 ### Integration between cloud computing and blockchain
 
-<pre style="backgorund-color:none">
+<pre>
    ___          _                 
   / __\___ _ __(_)_   _ _ __ ___  
  / /  / _ \ '__| | | | | '_ ` _ \

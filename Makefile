@@ -2,12 +2,12 @@
 
 CC=g++
 TARGET=Ceriumd
-CXXFLAGSC=-Wunused-command-line-argument -Wno-deprecated-declarations -c
+CXXFLAGSC=-Wno-deprecated-declarations -c
 CXXFLAGSO=-lcrypto
 COMPILE_FLAGS=-std=c++17 
 
 RM=rm
-ECHO=echo
+ECHO=echo ${ECHO_FLAGS}
 
 SRC_PATH=src
 SRC_EXT=cpp
@@ -17,13 +17,16 @@ ECHO_FLAGS=[Ceriumd]
 SOURCES:=${shell find ${SRC_PATH} -name "*.${SRC_EXT}" | tr -d "\n" | sed "s/.cpp/.cpp /g"}
 OBJECTS:=${shell find ${SRC_PATH} -name "*.${SRC_EXT}" | rev | cut -f 1 -d "/" | rev | tr -d "\n" | sed "s/.cpp/.o /g"}
 
+
 ${TARGET}: ${OBJECTS}
-	@${ECHO} "${ECHO_FLAGS} Linking... *.o -> TARGET"
-	${CC} ${OBJECTS} ${CXXFLAGSO} -o ${TARGET}
+	@${ECHO} "Linking... *.o -> TARGET"
+	@${CC} ${OBJECTS} ${CXXFLAGSO} -o ${TARGET}
+	@${ECHO} "Clearing Object Files..."
+	@${RM} *.o
 
 ${OBJECTS}: ${SOURCES}
-	@${ECHO} "${ECHO_FLAGS} Compiling... $< -> $@"
-	${CC} ${CXXFLAGSC} $<
+	@${ECHO} "Amount of Source Files to Compile : ${words $^}"
+	@for var in $^ ; do ${ECHO} "Compiling... $$var -> " | tr -d "\n" && echo "$$var" | rev | cut -f 1 -d "/" | rev | sed "s/.cpp/.o/g" && ${CC} ${CXXFLAGSC} $$var; done
 
 .PHONY: install
 
@@ -33,5 +36,5 @@ install:
 .PHONY: clean
 
 clean:
-	@${ECHO} ${ECHO_FLAGS} Cleaning...
+	@${ECHO} "Cleaning..."
 	@${RM} -f ${TARGET} ${OBJECTS}

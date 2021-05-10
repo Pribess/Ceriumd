@@ -39,8 +39,3 @@ install:
 clean:
 	@${ECHO} "Cleaning..."
 	@${RM} -f ${TARGET} ${OBJECTS}
-
-.PHONY: test
-
-test:
-	${shell date}

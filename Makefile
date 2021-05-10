@@ -14,16 +14,16 @@ SRC_EXT=cpp
 
 ECHO_FLAGS=[Ceriumd]
 
-SOURCES:=${shell find ${SRC_PATH} -name "*.${SRC_EXT}"}
-OBJECTS=*.o
+SOURCES:=${shell find ${SRC_PATH} -name "*.${SRC_EXT}" | tr -d "\n" | sed "s/.cpp/.cpp /g"}
+OBJECTS:=${shell find ${SRC_PATH} -name "*.${SRC_EXT}" | rev | cut -f 1 -d "/" | rev | tr -d "\n" | sed "s/.cpp/.o /g"}
 
 ${TARGET}: ${OBJECTS}
 	@${ECHO} "${ECHO_FLAGS} Linking... *.o -> TARGET"
-	@${CC} ${OBJECTS} ${CXXFLAGSO} -o ${TARGET}
+	${CC} ${OBJECTS} ${CXXFLAGSO} -o ${TARGET}
 
 ${OBJECTS}: ${SOURCES}
-	@${ECHO} "${ECHO_FLAGS} Compiling... $@"
-	@${CC} ${CXXFLAGSC} $< -o $@
+	@${ECHO} "${ECHO_FLAGS} Compiling... $< -> $@"
+	${CC} ${CXXFLAGSC} $<
 
 .PHONY: install
 

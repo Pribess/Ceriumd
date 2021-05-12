@@ -13,6 +13,5 @@ int main(int argc, char* argv[]) {
     Block *b2 = new Block(3, "2", "1", 1, 1, 1);
     std::cout << b2->CalculateBlockHash() << std::endl;
     free(b2);
-    std::cout << "1" + 1 + "1" << std::endl;
     return 0;
 }

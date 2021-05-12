@@ -16,12 +16,12 @@ Block::Block(
     ) {
     this->BlockVersion = BlockVersion;
     strcpy(this->PreviousHash, PreviousHash);
-    strcpy(this->PreviousHash, RootHash);
+    strcpy(this->RootHash, RootHash);
     this->TimeStamp = TimeStamp;
     this->bits = bits;
     this->nonce = nonce;
 }
-/*
-char Block::CalculateBlockHash() {
 
-}*/
+char *Block::CalculateBlockHash() {
+    return Crypto::SHA256(this->BlockVersion + strcat(this->PreviousHash, this->RootHash) + this->TimeStamp + this->bits + this->nonce);
+}

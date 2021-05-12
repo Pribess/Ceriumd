@@ -17,5 +17,5 @@ public:
         unsigned int bits,
         unsigned int nonce
     );
-    char CalculateBlockHash();
+    char *CalculateBlockHash();
 };  

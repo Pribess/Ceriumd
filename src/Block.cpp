@@ -23,5 +23,5 @@ Block::Block(
 }
 
 char *Block::CalculateBlockHash() {
-    return Crypto::SHA256(this->BlockVersion + strcat(this->PreviousHash, this->RootHash) + this->TimeStamp + this->bits + this->nonce);
+    return Crypto::SHA256(strcat(this->PreviousHash, this->RootHash));
 }

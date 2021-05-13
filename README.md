@@ -1,6 +1,8 @@
 # Cerium
 ### Integration between cloud computing and blockchain
 
+Contact <heewon6752@naver.com>
+
 <pre>
    ___          _                 
   / __\___ _ __(_)_   _ _ __ ___  
@@ -10,5 +12,5 @@
 </pre>
 
 
-###Official Telegram Channel
-###https://t.me/Ceriumd
+Official Telegram Channel
+<https://t.me/Ceriumd>

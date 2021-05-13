@@ -1,5 +1,5 @@
 # Cerium
-### Integration between cloud computing and blockchain
+## Integration between cloud computing and blockchain
 
 Contact at <heewon6752@naver.com>
 

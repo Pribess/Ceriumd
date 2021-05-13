@@ -4,6 +4,8 @@
 
 #include "CastingTools.hpp"
 
+#include <iostream>
+
 StringBuilder::StringBuilder(int Buff) {
     String.append(CastingTools::itoa(Buff));
 }

@@ -5,6 +5,7 @@
 #include <cstring>
 
 #include "crypto/Crypto.hpp"
+#include "tools/StringBuilder.hpp"
 
 Block::Block(
         unsigned int BlockVersion,
@@ -23,5 +24,11 @@ Block::Block(
 }
 
 char *Block::CalculateBlockHash() {
-    return Crypto::SHA256(strcat(this->PreviousHash, this->RootHash));
+    StringBuilder *String = new StringBuilder(this->BlockVersion);
+    String->AppendChar(this->PreviousHash);
+    String->AppendChar(this->RootHash);
+    String->AppendInt(this->TimeStamp);
+    String->AppendInt(this->bits);
+    String->AppendInt(this->nonce);
+    return Crypto::SHA256(String->RetString());
 }

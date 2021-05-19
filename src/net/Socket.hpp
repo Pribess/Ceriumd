@@ -7,12 +7,19 @@
 class Socket
 {
 private:
+    socklen_t LenBuff;
     int SocketDesc;
+    int ClientSocketDesc;
     sockaddr_in Sin;
+    sockaddr_in Sin_Client;
 public:
     Socket();
-    Socket(int sin_family, int sin_port, std::string sin_addr);
+    Socket(int sin_family, int sin_port);
     int CreateSocket(int type, int protocol);
     int BindSocket();
-    int Listen(int backlog);
+    int Listen();
+    int CloseSocket();
+    int SendData(int data);
+    int SendData(char data[]);
+    int SendData(std::string data);
 };

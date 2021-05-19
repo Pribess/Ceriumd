@@ -85,3 +85,11 @@ int Socket::SendData(std::string data) {
         return 0;
     }
 }
+
+char *Socket::RecvData() {
+    char cnt = 5;
+    memset(this->Buff, 0, sizeof(this->Buff));
+    if (0 > read(this->ClientSocketDesc, this->Buff, sizeof(this->Buff))) {
+        
+    }
+}

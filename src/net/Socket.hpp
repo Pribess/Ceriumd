@@ -12,6 +12,7 @@ private:
     int ClientSocketDesc;
     sockaddr_in Sin;
     sockaddr_in Sin_Client;
+    char Buff[256];
 public:
     Socket();
     Socket(int sin_family, int sin_port);
@@ -22,4 +23,5 @@ public:
     int SendData(int data);
     int SendData(char data[]);
     int SendData(std::string data);
+    char *RecvData();
 };

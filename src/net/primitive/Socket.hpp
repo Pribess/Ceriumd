@@ -14,7 +14,6 @@ private:
     sockaddr_in Sin_Client;
     char Buff[256];
 public:
-    Socket();
     Socket(int sin_family, int sin_port);
     int CreateSocket(int type, int protocol);
     int BindSocket();

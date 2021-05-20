@@ -8,17 +8,12 @@
 #include <iostream>
 #include <unistd.h>
 
-Socket::Socket() {
-    memset(&this->Sin, 0, sizeof(this->Sin));
-    memset(&this->Sin_Client, 0, sizeof(this->Sin_Client));
-}
-
 Socket::Socket(int sin_family, int sin_port) {
     memset(&this->Sin, 0, sizeof(this->Sin));
     memset(&this->Sin_Client, 0, sizeof(this->Sin_Client));
     this->Sin.sin_family = sin_family;
     this->Sin.sin_port = htons(sin_port);
-    this->Sin.sin_addr.s_addr = INADDR_ANY;
+    this->Sin.sin_addr.s_addr = htonl(INADDR_ANY);
 }
 
 int Socket::CreateSocket(int type, int protocol) {

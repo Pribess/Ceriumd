@@ -6,6 +6,7 @@ class StringBuilder {
 private:
     std::string String;
 public:
+    StringBuilder();
     StringBuilder(int Buff);
     StringBuilder(const char *Buff);
     void AppendInt(int Buff);

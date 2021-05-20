@@ -7,21 +7,21 @@
 #include <iostream>
 
 StringBuilder::StringBuilder(int Buff) {
-    String.append(CastingTools::itoa(Buff));
+    this->String.append(CastingTools::itoa(Buff));
 }
 
 StringBuilder::StringBuilder(const char *Buff) {
-    String.append(Buff);
+    this->String.append(Buff);
 }
 
 void StringBuilder::AppendInt(int Buff) {
-    String.append(CastingTools::itoa(Buff));
+    this->String.append(CastingTools::itoa(Buff));
 }
 
 void StringBuilder::AppendChar(const char *Buff) {
-    String.append(Buff);
+    this->String.append(Buff);
 }
 
 const char *StringBuilder::RetString() {
-    return String.c_str();
+    return this->String.c_str();
 }

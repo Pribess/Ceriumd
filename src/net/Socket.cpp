@@ -22,12 +22,16 @@ Socket::Socket(int sin_family, int sin_port) {
 }
 
 int Socket::CreateSocket(int type, int protocol) {
+    char cnt = 5;
     SocketDesc = socket(this->Sin.sin_family, type, protocol);
-    if (0 > SocketDesc) {
-        throw std::ios_base::failure("Socket Creation Failed!");
-    } else {
-        return 0;
+    while (cnt) {
+        if (0 > SocketDesc) {
+            cnt--;
+        } else {
+            return 0;
+        }
     }
+    throw std::ios_base::failure("Socket Creation Failed!");
 }
 
 int Socket::CloseSocket() {
@@ -41,11 +45,15 @@ int Socket::CloseSocket() {
 }
 
 int Socket::BindSocket() {
-    if (0 > bind(this->SocketDesc, (sockaddr *)&this->Sin, sizeof(sockaddr_in))) {
-        throw std::ios_base::failure("Socket Bind Failed!");
-    } else {
-        return 0;
+    char cnt = 5;
+    while (cnt) {
+        if (0 > bind(this->SocketDesc, (sockaddr *)&this->Sin, sizeof(sockaddr_in))) {
+            cnt--;
+        } else {
+            return 0;
+        }
     }
+    throw std::ios_base::failure("Socket Bind Failed!");
 }
 
 int Socket::Listen() {

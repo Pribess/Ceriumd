@@ -3,5 +3,6 @@
 class CastingTools {
 private:
 public:
-    static char *itoa(int Buff);
+    static const char *itoa(int Buff);
+    static const char *ctoh(const char *Buff);
 };

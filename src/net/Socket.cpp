@@ -23,12 +23,17 @@ Socket::Socket(int sin_family, int sin_port) {
 
 int Socket::CreateSocket(int type, int protocol) {
     char cnt = 5;
-    SocketDesc = socket(this->Sin.sin_family, type, protocol);
+    this->SocketDesc = socket(this->Sin.sin_family, type, protocol);
     while (cnt) {
-        if (0 > SocketDesc) {
+        if (0 > this->SocketDesc) {
             cnt--;
         } else {
-            return 0;
+            const int arg = 1;
+            if (0 > setsockopt(this->SocketDesc, SOL_SOCKET, SO_REUSEADDR, &arg, sizeof(arg))) {
+                throw std::ios_base::failure("Set Socket Option Failed!");
+            } else {
+                return 0;
+            }
         }
     }
     throw std::ios_base::failure("Socket Creation Failed!");

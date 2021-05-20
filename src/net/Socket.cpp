@@ -63,33 +63,50 @@ int Socket::Listen() {
 }
 
 int Socket::SendData(int data) {
-    if (0 > write(this->ClientSocketDesc, &data, sizeof(data))) {
-        throw std::ios_base::failure("Write Data Failed!");
-    } else {
-        return 0;
+    char cnt =5;
+    while (cnt) {
+        if (0 > write(this->ClientSocketDesc, &data, sizeof(data))) {
+            cnt--;
+        } else {
+            return 0;
+        }
     }
+    throw std::ios_base::failure("Write Data Failed!");
 }
 
 int Socket::SendData(char data[]) {
-    if (0 > write(this->ClientSocketDesc, &data, sizeof(&data))) {
-        throw std::ios_base::failure("Write Data Failed!");
-    } else {
-        return 0;
+    char cnt = 5;
+    while (cnt) {
+        if (0 > write(this->ClientSocketDesc, &data, sizeof(&data))) {
+            cnt--;
+        } else {
+            return 0;
+        }
     }
+    throw std::ios_base::failure("Write Data Failed!");
 }
 
 int Socket::SendData(std::string data) {
-    if (0 > write(this->ClientSocketDesc, data.c_str(), sizeof(data))) {
-        throw std::ios_base::failure("Write Data Failed!");
-    } else {
-        return 0;
+    char cnt = 5;
+    while (cnt) {
+        if (0 > write(this->ClientSocketDesc, data.c_str(), sizeof(data))) {
+            cnt--;
+        } else {
+            return 0;
+        }
     }
+    throw std::ios_base::failure("Write Data Failed!");
 }
 
 char *Socket::RecvData() {
     char cnt = 5;
     memset(this->Buff, 0, sizeof(this->Buff));
-    if (0 > read(this->ClientSocketDesc, this->Buff, sizeof(this->Buff))) {
-        
+    while (cnt) {
+        if (0 > read(this->ClientSocketDesc, this->Buff, sizeof(this->Buff))) {
+            cnt--;
+        } else {
+            return this->Buff;
+        }
     }
+    throw std::ios_base::failure("Recieve Data Failed!");
 }

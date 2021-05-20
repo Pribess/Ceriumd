@@ -3,7 +3,7 @@
 #include "crypto/Crypto.hpp"
 #include "Block.hpp"
 #include "tools/CastingTools.hpp"
-#include "net/Socket.hpp"
+#include "net/primitive/Socket.hpp"
 
 #include <iostream>
 #include <arpa/inet.h>

@@ -13,10 +13,11 @@ int main(int argc, char* argv[]) {
     Block *b1 = new Block(1, (char *)"1", (char *)"1", 1, 1, 1);
     std::cout << b1->CalculateBlockHash() << std::endl;
     delete b1;
-    Socket *s1 = new Socket(AF_INET, 6752);
+    Socket *s1 = new Socket(6752, (char *)"127.0.0.1");
     s1->CreateSocket(SOCK_STREAM, IPPROTO_TCP);
-    s1->BindSocket();
-    s1->Listen();
+    std::cout << s1->Connect() << std::endl;
+    s1->SendData(78);
+    s1->SendData(10);
     std::cout << CastingTools::ctoh(s1->RecvData()) << std::endl;
     s1->CloseSocket();
     delete s1;

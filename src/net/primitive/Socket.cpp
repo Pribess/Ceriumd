@@ -8,26 +8,48 @@
 #include <iostream>
 #include <unistd.h>
 
-Socket::Socket(int sin_family, int sin_port) {
+
+Socket::Socket(int sin_port) {
     memset(&this->Sin, 0, sizeof(this->Sin));
-    memset(&this->Sin_Client, 0, sizeof(this->Sin_Client));
-    this->Sin.sin_family = sin_family;
+    memset(&this->Sin_Oppo, 0, sizeof(this->Sin_Oppo));
+    this->Sin.sin_family = AF_INET;
     this->Sin.sin_port = htons(sin_port);
     this->Sin.sin_addr.s_addr = htonl(INADDR_ANY);
+    this->isClient = false;
+}
+
+Socket::Socket(int sin_port, char *sin_addr) {
+    memset(&this->Sin, 0, sizeof(this->Sin));
+    memset(&this->Sin_Oppo, 0, sizeof(this->Sin_Oppo));
+    this->Sin.sin_family = AF_INET;
+    this->Sin.sin_port = htons(sin_port);
+    this->Sin.sin_addr.s_addr = inet_addr(sin_addr);
+    this->isClient = true;
 }
 
 int Socket::CreateSocket(int type, int protocol) {
     char cnt = 5;
-    this->SocketDesc = socket(this->Sin.sin_family, type, protocol);
-    while (cnt) {
-        if (0 > this->SocketDesc) {
-            cnt--;
-        } else {
-            const int arg = 1;
-            if (0 > setsockopt(this->SocketDesc, SOL_SOCKET, SO_REUSEADDR, &arg, sizeof(arg))) {
-                throw std::ios_base::failure("Set Socket Option Failed!");
+    if (this->isClient) {
+        while (cnt) {
+            this->OppoSocketDesc = socket(this->Sin.sin_family, type, protocol);
+            if (0 > this->SocketDesc) {
+                cnt--;
             } else {
                 return 0;
+            }
+        }
+    } else {
+        while (cnt) {
+            this->SocketDesc = socket(this->Sin.sin_family, type, protocol);
+            if (0 > this->SocketDesc) {
+                cnt--;
+            } else {
+                const int arg = 1;
+                if (0 > setsockopt(this->SocketDesc, SOL_SOCKET, SO_REUSEADDR, &arg, sizeof(arg))) {
+                    throw std::ios_base::failure("Set Socket Option Failed!");
+                } else {
+                    return 0;
+                }
             }
         }
     }
@@ -35,8 +57,8 @@ int Socket::CreateSocket(int type, int protocol) {
 }
 
 int Socket::CloseSocket() {
-    if (0 > close(this->ClientSocketDesc)) {
-        throw std::ios_base::failure("Close Client Socket Failed!");
+    if (0 > close(this->OppoSocketDesc)) {
+        throw std::ios_base::failure("Close Oppo Socket Failed!");
     }
     if (0 > close(this->SocketDesc)) {
         throw std::ios_base::failure("Close Server Socket Failed!");
@@ -45,35 +67,56 @@ int Socket::CloseSocket() {
 }
 
 int Socket::BindSocket() {
+    if (!this->isClient) {
+        char cnt = 5;
+        while (cnt) {
+            if (0 > bind(this->SocketDesc, (sockaddr *)&this->Sin, sizeof(sockaddr_in))) {
+                cnt--;
+            } else {
+                return 0;
+            }
+        }
+        throw std::ios_base::failure("Socket Bind Failed!");
+    } else {
+        throw std::runtime_error("Call BindSocket Unallowed On Client Socket!");
+    }
+}
+
+int Socket::Listen() {
+    if (!this->isClient) {
+        this->LenBuff = sizeof(sockaddr_in);;
+        if (0 > listen(this->SocketDesc, 1)) {
+            throw std::ios_base::failure("Socket Listen Failed!");
+        } else {
+            this->OppoSocketDesc = accept(this->SocketDesc, (sockaddr *)&this->Sin_Oppo, &LenBuff);
+            if(0 > this->OppoSocketDesc) {
+                throw std::ios_base::failure("Socket Accept Failed!");
+            } else {
+                return 0;
+            }
+        }
+    } else {
+        throw std::runtime_error("Call Listen Unallowed On Client Socket!");
+    }
+}
+
+int Socket::Connect() {
     char cnt = 5;
+    this->LenBuff = sizeof(sockaddr_in);
     while (cnt) {
-        if (0 > bind(this->SocketDesc, (sockaddr *)&this->Sin, sizeof(sockaddr_in))) {
+        if (0 > connect(this->OppoSocketDesc, (sockaddr *)&this->Sin, LenBuff)) {
             cnt--;
         } else {
             return 0;
         }
     }
-    throw std::ios_base::failure("Socket Bind Failed!");
-}
-
-int Socket::Listen() {
-    if (0 > listen(this->SocketDesc, 1)) {
-        throw std::ios_base::failure("Socket Listen Failed!");
-    } else {
-        this->LenBuff = sizeof(sockaddr_in);
-        this->ClientSocketDesc = accept(this->SocketDesc, (sockaddr *)&this->Sin_Client, &LenBuff);
-        if(0 > this->ClientSocketDesc) {
-            throw std::ios_base::failure("Socket Accept Failed!");
-        } else {
-            return 0;
-        }
-    }
+    return -1;
 }
 
 int Socket::SendData(int data) {
     char cnt =5;
     while (cnt) {
-        if (0 > write(this->ClientSocketDesc, &data, sizeof(data))) {
+        if (0 > write(this->OppoSocketDesc, &data, sizeof(data))) {
             cnt--;
         } else {
             return 0;
@@ -85,7 +128,7 @@ int Socket::SendData(int data) {
 int Socket::SendData(char data[]) {
     char cnt = 5;
     while (cnt) {
-        if (0 > write(this->ClientSocketDesc, &data, sizeof(&data))) {
+        if (0 > write(this->OppoSocketDesc, &data, sizeof(&data))) {
             cnt--;
         } else {
             return 0;
@@ -97,7 +140,7 @@ int Socket::SendData(char data[]) {
 int Socket::SendData(std::string data) {
     char cnt = 5;
     while (cnt) {
-        if (0 > write(this->ClientSocketDesc, data.c_str(), sizeof(data))) {
+        if (0 > write(this->OppoSocketDesc, data.c_str(), sizeof(data))) {
             cnt--;
         } else {
             return 0;
@@ -110,7 +153,7 @@ char *Socket::RecvData() {
     char cnt = 5;
     memset(this->Buff, 0, sizeof(this->Buff));
     while (cnt) {
-        if (0 > read(this->ClientSocketDesc, this->Buff, sizeof(this->Buff))) {
+        if (0 > read(this->OppoSocketDesc, this->Buff, sizeof(this->Buff))) {
             cnt--;
         } else {
             return this->Buff;

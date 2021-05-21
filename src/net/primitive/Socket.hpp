@@ -3,21 +3,25 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <string>
+#include <cstddef>
 
 class Socket
 {
 private:
+    bool isClient;
     socklen_t LenBuff;
     int SocketDesc;
-    int ClientSocketDesc;
+    int OppoSocketDesc;
     sockaddr_in Sin;
-    sockaddr_in Sin_Client;
+    sockaddr_in Sin_Oppo;
     char Buff[256];
 public:
-    Socket(int sin_family, int sin_port);
+    Socket(int sin_port);
+    Socket(int sin_port, char sin_addr[]);
     int CreateSocket(int type, int protocol);
     int BindSocket();
     int Listen();
+    int Connect();
     int CloseSocket();
     int SendData(int data);
     int SendData(char data[]);

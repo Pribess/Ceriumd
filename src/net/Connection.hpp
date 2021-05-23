@@ -2,12 +2,11 @@
 
 #include <vector>
 
-#include "primitive/Socket.hpp"
+#include "primitive/ServerSocket.hpp"
 
-class Connection
-{
+class Connection {
 private:
-    std::vector<Socket *> ConnectionPool;
+
 public:
     Connection();
 };

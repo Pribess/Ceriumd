@@ -1,18 +1,21 @@
 #Copyright (c) 2021 Heewon Cho 
 
-CC=g++
+CC:=g++
 TARGET=Ceriumd
-CXXFLAGSC=-Wno-deprecated-declarations -c
-CXXFLAGSO=-lcrypto
-COMPILE_FLAGS=-std=c++17 
+INCFLAGS:=-I ${shell PWD}/src
+CXXFLAGSC:=-Wno-deprecated-declarations -c ${INCFLAGS}
+CXXFLAGSO:=-lcrypto
+COMPILE_FLAGS:=-std=c++17
 
-RM=rm
-ECHO=echo ${ECHO_FLAGS}
+RM:=rm
+ECHO:=echo ${ECHO_FLAGS}
+MAKE:=make
+SH:=sh
 
-SRC_PATH=src
-SRC_EXT=cpp
+SRC_PATH:=src
+SRC_EXT:=cpp
 
-ECHO_FLAGS=[Ceriumd]
+ECHO_FLAGS:=[Ceriumd]
 
 SOURCES:=${shell find ${SRC_PATH} -name "*.${SRC_EXT}" | tr -d "\n" | sed "s/.cpp/.cpp /g"}
 OBJECTS:=${shell find ${SRC_PATH} -name "*.${SRC_EXT}" | rev | cut -f 1 -d "/" | rev | tr -d "\n" | sed "s/.cpp/.o /g"}
@@ -38,3 +41,9 @@ install:
 clean:
 	@${ECHO} "Cleaning..."
 	@${RM} -f ${TARGET} ${OBJECTS}
+
+.PHONY: run
+
+run:
+	@${MAKE}
+	@${SH} -c "./${TARGET}"

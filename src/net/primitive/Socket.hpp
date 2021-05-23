@@ -8,7 +8,6 @@
 class Socket
 {
 private:
-    bool isClient;
     socklen_t LenBuff;
     int SocketDesc;
     int OppoSocketDesc;
@@ -21,7 +20,6 @@ public:
     int CreateSocket(int type, int protocol);
     int BindSocket();
     int Listen();
-    int Connect();
     int CloseSocket();
     int SendData(int data);
     int SendData(char data[]);

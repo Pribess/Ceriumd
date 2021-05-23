@@ -23,3 +23,14 @@ const char *CastingTools::ctoh(const char *Buff) {
     std::strcpy(Buff_RET, ss.str().c_str());
     return Buff_RET;
 }
+
+const char *CastingTools::ctod(const char *Buff) {
+    static char Buff_RET[256];
+    std::stringstream ss;
+    for (int cnt = 0; cnt < std::strlen(Buff); cnt++) {
+        ss << std::dec << (int)Buff[cnt];
+        ss << " ";
+    }
+    std::strcpy(Buff_RET, ss.str().c_str());
+    return Buff_RET;
+}

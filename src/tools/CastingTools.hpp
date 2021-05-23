@@ -5,4 +5,5 @@ private:
 public:
     static const char *itoa(int Buff);
     static const char *ctoh(const char *Buff);
+    static const char *ctod(const char *Buff);
 };

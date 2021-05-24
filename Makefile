@@ -2,7 +2,7 @@
 
 CC:=g++
 TARGET=Ceriumd
-INCFLAGS:=-I ${shell PWD}/src
+INCFLAGS:=-I ${shell pwd}/src
 CXXFLAGSC:=-Wno-deprecated-declarations -c ${INCFLAGS}
 CXXFLAGSO:=-lcrypto
 COMPILE_FLAGS:=-std=c++17

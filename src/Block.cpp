@@ -5,7 +5,7 @@
 #include <cstring>
 
 #include "crypto/Crypto.hpp"
-#include "tools/StringBuilder.hpp"
+#include "tools/CastingTools.hpp"
 
 Block::Block(
         unsigned int BlockVersion,
@@ -24,11 +24,11 @@ Block::Block(
 }
 
 char *Block::CalculateBlockHash() {
-    StringBuilder *String = new StringBuilder(this->BlockVersion);
-    String->AppendChar(this->PreviousHash);
-    String->AppendChar(this->RootHash);
-    String->AppendInt(this->TimeStamp);
-    String->AppendInt(this->bits);
-    String->AppendInt(this->nonce);
-    return Crypto::SHA256(String->RetString());
+    std::string StrBuilder(CastingTools::itoa(this->BlockVersion));
+    StrBuilder.append(this->PreviousHash);
+    StrBuilder.append(this->RootHash);
+    StrBuilder.append(CastingTools::itoa(this->TimeStamp));
+    StrBuilder.append(CastingTools::itoa(this->bits));
+    StrBuilder.append(CastingTools::itoa(this->nonce));
+    return Crypto::SHA256(StrBuilder.c_str());
 }

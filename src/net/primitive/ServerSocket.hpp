@@ -7,8 +7,8 @@
 class ServerSocket {
 private:
     socklen_t LenBuff;
+    int ListenSocketDesc;
     int SocketDesc;
-    int OppoSocketDesc;
     sockaddr_in Sin;
     sockaddr_in SinOppo;
     char Buff[256];
@@ -19,8 +19,5 @@ private:
 public:
     ServerSocket(int sin_port);
     ~ServerSocket();
-    int SendData(int data);
-    int SendData(char data[]);
-    int SendData(std::string data);
-    char *RecvData();
+    int GetDesc();
 };

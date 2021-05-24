@@ -15,9 +15,5 @@ private:
     int CloseSocket();
 public:
     ClientSocket(int sin_port, char sin_addr[]);
-    ~ClientSocket();
-    int SendData(int data);
-    int SendData(char data[]);
-    int SendData(std::string data);
-    char *RecvData();
+    int GetDesc();
 };

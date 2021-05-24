@@ -17,10 +17,6 @@ ClientSocket::ClientSocket(int sin_port, char sin_addr[]) {
     this->Connect();
 }
 
-ClientSocket::~ClientSocket() {
-    this->CloseSocket();
-}
-
 int ClientSocket::CreateSocket() {
     char cnt = 5;
     while (cnt) {
@@ -32,13 +28,6 @@ int ClientSocket::CreateSocket() {
         }
     }
     throw std::ios_base::failure("Socket Creation Failed!");
-}
-
-int ClientSocket::CloseSocket() {
-    if (0 > close(this->SocketDesc)) {
-        return -1;
-    }
-    return 0;
 }
 
 int ClientSocket::Connect() {
@@ -53,51 +42,6 @@ int ClientSocket::Connect() {
     return -1;
 }
 
-int ClientSocket::SendData(int data) {
-    char cnt =5;
-    while (cnt) {
-        if (0 > write(this->SocketDesc, &data, sizeof(data))) {
-            cnt--;
-        } else {
-            return 0;
-        }
-    }
-    throw std::ios_base::failure("Write Data Failed!");
-}
-
-int ClientSocket::SendData(char data[]) {
-    char cnt = 5;
-    while (cnt) {
-        if (0 > write(this->SocketDesc, data, sizeof(&data))) {
-            cnt--;
-        } else {
-            return 0;
-        }
-    }
-    throw std::ios_base::failure("Write Data Failed!");
-}
-
-int ClientSocket::SendData(std::string data) {
-    char cnt = 5;
-    while (cnt) {
-        if (0 > write(this->SocketDesc, data.c_str(), sizeof(data))) {
-            cnt--;
-        } else {
-            return 0;
-        }
-    }
-    throw std::ios_base::failure("Write Data Failed!");
-}
-
-char *ClientSocket::RecvData() {
-    char cnt = 5;
-    memset(this->Buff, 0, sizeof(this->Buff));
-    while (cnt) {
-        if (0 > read(this->SocketDesc, this->Buff, sizeof(this->Buff))) {
-            cnt--;
-        } else {
-            return this->Buff;
-        }
-    }
-    throw std::ios_base::failure("Recieve Data Failed!");
+int ClientSocket::GetDesc() {
+    return this->SocketDesc;
 }

@@ -1,5 +1,8 @@
 //Copyright (c) 2021 Heewon Cho
 
+#ifndef CERIUM_NET_SOCKET
+#define CERIUM_NET_SOCKET
+
 #include <cstring>
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -19,3 +22,5 @@ public:
     int SendData(std::string data);
     char *RecvData();
 };
+
+#endif

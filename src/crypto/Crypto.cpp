@@ -2,10 +2,6 @@
 
 #include "Crypto.hpp"
 
-#include <openssl/sha.h>
-#include <iostream>
-#include <cstring>
-
 char *Crypto::SHA256(const char *string) {
     unsigned char digest[SHA256_DIGEST_LENGTH];
  

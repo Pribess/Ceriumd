@@ -2,14 +2,6 @@
 
 #include "Connector.hpp"
 
-#include <cstring>
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <iostream>
-#include <unistd.h>
-
-#include "net/Socket.hpp"
-
 Connector::Connector(int sin_port, char sin_addr[]) {
     memset(&this->SinOppo, 0, sizeof(this->SinOppo));
     this->SinOppo.sin_family = AF_INET;

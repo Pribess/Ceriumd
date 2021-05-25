@@ -1,5 +1,8 @@
 //Copyright (c) 2021 Heewon Cho
 
+#ifndef CERIUM_NET_PRIMITIVE_LISTNER
+#define CERIUM_NET_PRIMITIVE_LISTNER
+
 #include <netinet/in.h>
 #include <string>
 #include <cstddef>
@@ -23,3 +26,5 @@ public:
     int Listen();
     std::pair<std::string, Socket*> GetConnection();
 };
+
+#endif

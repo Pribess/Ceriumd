@@ -1,5 +1,8 @@
 //Copyright (c) 2021 Heewon Cho
 
+#ifndef CERIUM_NET_CONNECTIONPOOL
+#define CERIUM_NET_CONNECTIONPOOL
+
 #include <map>
 
 #include "primitive/Connector.hpp"
@@ -13,3 +16,5 @@ public:
     int AddSocket(std::string InetAddr, Socket *Socket);
     int GetLength();
 };
+
+#endif

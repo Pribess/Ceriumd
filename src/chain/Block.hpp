@@ -1,5 +1,14 @@
 //Copyright (c) 2021 Heewon Cho
 
+#ifndef CERIUM_CHAIN_BLOCK
+#define CERIUM_CHAIN_BLOCK
+
+#include <cstring>
+#include <string>
+
+#include "crypto/Crypto.hpp"
+#include "tools/CastingTools.hpp"
+
 class Block {
 private:
     unsigned int BlockVersion;
@@ -18,4 +27,6 @@ public:
         unsigned int nonce
     );
     char *CalculateBlockHash();
-};  
+};
+
+#endif

@@ -2,9 +2,9 @@
 
 #include "ConnectionPool.hpp"
 
-int ConnectionPool::AddSocket(std::string InetAddr, Socket *Socket) {
+int ConnectionPool::AddSocket(std::string addr, Socket *socket) {
     try {
-        this->ConnectionContainer.insert({InetAddr, Socket});
+        this->ConnectionContainer.insert(std::pair<std::string, Socket *>(addr, socket));
         return 0;
     } catch (std::exception e) {
         throw e;

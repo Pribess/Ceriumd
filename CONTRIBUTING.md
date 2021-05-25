@@ -3,3 +3,5 @@
 * The style of writing variable function names should follow the Pascal case.
 
 * The indentation is 4 spaces.
+
+* Only hpp file can include headers

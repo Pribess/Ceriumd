@@ -2,12 +2,6 @@
 
 #include "Block.hpp"
 
-#include <cstring>
-#include <string>
-
-#include "crypto/Crypto.hpp"
-#include "tools/CastingTools.hpp"
-
 Block::Block(
         unsigned int BlockVersion,
         char PreviousHash[32],

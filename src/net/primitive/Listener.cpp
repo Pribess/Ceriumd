@@ -16,7 +16,6 @@ Listener::Listener(int sin_port) {
     this->Sin.sin_addr.s_addr = htonl(INADDR_ANY);
     this->CreateSocket();
     this->BindSocket();
-    this->Listen();
 }
 
 Listener::~Listener() {

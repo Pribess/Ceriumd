@@ -8,7 +8,7 @@
 
 class ConnectionPool {
 private:
-
+    std::vector<Socket *> ConnectionContainer;
 public:
     ConnectionPool();
 };

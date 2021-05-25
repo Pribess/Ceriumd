@@ -11,7 +11,7 @@ Socket::~Socket() {
 }
 
 int Socket::CloseSocket() {
-        if (0 > close(this->SocketDesc)) {
+    if (0 > close(this->SocketDesc)) {
         return -1;
     }
     return 0;

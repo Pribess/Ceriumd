@@ -14,10 +14,10 @@ private:
     char Buff[256];
     int CreateSocket();
     int BindSocket();
-    int Listen();
     int CloseSocket();
 public:
     Listener(int sin_port);
     ~Listener();
+    int Listen();
     int GetDesc();
 };

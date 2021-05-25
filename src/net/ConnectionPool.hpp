@@ -1,6 +1,6 @@
 //Copyright (c) 2021 Heewon Cho
 
-#include <vector>
+#include <map>
 
 #include "primitive/Connector.hpp"
 #include "primitive/Listener.hpp"
@@ -8,7 +8,8 @@
 
 class ConnectionPool {
 private:
-    std::vector<Socket *> ConnectionContainer;
+    std::map<std::string, Socket *> ConnectionContainer;
 public:
-    ConnectionPool();
+    int AddSocket(std::string InetAddr, Socket *Socket);
+    int GetLength();
 };

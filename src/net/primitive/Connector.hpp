@@ -4,6 +4,8 @@
 #include <string>
 #include <cstddef>
 
+#include "net/Socket.hpp"
+
 class Connector {
 private:
     socklen_t BuffLen;
@@ -15,5 +17,5 @@ private:
     int CloseSocket();
 public:
     Connector(int sin_port, char sin_addr[]);
-    int GetDesc();
+    std::pair<std::string, Socket*> GetConnection();
 };

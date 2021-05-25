@@ -8,6 +8,8 @@
 #include <iostream>
 #include <unistd.h>
 
+#include "net/Socket.hpp"
+
 Connector::Connector(int sin_port, char sin_addr[]) {
     memset(&this->SinOppo, 0, sizeof(this->SinOppo));
     this->SinOppo.sin_family = AF_INET;
@@ -42,6 +44,7 @@ int Connector::Connect() {
     return -1;
 }
 
-int Connector::GetDesc() {
-    return this->SocketDesc;
+std::pair<std::string, Socket *> Connector::GetConnection() {
+    Socket *socket = new Socket(this->SocketDesc);
+    return std::pair<std::string, Socket *>(std::string(inet_ntoa(this->SinOppo.sin_addr)), socket);
 }

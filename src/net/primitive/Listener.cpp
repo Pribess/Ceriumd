@@ -73,6 +73,7 @@ int Listener::Listen() {
     }
 }
 
-int Listener::GetDesc() {
-    return this->SocketDesc;
+std::pair<std::string, Socket *> Listener::GetConnection() {
+    Socket *socket = new Socket(this->SocketDesc);
+    return std::pair<std::string, Socket *>(std::string(inet_ntoa(this->SinOppo.sin_addr)), socket);
 }

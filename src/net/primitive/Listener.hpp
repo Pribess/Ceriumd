@@ -4,6 +4,8 @@
 #include <string>
 #include <cstddef>
 
+#include "net/Socket.hpp"
+
 class Listener {
 private:
     socklen_t LenBuff;
@@ -19,5 +21,5 @@ public:
     Listener(int sin_port);
     ~Listener();
     int Listen();
-    int GetDesc();
+    std::pair<std::string, Socket*> GetConnection();
 };

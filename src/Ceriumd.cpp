@@ -1,8 +1,6 @@
 //Copyright (c) 2021 Heewon Cho 
 
 #include <iostream>
-#include <arpa/inet.h>
-#include <thread>
 
 int SetupEnvironment() {
     

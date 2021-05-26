@@ -5,6 +5,8 @@
 
 #include <thread>
 
+#include "ThreadFunction.hpp"
+
 class ThreadRunner {
 private:
 public:

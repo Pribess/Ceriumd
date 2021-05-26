@@ -3,13 +3,15 @@
 #ifndef _CERIUM_THREAD_THREADFUNCTION
 #define _CERIUM_THREAD_THREADFUNCTION
 
+#include <iostream>
+
 #include "constant/Define.hpp"
 #include "net/ConnectionPool.hpp"
 
 class ThreadFunction {
 private:
 public:
-    static int SocketListener();
+    static void SocketListener();
 };
 
 #endif

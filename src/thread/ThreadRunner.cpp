@@ -3,5 +3,7 @@
 #include "ThreadRunner.hpp"
 
 int ThreadRunner::StartSocketListenerThread() {
-    std::thread SocketListenerThread();
+    std::thread *SocketListenerThread = new std::thread(ThreadFunction::SocketListener());
+    SocketListenerThread->join();
+    return 0;
 }

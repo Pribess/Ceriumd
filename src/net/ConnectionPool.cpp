@@ -4,7 +4,7 @@
 
 int ConnectionPool::AddSocket(std::pair<std::string, Socket *> pair) {
     try {
-        this->ConnectionContainer.insert(pair);
+        ConnectionContainer.insert(pair);
         return 0;
     } catch (std::exception e) {
         throw e;
@@ -13,7 +13,7 @@ int ConnectionPool::AddSocket(std::pair<std::string, Socket *> pair) {
 
 int ConnectionPool::GetLength() {
     try {
-        return this->ConnectionContainer.size();
+        return ConnectionContainer.size();
     } catch (std::exception e) {
         throw e;
     }

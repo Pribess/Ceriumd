@@ -13,8 +13,8 @@ class ConnectionPool {
 private:
     static std::map<std::string, Socket *> ConnectionContainer;
 public:
-    int AddSocket(std::pair<std::string, Socket *> pair);
-    int GetLength();
+    static int AddSocket(std::pair<std::string, Socket *> pair);
+    static int GetLength();
 };
 
 #endif

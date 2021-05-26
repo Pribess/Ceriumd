@@ -2,12 +2,6 @@
 
 #include "Listener.hpp"
 
-#include <cstring>
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <iostream>
-#include <unistd.h>
-
 Listener::Listener(int sin_port) {
     memset(&this->Sin, 0, sizeof(this->Sin));
     memset(&this->SinOppo, 0, sizeof(this->SinOppo));

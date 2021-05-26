@@ -1,7 +1,7 @@
 //Copyright (c) 2021 Heewon Cho
 
-#ifndef CERIUM_NET_CONNECTIONPOOL
-#define CERIUM_NET_CONNECTIONPOOL
+#ifndef _CERIUM_NET_CONNECTIONPOOL
+#define _CERIUM_NET_CONNECTIONPOOL
 
 #include <map>
 

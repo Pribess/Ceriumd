@@ -1,7 +1,7 @@
 //Copyright (c) 2021 Heewon Cho
 
-#ifndef CERIUM_TOOLS_CASTINGTOOLS
-#define CERIUM_TOOLS_CASTINGTOOLS
+#ifndef _CERIUM_TOOLS_CASTINGTOOLS
+#define _CERIUM_TOOLS_CASTINGTOOLS
 
 #include <iostream>
 #include <cstring>

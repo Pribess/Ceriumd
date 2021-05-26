@@ -1,7 +1,7 @@
 //Copyright (c) 2021 Heewon Cho
 
-#ifndef CERIUM_CHAIN_BLOCK
-#define CERIUM_CHAIN_BLOCK
+#ifndef _CERIUM_CHAIN_BLOCK
+#define _CERIUM_CHAIN_BLOCK
 
 #include <cstring>
 #include <string>

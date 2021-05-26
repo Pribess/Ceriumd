@@ -1,7 +1,7 @@
 //Copyright (c) 2021 Heewon Cho
 
-#ifndef CERIUM_NET_PRIMITIVE_CONNECTOR
-#define CERIUM_NET_PRIMITIVE_CONNECTOR
+#ifndef _CERIUM_NET_PRIMITIVE_CONNECTOR
+#define _CERIUM_NET_PRIMITIVE_CONNECTOR
 
 #include <netinet/in.h>
 #include <string>
@@ -16,11 +16,10 @@ private:
     sockaddr_in SinOppo;
     char Buff[256];
     int CreateSocket();
-    int Connect();
     int CloseSocket();
 public:
     Connector(int sin_port, char sin_addr[]);
-    std::pair<std::string, Socket*> GetConnection();
+    std::pair<std::string, Socket*> Connect();
 };
 
 #endif

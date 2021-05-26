@@ -8,7 +8,6 @@ Connector::Connector(int sin_port, char sin_addr[]) {
     this->SinOppo.sin_port = htons(sin_port);
     this->SinOppo.sin_addr.s_addr = inet_addr(sin_addr);
     this->CreateSocket();
-    this->Connect();
 }
 
 int Connector::CreateSocket() {
@@ -24,19 +23,15 @@ int Connector::CreateSocket() {
     throw std::ios_base::failure("Socket Creation Failed!");
 }
 
-int Connector::Connect() {
+std::pair<std::string, Socket *> Connector::Connect() {
     char cnt = 5;
     while (cnt) {
         if (0 > connect(this->SocketDesc, (sockaddr *)&this->SinOppo, sizeof(SinOppo))) {
             cnt--;
         } else {
-            return 0;
+            Socket *socket = new Socket(this->SocketDesc);
+            return std::pair<std::string, Socket *>(std::string(inet_ntoa(this->SinOppo.sin_addr)), socket);
         }
     }
-    return -1;
-}
-
-std::pair<std::string, Socket *> Connector::GetConnection() {
-    Socket *socket = new Socket(this->SocketDesc);
-    return std::pair<std::string, Socket *>(std::string(inet_ntoa(this->SinOppo.sin_addr)), socket);
+    throw std::ios_base::failure("Socket Connection Failed!");
 }

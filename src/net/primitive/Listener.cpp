@@ -53,7 +53,7 @@ int Listener::BindSocket() {
     throw std::ios_base::failure("Socket Bind Failed!");
 }
 
-int Listener::Listen() {
+std::pair<std::string, Socket *> Listener::Listen() {
     this->LenBuff = sizeof(sockaddr_in);;
     if (0 > listen(this->ListenSocketDesc, 1)) {
         throw std::ios_base::failure("Socket Listen Failed!");
@@ -62,12 +62,8 @@ int Listener::Listen() {
         if(0 > this->SocketDesc) {
             throw std::ios_base::failure("Socket Accept Failed!");
         } else {
-            return 0;
+            Socket *socket = new Socket(this->SocketDesc);
+            return std::pair<std::string, Socket *>(std::string(inet_ntoa(this->SinOppo.sin_addr)), socket);
         }
     }
-}
-
-std::pair<std::string, Socket *> Listener::GetConnection() {
-    Socket *socket = new Socket(this->SocketDesc);
-    return std::pair<std::string, Socket *>(std::string(inet_ntoa(this->SinOppo.sin_addr)), socket);
 }

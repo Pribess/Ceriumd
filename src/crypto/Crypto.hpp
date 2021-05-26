@@ -1,7 +1,7 @@
 //Copyright (c) 2021 Heewon Cho
 
-#ifndef CERIUM_CRYPTO_CRYPTO
-#define CERIUM_CRYPTO_CRYPTO
+#ifndef _CERIUM_CRYPTO_CRYPTO
+#define _CERIUM_CRYPTO_CRYPTO
 
 #include <openssl/sha.h>
 #include <iostream>

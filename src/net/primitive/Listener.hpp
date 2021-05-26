@@ -1,7 +1,7 @@
 //Copyright (c) 2021 Heewon Cho
 
-#ifndef CERIUM_NET_PRIMITIVE_LISTNER
-#define CERIUM_NET_PRIMITIVE_LISTNER
+#ifndef _CERIUM_NET_PRIMITIVE_LISTNER
+#define _CERIUM_NET_PRIMITIVE_LISTNER
 
 #include <netinet/in.h>
 #include <string>
@@ -23,8 +23,7 @@ private:
 public:
     Listener(int sin_port);
     ~Listener();
-    int Listen();
-    std::pair<std::string, Socket*> GetConnection();
+    std::pair<std::string, Socket*> Listen();
 };
 
 #endif

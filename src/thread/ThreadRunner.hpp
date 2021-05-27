@@ -6,6 +6,7 @@
 #include <thread>
 
 #include "ThreadFunction.hpp"
+#include "ThreadPool.hpp"
 
 class ThreadRunner {
     private:

@@ -7,11 +7,12 @@
 
 #include "constant/Define.hpp"
 #include "net/ConnectionPool.hpp"
+#include "ThreadPool.hpp"
 
 class ThreadFunction {
     private:
     public:
-        static int SocketListener();
+        static void SocketListener();
 };
 
 #endif

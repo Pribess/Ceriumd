@@ -2,7 +2,7 @@
 
 #include "ThreadFunction.hpp"
 
-int ThreadFunction::SocketListener() {
+void ThreadFunction::SocketListener() {
     Listener *listener = new Listener(CERIUM_PORT);
     while (true) {
         ConnectionPool::AddSocket(listener->Listen());

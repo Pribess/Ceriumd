@@ -8,7 +8,7 @@ CXXFLAGSO:=-lcrypto
 COMPILE_FLAGS:=-std=c++17
 
 RM:=rm
-ECHO:=echo ${ECHO_FLAGS}
+ECHO=echo ${ECHO_FLAGS}
 MAKE:=make
 SH:=sh
 

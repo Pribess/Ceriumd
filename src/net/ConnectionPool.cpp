@@ -2,9 +2,11 @@
 
 #include "ConnectionPool.hpp"
 
+std::map<std::string, Socket *> ConnectionPool::ConnectionContainer;
+
 int ConnectionPool::AddSocket(std::pair<std::string, Socket *> pair) {
     try {
-        ConnectionContainer.insert(pair);
+        ConnectionPool::ConnectionContainer.insert(pair);
         return 0;
     } catch (std::exception e) {
         throw e;
@@ -13,7 +15,7 @@ int ConnectionPool::AddSocket(std::pair<std::string, Socket *> pair) {
 
 int ConnectionPool::GetLength() {
     try {
-        return ConnectionContainer.size();
+        return ConnectionPool::ConnectionContainer.size();
     } catch (std::exception e) {
         throw e;
     }

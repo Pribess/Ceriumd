@@ -11,7 +11,7 @@
 class ThreadFunction {
 private:
 public:
-    static void SocketListener();
+    static int SocketListener();
 };
 
 #endif

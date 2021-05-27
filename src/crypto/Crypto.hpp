@@ -8,8 +8,8 @@
 #include <cstring>
 
 class Crypto {
-public:
-    static char *SHA256(const char *string);
+    public:
+        static char *SHA256(const char *string);
 };
 
 #endif

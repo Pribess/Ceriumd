@@ -9,9 +9,9 @@
 #include "net/ConnectionPool.hpp"
 
 class ThreadFunction {
-private:
-public:
-    static int SocketListener();
+    private:
+    public:
+        static int SocketListener();
 };
 
 #endif

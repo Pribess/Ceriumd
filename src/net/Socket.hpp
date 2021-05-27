@@ -10,17 +10,17 @@
 #include <unistd.h>
 
 class Socket {
-private:
-    int SocketDesc;
-    char Buff[256];
-public:
-    Socket(int SocketDesc);
-    ~Socket();
-    int CloseSocket();
-    int SendData(int data);
-    int SendData(char data[]);
-    int SendData(std::string data);
-    char *RecvData();
+    private:
+        int SocketDesc;
+        char Buff[256];
+    public:
+        Socket(int SocketDesc);
+        ~Socket();
+        int CloseSocket();
+        int SendData(int data);
+        int SendData(char data[]);
+        int SendData(std::string data);
+        char *RecvData();
 };
 
 #endif

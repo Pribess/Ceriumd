@@ -10,11 +10,11 @@
 #include "Socket.hpp"
 
 class ConnectionPool {
-private:
-    static std::map<std::string, Socket *> ConnectionContainer;
-public:
-    static int AddSocket(std::pair<std::string, Socket *> pair);
-    static int GetLength();
+    private:
+        static std::map<std::string, Socket *> ConnectionContainer;
+    public:
+        static int AddSocket(std::pair<std::string, Socket *> pair);
+        static int GetLength();
 };
 
 #endif

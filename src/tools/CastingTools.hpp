@@ -9,11 +9,10 @@
 #include <sstream>
 
 class CastingTools {
-private:
-public:
-    static const char *itoa(int Buff);
-    static const char *ctoh(const char *Buff);
-    static const char *ctod(const char *Buff);
+    public:
+        static const char *itoa(int Buff);
+        static const char *ctoh(const char *Buff);
+        static const char *ctod(const char *Buff);
 };
 
 #endif

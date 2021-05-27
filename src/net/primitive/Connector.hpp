@@ -10,16 +10,16 @@
 #include "net/Socket.hpp"
 
 class Connector {
-private:
-    socklen_t BuffLen;
-    int SocketDesc;
-    sockaddr_in SinOppo;
-    char Buff[256];
-    int CreateSocket();
-    int CloseSocket();
-public:
-    Connector(int sin_port, char sin_addr[]);
-    std::pair<std::string, Socket*> Connect();
+    private:
+        socklen_t BuffLen;
+        int SocketDesc;
+        sockaddr_in SinOppo;
+        char Buff[256];
+        int CreateSocket();
+        int CloseSocket();
+    public:
+        Connector(int sin_port, char sin_addr[]);
+        std::pair<std::string, Socket*> Connect();
 };
 
 #endif

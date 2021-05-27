@@ -8,9 +8,9 @@
 #include "ThreadFunction.hpp"
 
 class ThreadRunner {
-private:
-public:
-    static int StartSocketListenerThread();
+    private:
+    public:
+        static int StartSocketListenerThread();
 };
 
 #endif

@@ -31,6 +31,7 @@ ${OBJECTS}: ${SOURCES}
 	@${ECHO} "Amount of Source Files to Compile : ${words $^}"
 	@for var in $^ ; do ${ECHO} "Compiling... $$var -> " | tr -d "\n" && echo "$$var" | rev | cut -f 1 -d "/" | rev | sed "s/.cpp/.o/g" && ${CC} ${CXXFLAGSC} $$var; done
 
+
 .PHONY: install
 
 install:

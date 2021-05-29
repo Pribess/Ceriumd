@@ -37,11 +37,13 @@ ${OBJECTS}: ${SOURCES}
 install:
 	@${ECHO} install
 
+
 .PHONY: clean
 
 clean:
 	@${ECHO} "Cleaning..."
 	@${RM} -f ${TARGET} ${OBJECTS}
+
 
 .PHONY: run
 

@@ -10,6 +10,15 @@ Connector::Connector(int sin_port, char sin_addr[]) {
     this->CreateSocket();
 }
 
+Connector::Connector(int sin_port, in_addr_t sin_addr) {
+    memset(&this->SinOppo, 0, sizeof(this->SinOppo));
+    this->SinOppo.sin_family = AF_INET;
+    this->SinOppo.sin_port = htons(sin_port);
+    this->SinOppo.sin_addr.s_addr = sin_addr;
+    this->CreateSocket();
+}
+
+
 int Connector::CreateSocket() {
     char cnt = 5;
     while (cnt) {

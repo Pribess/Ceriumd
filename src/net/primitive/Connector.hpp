@@ -19,6 +19,7 @@ class Connector {
         int CloseSocket();
     public:
         Connector(int sin_port, char sin_addr[]);
+        Connector(int sin_port, in_addr_t sin_addr);
         std::pair<std::string, Socket*> Connect();
 };
 

@@ -11,6 +11,7 @@ RM:=rm
 ECHO=echo ${ECHO_FLAGS}
 MAKE:=make
 SH:=sh
+CHMOD:=chmod
 
 SRC_PATH:=src
 SRC_EXT:=cpp
@@ -34,7 +35,7 @@ ${OBJECTS}: ${SOURCES}
 
 .PHONY: install
 
-install:
+install: ${TARGET}
 	@${ECHO} install
 
 
@@ -43,10 +44,3 @@ install:
 clean:
 	@${ECHO} "Cleaning..."
 	@${RM} -f ${TARGET} ${OBJECTS}
-
-
-.PHONY: run
-
-run:
-	@${MAKE}
-	@${SH} -c "./${TARGET}"

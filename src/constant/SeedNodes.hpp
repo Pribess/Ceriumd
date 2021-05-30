@@ -3,10 +3,8 @@
 #ifndef _CERIUM_CONSTANT_SEEDNODES
 #define _CERIUM_CONSTANT_SEEDNODES
 
-#include <arpa/inet.h>
-
-static const in_addr_t SeedNodes[] = {
-    0x12, 0x00, 0xa8, 0xc0
+static const unsigned int SeedNodes[] = {
+    0x1200a8c0
 };
 
 #endif

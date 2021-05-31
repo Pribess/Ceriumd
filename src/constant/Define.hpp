@@ -5,4 +5,6 @@
 
 #define CERIUM_PORT 1226
 
+#define CERIUM_PACKET_MAGIC 0x4843
+
 #endif

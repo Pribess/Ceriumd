@@ -20,7 +20,8 @@ namespace NetByte {
     } version;
 
     typedef struct {
-
+        unsigned int count;
+        unsigned int addr[];
     } addr;
 }
 

@@ -12,7 +12,7 @@ namespace NetByte {
         const short magic = CERIUM_PACKET_MAGIC;
         short type;
         short length;
-        long checksum;
+        unsigned char checksum[4];
     } packetheader;
 
     typedef struct version {

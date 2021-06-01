@@ -3,6 +3,8 @@
 #include <iostream>
 
 #include "tools/TimeStamp.hpp"
+#include "crypto/Crypto.hpp"
+#include "tools/CastingTools.hpp"
 
 namespace Initializer {
 

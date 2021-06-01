@@ -5,11 +5,13 @@
 
 #include <openssl/sha.h>
 #include <iostream>
+#include <string>
 #include <cstring>
 
 class Crypto {
     public:
-        static char *SHA256(const char *string);
+        static unsigned char *SHA256(const char *string);
+        static char *SHA256str(const char *string);
 };
 
 #endif

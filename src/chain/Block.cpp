@@ -19,5 +19,5 @@ char *Block::CalculateBlockHash() {
     StrBuilder.append(this->PreviousHash);
     StrBuilder.append(this->RootHash);
     StrBuilder.append(CastingTools::itoa(this->TimeStamp));
-    return Crypto::SHA256(StrBuilder.c_str());
+    return Crypto::SHA256str(StrBuilder.c_str());
 }

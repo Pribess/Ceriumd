@@ -5,11 +5,12 @@
 #include "tools/TimeStamp.hpp"
 #include "crypto/Crypto.hpp"
 #include "tools/CastingTools.hpp"
+#include "thread/ThreadRunner.hpp"
 
 namespace Initializer {
 
     int NetInit() {
-        
+        ThreadRunner::StartSocketListenerThread();
         return 0;
     }
 

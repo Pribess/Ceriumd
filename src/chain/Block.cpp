@@ -3,10 +3,10 @@
 #include "Block.hpp"
 
 Block::Block(
-        unsigned int BlockVersion,
+        uint32_t BlockVersion,
         char PreviousHash[32],
         char RootHash[32],
-        long int TimeStamp
+        uint64_t TimeStamp
     ) {
     this->BlockVersion = BlockVersion;
     strcpy(this->PreviousHash, PreviousHash);

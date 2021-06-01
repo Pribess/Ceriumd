@@ -8,10 +8,10 @@ const char *CastingTools::itoa(int Buff) {
     return Buff_RET;
 }
 
-const char *CastingTools::ctoh(const char *Buff) {
+const char *CastingTools::ctoh(const char *Buff, size_t size) {
     static char Buff_RET[256];
     std::stringstream ss;
-    for (int cnt = 0; cnt < std::strlen(Buff); cnt++) {
+    for (int cnt = 0; cnt < size; cnt++) {
         ss << std::hex << (int)Buff[cnt];
         ss << " ";
     }
@@ -19,10 +19,10 @@ const char *CastingTools::ctoh(const char *Buff) {
     return Buff_RET;
 }
 
-const char *CastingTools::ctod(const char *Buff) {
+const char *CastingTools::ctod(const char *Buff, size_t size) {
     static char Buff_RET[256];
     std::stringstream ss;
-    for (int cnt = 0; cnt < std::strlen(Buff); cnt++) {
+    for (int cnt = 0; cnt < size; cnt++) {
         ss << std::dec << (int)Buff[cnt];
         ss << " ";
     }

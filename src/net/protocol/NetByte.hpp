@@ -10,16 +10,16 @@
 
 namespace NetByte {
 
-    typedef struct packetheader {
+    typedef struct header {
         const short magic = CERIUM_PACKET_MAGIC;
         short type;
-        short length;
+        uint32_t length;
         unsigned char checksum[4];
-    } packetheader;
+    } header;
     
     typedef struct version {
         uint64_t version;
-        long timestamp;
+        uint64_t timestamp;
     } version;
 
     typedef struct addr {

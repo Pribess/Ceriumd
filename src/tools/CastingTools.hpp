@@ -11,8 +11,8 @@
 class CastingTools {
     public:
         static const char *itoa(int Buff);
-        static const char *ctoh(const char *Buff);
-        static const char *ctod(const char *Buff);
+        static const char *ctoh(const char *Buff, size_t size);
+        static const char *ctod(const char *Buff, size_t size);
 };
 
 #endif

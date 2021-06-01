@@ -11,6 +11,7 @@
 
 class Protocol {
     public:
+        static NetByte::header HeaderBuilder(short type, void *payload, size_t size);
         static int Version(Socket *socket);
 };
 

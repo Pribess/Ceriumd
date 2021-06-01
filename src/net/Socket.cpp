@@ -2,6 +2,8 @@
 
 #include "Socket.hpp"
 
+#include "tools/CastingTools.hpp"
+
 Socket::Socket(int SocketDesc) {
     this->SocketDesc = SocketDesc;
 }
@@ -17,10 +19,10 @@ int Socket::CloseSocket() {
     return 0;
 }
 
-int Socket::SendData(int data) {
+int Socket::SendData(int data, size_t size) {
     char cnt =5;
     while (cnt) {
-        if (0 > write(this->SocketDesc, &data, sizeof(data))) {
+        if (0 > write(this->SocketDesc, &data, size)) {
             cnt--;
         } else {
             return 0;
@@ -29,22 +31,10 @@ int Socket::SendData(int data) {
     throw std::ios_base::failure("Write Data Failed!");
 }
 
-int Socket::SendData(char data[]) {
+int Socket::SendData(char *data, size_t size) {
     char cnt = 5;
     while (cnt) {
-        if (0 > write(this->SocketDesc, data, sizeof(&data))) {
-            cnt--;
-        } else {
-            return 0;
-        }
-    }
-    throw std::ios_base::failure("Write Data Failed!");
-}
-
-int Socket::SendData(std::string data) {
-    char cnt = 5;
-    while (cnt) {
-        if (0 > write(this->SocketDesc, data.c_str(), sizeof(data))) {
+        if (0 > write(this->SocketDesc, data, size)) {
             cnt--;
         } else {
             return 0;

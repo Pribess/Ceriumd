@@ -6,6 +6,7 @@
 #include "crypto/Crypto.hpp"
 #include "tools/CastingTools.hpp"
 #include "thread/ThreadRunner.hpp"
+#include "net/protocol/Protocol.hpp"
 
 namespace Initializer {
 
@@ -30,6 +31,10 @@ int main(int argc, char* argv[]) {
     std::cout << "   ___          _                 \n  / __\\___ _ __(_)_   _ _ __ ___  \n / /  / _ \\ '__| | | | | '_ ` _ \\\n/ /__|  __/ |  | | |_| | | | | | |\n\\____/\\___|_|  |_|\\__,_|_| |_| |_|" << std::endl;
     SetupEnvironment();
     Initializer::AppInit();
-    std::cout << TimeStamp::GetUtcTimeStamp() <<std::endl;
+    std::cout << TimeStamp::GetUtcTimeStamp() << std::endl;
+    Connector *cn = new Connector("192.168.0.24", 1226);
+    std::pair<std::string, Socket *> p1;
+    p1 = cn->Connect();
+    Protocol::Version(p1.second);
     return 0;
 }

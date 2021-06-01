@@ -18,8 +18,8 @@ class Connector {
         int CreateSocket();
         int CloseSocket();
     public:
-        Connector(int sin_port, char sin_addr[]);
-        Connector(int sin_port, in_addr_t sin_addr);
+        Connector(char sin_addr[], int sin_port);
+        Connector(in_addr_t sin_addr, int sin_port);
         std::pair<std::string, Socket*> Connect();
 };
 

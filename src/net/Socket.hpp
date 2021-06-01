@@ -17,9 +17,8 @@ class Socket {
         Socket(int SocketDesc);
         ~Socket();
         int CloseSocket();
-        int SendData(int data);
-        int SendData(char data[]);
-        int SendData(std::string data);
+        int SendData(int data, size_t size);
+        int SendData(char *data, size_t size);
         char *RecvData();
 };
 

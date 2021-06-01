@@ -5,6 +5,5 @@
 int ThreadRunner::StartSocketListenerThread() {
     std::thread *SocketListenerThread = new std::thread(ThreadFunction::SocketListener);
     ThreadPool::AddThread(SocketListenerThread);
-    SocketListenerThread->join();
     return 0;
 }

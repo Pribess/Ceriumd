@@ -2,6 +2,8 @@
 
 #include "Protocol.hpp"
 
+#include "tools/CastingTools.hpp"
+
 int Protocol::Version(Socket *socket) {
     char buff[sizeof(NetByte::packetheader) + sizeof(NetByte::version)];
 
@@ -10,17 +12,18 @@ int Protocol::Version(Socket *socket) {
     
     header.type = CERIUM_PACKET_VERSION;
     header.length = sizeof(NetByte::version);
+    payload.version = CERIUM_PROTOCOL_VERSION;
     payload.timestamp = TimeStamp::GetUtcTimeStamp();
 
     char checksumbuff[sizeof(NetByte::version)];
     std::memcpy(checksumbuff, &payload, sizeof(NetByte::version));
-        
-    std::memcpy(header.checksum, Crypto::SHA256(checksumbuff), sizeof(header.checksum));
+    std::memcpy(header.checksum, (const char *)Crypto::SHA256(checksumbuff, sizeof(checksumbuff)), sizeof(header.checksum));
 
     std::memcpy(buff, &header, sizeof(NetByte::packetheader));
     std::memcpy(buff + sizeof(NetByte::packetheader), &payload, sizeof(NetByte::version));
+
     try {
-        socket->SendData(buff);
+        socket->SendData(buff, sizeof(buff));
     } catch (std::exception e) {
         throw e;
     }

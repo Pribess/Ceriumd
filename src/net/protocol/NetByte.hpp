@@ -3,6 +3,8 @@
 #ifndef _CERIUM_NET_PROTOCOL_NETBYTE
 #define _CERIUM_NET_PROTOCOL_NETBYTE
 
+#include <cstdint>
+
 #include "constant/Define.hpp"
 #include "PacketTypes.hpp"
 
@@ -14,15 +16,15 @@ namespace NetByte {
         short length;
         unsigned char checksum[4];
     } packetheader;
-
+    
     typedef struct version {
-        unsigned int version;
-        long int timestamp;
+        uint64_t version;
+        long timestamp;
     } version;
 
     typedef struct addr {
-        unsigned int count;
-        unsigned int addr[];
+        uint64_t count;
+        uint32_t addr[];
     } addr;
 }
 

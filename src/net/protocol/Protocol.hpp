@@ -6,7 +6,8 @@
 #include "net/Socket.hpp"
 #include "net/protocol/NetByte.hpp"
 #include "tools/TimeStamp.hpp"
-#include  "crypto/Crypto.hpp"
+#include "crypto/Crypto.hpp"
+#include "constant/Version.hpp"
 
 class Protocol {
     public:

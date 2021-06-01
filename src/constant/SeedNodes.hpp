@@ -3,7 +3,9 @@
 #ifndef _CERIUM_CONSTANT_SEEDNODES
 #define _CERIUM_CONSTANT_SEEDNODES
 
-static const unsigned int SeedNodes[] = {
+#include <cstdint>
+
+static const uint32_t SeedNodes[] = {
     0x1200a8c0
 };
 

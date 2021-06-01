@@ -10,7 +10,7 @@
 
 class Crypto {
     public:
-        static unsigned char *SHA256(const char *string);
+        static unsigned char *SHA256(const char *string, size_t size);
         static char *SHA256str(const char *string);
 };
 

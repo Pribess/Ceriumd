@@ -2,12 +2,12 @@
 
 #include "Crypto.hpp"
 
-unsigned char *Crypto::SHA256(const char *string) {
+unsigned char *Crypto::SHA256(const char *string, size_t size) {
     static unsigned char digest[SHA256_DIGEST_LENGTH];
  
     SHA256_CTX ctx;
     SHA256_Init(&ctx);
-    SHA256_Update(&ctx, string, std::strlen(string));
+    SHA256_Update(&ctx, string, size);
     SHA256_Final(digest, &ctx);
 
     return digest;

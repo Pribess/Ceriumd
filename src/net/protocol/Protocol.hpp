@@ -3,9 +3,13 @@
 #ifndef _CERIUM_NET_PROTOCOL_PROTOCOL
 #define _CERIUM_NET_PROTOCOL_PROTOCOL
 
+#include "net/Socket.hpp"
+#include "net/protocol/NetByte.hpp"
+#include "tools/TimeStamp.hpp"
+
 class Protocol {
     public:
-        int Version();
+        static int Version(Socket *socket);
 };
 
 #endif

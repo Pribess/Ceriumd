@@ -4,22 +4,23 @@
 #define _CERIUM_NET_PROTOCOL_NETBYTE
 
 #include "constant/Define.hpp"
+#include "PacketTypes.hpp"
 
 namespace NetByte {
 
-    typedef struct {
+    typedef struct packetheader {
         const short magic = CERIUM_PACKET_MAGIC;
         short type;
         short length;
         long checksum;
     } packetheader;
 
-    typedef struct {
+    typedef struct version {
         unsigned int version;
         long int timestamp;
     } version;
 
-    typedef struct {
+    typedef struct addr {
         unsigned int count;
         unsigned int addr[];
     } addr;

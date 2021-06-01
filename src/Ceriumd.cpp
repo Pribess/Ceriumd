@@ -2,8 +2,7 @@
 
 #include <iostream>
 
-#include <chrono>
-#include <ctime>
+#include "tools/TimeStamp.hpp"
 
 namespace Initializer {
 
@@ -28,7 +27,6 @@ int main(int argc, char* argv[]) {
     std::cout << "   ___          _                 \n  / __\\___ _ __(_)_   _ _ __ ___  \n / /  / _ \\ '__| | | | | '_ ` _ \\\n/ /__|  __/ |  | | |_| | | | | | |\n\\____/\\___|_|  |_|\\__,_|_| |_| |_|" << std::endl;
     SetupEnvironment();
     Initializer::AppInit();
-    std::cout << std::chrono::duration_cast<std::chrono::seconds>(
-    std::chrono::system_clock::now().time_since_epoch()).count() << std::endl;
+    std::cout << TimeStamp::GetUtcTimeStamp() <<std::endl;
     return 0;
 }

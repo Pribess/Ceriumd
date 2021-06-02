@@ -13,6 +13,7 @@ class ThreadFunction {
     private:
     public:
         static void SocketListener();
+        static void SocketHandler(Socket *socket);
 };
 
 #endif

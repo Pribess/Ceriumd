@@ -12,6 +12,7 @@ class ThreadRunner {
     private:
     public:
         static int StartSocketListenerThread();
+        static int StartSocketHandlerThread(Socket *socket);
 };
 
 #endif

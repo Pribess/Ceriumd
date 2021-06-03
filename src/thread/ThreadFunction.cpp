@@ -6,7 +6,7 @@ void ThreadFunction::SocketListener() {
     try {
         Listener *listener = new Listener(CERIUM_PORT);
         while (true) {
-            ConnectionPool::AddSocket(listener->Listen());
+            ThreadRunner::StartServerSocketHandlerThread(ConnectionPool::AddSocket(listener->Listen()));
         }
         delete listener;
     } catch (std::exception e) {
@@ -14,7 +14,7 @@ void ThreadFunction::SocketListener() {
     }
 }
 
-void ThreadFunction::SocketHandler(Socket *socket) {
+void ThreadFunction::ServerSocketHandler(Socket *socket) {
     try {
         Protocol::Version(socket);
     } catch (std::exception e) {

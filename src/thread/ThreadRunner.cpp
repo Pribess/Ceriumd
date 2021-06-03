@@ -8,8 +8,8 @@ int ThreadRunner::StartSocketListenerThread() {
     return 0;
 }
 
-int ThreadRunner::StartSocketHandlerThread(Socket *socket) {
-    std::thread *SocketHandlerThread = new std::thread(ThreadFunction::SocketHandler, socket);
+int ThreadRunner::StartServerSocketHandlerThread(Socket *socket) {
+    std::thread *SocketHandlerThread = new std::thread(ThreadFunction::ServerSocketHandler, socket);
     ThreadPool::AddThread(SocketHandlerThread);
     return 0;
 }

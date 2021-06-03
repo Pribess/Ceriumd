@@ -36,5 +36,6 @@ int main(int argc, char* argv[]) {
     std::pair<std::string, Socket *> p1;
     p1 = cn->Connect();
     Protocol::Version(p1.second);
+    
     return 0;
 }

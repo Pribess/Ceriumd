@@ -12,14 +12,14 @@
 class Socket {
     private:
         int SocketDesc;
-        char Buff[256];
+        char buff[1024];
     public:
         Socket(int SocketDesc);
         ~Socket();
         int CloseSocket();
         int SendData(int data, size_t size);
         int SendData(char *data, size_t size);
-        char *RecvData();
+        std::pair<char *, size_t> RecvData();
 };
 
 #endif

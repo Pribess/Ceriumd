@@ -5,14 +5,12 @@
 
 #include "net/Socket.hpp"
 #include "net/protocol/NetByte.hpp"
-#include "tools/TimeStamp.hpp"
-#include "crypto/Crypto.hpp"
-#include "constant/Version.hpp"
+#include "net/tools/PacketBuilder.hpp"
+#include "net/tools/PacketDecoder.hpp"
 
 class Protocol {
     public:
-        static NetByte::header HeaderBuilder(short type, void *payload, size_t size);
-        static int Version(Socket *socket);
+        static void Version(Socket *socket);
 };
 
 #endif

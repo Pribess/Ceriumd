@@ -43,14 +43,14 @@ int Socket::SendData(char *data, size_t size) {
     throw std::ios_base::failure("Write Data Failed!");
 }
 
-char *Socket::RecvData() {
+std::pair<char *, size_t> Socket::RecvData() {
     char cnt = 5;
-    memset(this->Buff, 0, sizeof(this->Buff));
+    memset(this->buff, 0, sizeof(this->buff));
     while (cnt) {
-        if (0 > read(this->SocketDesc, this->Buff, sizeof(this->Buff))) {
+        if (0 > read(this->SocketDesc, this->buff, sizeof(this->buff))) {
             cnt--;
         } else {
-            return this->Buff;
+            return std::pair<char *, size_t>(this->buff, sizeof(this->buff));
         }
     }
     throw std::ios_base::failure("Recieve Data Failed!");

@@ -7,6 +7,7 @@
 
 #include "constant/Define.hpp"
 #include "net/tools/ConnectionPool.hpp"
+#include "net/protocol/Protocol.hpp"
 #include "ThreadPool.hpp"
 
 class ThreadFunction {

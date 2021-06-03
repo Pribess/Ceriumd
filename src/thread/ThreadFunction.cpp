@@ -3,13 +3,21 @@
 #include "ThreadFunction.hpp"
 
 void ThreadFunction::SocketListener() {
-    Listener *listener = new Listener(CERIUM_PORT);
-    while (true) {
-        ConnectionPool::AddSocket(listener->Listen());
+    try {
+        Listener *listener = new Listener(CERIUM_PORT);
+        while (true) {
+            ConnectionPool::AddSocket(listener->Listen());
+        }
+        delete listener;
+    } catch (std::exception e) {
+        throw e;
     }
-    delete listener;
 }
 
 void ThreadFunction::SocketHandler(Socket *socket) {
-    
+    try {
+        Protocol::Version(socket);
+    } catch (std::exception e) {
+        throw e;
+    }
 }

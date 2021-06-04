@@ -11,8 +11,9 @@
 class ThreadRunner {
     private:
     public:
-        static int StartSocketListenerThread();
-        static int StartServerSocketHandlerThread(Socket *socket);
+        static void StartSocketListenerThread();
+        static void StartSocketConnectorThread();
+        static void StartServerSocketHandlerThread(Socket *socket);
 };
 
 #endif

@@ -2,14 +2,17 @@
 
 #include "ThreadRunner.hpp"
 
-int ThreadRunner::StartSocketListenerThread() {
+void ThreadRunner::StartSocketListenerThread() {
     std::thread *SocketListenerThread = new std::thread(ThreadFunction::SocketListener);
     ThreadPool::AddThread(SocketListenerThread);
-    return 0;
 }
 
-int ThreadRunner::StartServerSocketHandlerThread(Socket *socket) {
+void ThreadRunner::StartSocketConnectorThread() {
+    std::thread *SocketConnectorThread = new std::thread(ThreadFunction::SocketConnector);
+    ThreadPool::AddThread(SocketConnectorThread);
+}
+
+void ThreadRunner::StartServerSocketHandlerThread(Socket *socket) {
     std::thread *SocketHandlerThread = new std::thread(ThreadFunction::ServerSocketHandler, socket);
     ThreadPool::AddThread(SocketHandlerThread);
-    return 0;
 }

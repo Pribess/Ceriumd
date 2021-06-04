@@ -14,6 +14,13 @@ void ThreadFunction::SocketListener() {
     }
 }
 
+void ThreadFunction::SocketConnector() {
+    try {
+    } catch (std::exception e) {
+        throw e;
+    }
+}
+
 void ThreadFunction::ServerSocketHandler(Socket *socket) {
     try {
         Protocol::Version(socket);

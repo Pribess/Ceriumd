@@ -16,6 +16,7 @@ void ThreadFunction::SocketListener() {
 
 void ThreadFunction::SocketConnector() {
     try {
+        
     } catch (std::exception e) {
         throw e;
     }

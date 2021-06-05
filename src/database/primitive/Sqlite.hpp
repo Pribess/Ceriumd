@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <vector>
 #include <sqlite3.h>
 
 class Sqlite {
@@ -15,7 +16,8 @@ class Sqlite {
     public:
         Sqlite(char dbname[]);
         ~Sqlite();
-        void ExecuteQuery(char *sql);
+        void SetExecuteQuery(char *sql);
+        std::vector<std::pair<char *, size_t>> GetExecuteQuery(char *sql);
 };
 
 #endif

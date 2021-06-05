@@ -22,10 +22,25 @@ void Sqlite::CloseDatabase() {
     }
 }
 
-void Sqlite::ExecuteQuery(char *sql) {
+void Sqlite::SetExecuteQuery(char *sql) {
     char *errmsg;
+    
     if (sqlite3_exec(this->db, sql, NULL, NULL, &errmsg)) {
-        throw std::ios_base::failure(std::strcat("Execute Query Failed : ", errmsg));
+        throw std::ios_base::failure(std::strcat("Set Execute Query Failed : ", errmsg));
     }
+
+    sqlite3_free(errmsg);
+}
+
+std::vector<std::pair<char *, size_t>> Sqlite::GetExecuteQuery(char *sql) {
+    char *errmsg;
+    char **result;
+    int rows;
+    int columns;
+
+    if (sqlite3_get_table(db, sql, &result, &rows, &columns, &errmsg)) {
+        throw std::ios_base::failure(std::strcat("Get Execute Query Failed : ", errmsg));
+    }
+    
     sqlite3_free(errmsg);
 }

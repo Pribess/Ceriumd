@@ -13,6 +13,7 @@ class Sqlite {
         sqlite3 *db;
         void OpenDatabase(char dbname[]);
         void CloseDatabase();
+        static int HandleResult(void *ArgThrough, int argc, char **argv, char **azColName);
     public:
         Sqlite(char dbname[]);
         ~Sqlite();

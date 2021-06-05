@@ -24,6 +24,7 @@ namespace Initializer {
 
 
 int SetupEnvironment() {
+    
     return 0;
 }
 

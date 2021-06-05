@@ -3,6 +3,7 @@
 #include "BootStrapper.hpp"
 
 Socket *BootStrapper::BootStrap() {
+    
 }
 
 Socket *BootStrapper::CacheStrap() {
@@ -10,5 +11,5 @@ Socket *BootStrapper::CacheStrap() {
 }
 
 Socket *BootStrapper::SeedStrap() {
-    
+
 }

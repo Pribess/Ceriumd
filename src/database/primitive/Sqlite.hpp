@@ -11,14 +11,14 @@
 class Sqlite {
     private:
         sqlite3 *db;
-        static std::vector<char *> buff;
+        static std::vector<std::vector<std::string>> buff;
         void OpenDatabase(char dbname[]);
         void CloseDatabase();
         static int HandleResult(void *ArgThrough, int argc, char **argv, char **azColName);
     public:
         Sqlite(char dbname[]);
         ~Sqlite();
-        std::vector<char *> ExecuteQuery(char sql[]);
+        std::vector<std::vector<std::string>> ExecuteQuery(std::string sql);
 };
 
 #endif

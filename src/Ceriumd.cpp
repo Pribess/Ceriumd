@@ -25,10 +25,6 @@ namespace Initializer {
 
 
 int SetupEnvironment() {
-    Sqlite *s1 = new Sqlite("test.db");
-    std::cout << s1->ExecuteQuery("SELECT * FROM asdf").back() << std::endl;
-    //s1->ExecuteQuery("INSERT INTO asdf VALUES(100)");
-    delete s1;
     return 0;
 }
 

@@ -8,7 +8,6 @@
 
 class DatabasePool {
     private:
-        static sqlite3 *db;
     public:
         static void SetUpDatabase();
 };

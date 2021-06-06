@@ -6,6 +6,7 @@
 #include "crypto/Crypto.hpp"
 #include "tools/CastingTools.hpp"
 #include "thread/ThreadRunner.hpp"
+#include "database/primitive/Sqlite.hpp"
 #include "net/protocol/Protocol.hpp"
 
 namespace Initializer {
@@ -24,7 +25,10 @@ namespace Initializer {
 
 
 int SetupEnvironment() {
-    
+    Sqlite *s1 = new Sqlite("test.db");
+    std::cout << s1->ExecuteQuery("SELECT * FROM asdf").back() << std::endl;
+    //s1->ExecuteQuery("INSERT INTO asdf VALUES(100)");
+    delete s1;
     return 0;
 }
 
@@ -33,9 +37,9 @@ int main(int argc, char* argv[]) {
     SetupEnvironment();
     Initializer::AppInit();
     std::cout << TimeStamp::GetUtcTimeStamp() << std::endl;
-    Connector *cn = new Connector("192.168.0.24", 1226);
+    /*Connector *cn = new Connector("192.168.0.24", 1226);
     std::pair<std::string, Socket *> p1;
     p1 = cn->Connect();
-    Protocol::Version(p1.second);
+    Protocol::Version(p1.second);*/
     return 0;
 }

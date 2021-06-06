@@ -2,6 +2,8 @@
 
 #include "Sqlite.hpp"
 
+std::vector<char *> Sqlite::buff;
+
 Sqlite::Sqlite(char dbname[]) {
     this->OpenDatabase(dbname);
 }
@@ -23,25 +25,23 @@ void Sqlite::CloseDatabase() {
 }
 
 int Sqlite::HandleResult(void *ArgThrough, int argc, char **argv, char **azColName) {
-
+    Sqlite::buff.clear();
     for (int cnt = 0 ; cnt < argc ; cnt++) {
-        
+        //printf("%s", argv[cnt]);
+        Sqlite::buff.push_back(argv[cnt]);
     }
+    printf("%s\n", Sqlite::buff.front());
+    printf("asdf");
+    return 0;
 }
 
-void Sqlite::SetExecuteQuery(char *sql) {
-    char *errmsg;
-    if (sqlite3_exec(this->db, sql, NULL, NULL, &errmsg)) {
-        throw std::ios_base::failure(std::strcat("Set Execute Query Failed : ", errmsg));
-    }
-    sqlite3_free(errmsg);
-}
-
-std::vector<std::pair<char *, size_t>> Sqlite::GetExecuteQuery(char *sql) {
-    std::vector<std::pair<char *, size_t>> buff;
+std::vector<char *> Sqlite::ExecuteQuery(char sql[]) {
     char *errmsg;
 
     if (sqlite3_exec(this->db, sql, Sqlite::HandleResult, NULL, &errmsg)) {
         throw std::ios_base::failure(std::strcat("Get Execute Query Failed : ", errmsg));
     }
+    sqlite3_free(errmsg);
+    printf("%s\n", Sqlite::buff.back());
+    return Sqlite::buff;
 }

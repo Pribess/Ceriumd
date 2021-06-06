@@ -4,7 +4,7 @@ CC:=g++
 TARGET=Ceriumd
 INCFLAGS:=-I ${shell pwd}/src
 CXXFLAGSC:=-Wno-deprecated-declarations -c ${INCFLAGS}
-CXXFLAGSO:=-lcrypto
+CXXFLAGSO:=-lcrypto -lsqlite3
 COMPILE_FLAGS:=-std=c++17
 
 RM:=rm

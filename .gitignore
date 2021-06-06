@@ -1,5 +1,11 @@
+# general stuff
+
 *.o
 Ceriumd
+
+# db stuff
+
+*.db
 
 # osx stuff 
 .DS_Store

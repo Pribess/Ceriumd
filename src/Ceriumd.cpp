@@ -11,27 +11,35 @@
 
 namespace Initializer {
 
-    int NetInit() {
+    void NetInit() {
         ThreadRunner::StartSocketListenerThread();
-        return 0;
-    }
-
-    int AppInit() {
-        NetInit();
-        return 0;
     }
 
 }
 
-
-int SetupEnvironment() {
-    return 0;
+void AppInit() {
+    Initializer::NetInit();
 }
 
-int main(int argc, char* argv[]) {
+void ArgParser(int argc, char *argv[]) {
+    std::vector<char *> args;
+    
+    for (char cnt = 0 ; cnt < argc ; cnt++) {
+        args.push_back(argv[cnt]);
+    }
+
+
+}
+
+void SetupEnvironment() {
+    setlocale(LC_ALL, "");
+}
+
+int main(int argc, char *argv[]) {
     std::cout << "   ___          _                 \n  / __\\___ _ __(_)_   _ _ __ ___  \n / /  / _ \\ '__| | | | | '_ ` _ \\\n/ /__|  __/ |  | | |_| | | | | | |\n\\____/\\___|_|  |_|\\__,_|_| |_| |_|" << std::endl;
     SetupEnvironment();
-    Initializer::AppInit();
+    ArgParser(argc, argv);
+    AppInit();
     std::cout << TimeStamp::GetUtcTimeStamp() << std::endl;
     /*Connector *cn = new Connector("192.168.0.24", 1226);
     std::pair<std::string, Socket *> p1;

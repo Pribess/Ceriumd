@@ -4,12 +4,16 @@
 #define _CERIUM_DATABASE_DATABASEPOOL
 
 #include <iostream>
+#include <fstream>
+#include <unistd.h>
 #include <sqlite3.h>
+#include <cstring>
+#include <string>
+
 
 class DatabasePool {
-    private:
     public:
-        static void SetUpDatabase();
+        static void SetUpDatabase(std::string dirname);
 };
 
 #endif

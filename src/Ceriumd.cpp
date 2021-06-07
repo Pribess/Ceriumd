@@ -5,7 +5,7 @@
 
 #include "thread/ThreadRunner.hpp"
 #include "database/primitive/Sqlite.hpp"
-#include "constant/Args.hpp"
+#include "database/DatabasePool.hpp"
 
 namespace Initializer {
 
@@ -17,15 +17,9 @@ namespace Initializer {
 
 namespace Tools {
 
-    void CheckDirExist(const char dirname[]) {
-        DIR *dir = opendir(dirname);
-        if (dir) {
-
-        } else if (ENOENT == errno) {
+    void CheckDirExist(std::string dirname) {
+        if (access(dirname.c_str(), F_OK)) {
             std::cout << "Ceriumd: " << dirname << ": No such file or directory" << std::endl;
-            exit(1);
-        } else {
-            std::cout << "Ceriumd: " << dirname << ": Failed to open directory" << std::endl;
             exit(1);
         }
     }
@@ -36,28 +30,36 @@ void AppInit() {
     Initializer::NetInit();
 }
 
-void ArgParser(int argc, char *argv[]) {
+std::string ArgParser(int argc, char *argv[]) {
     std::vector<std::string> args;
     
+    if (argc < 2) {
+        std::cout << "Ceriumd: Usage <directory>" << std::endl; 
+        exit(1);
+    }
+
     for (char cnt = 0 ; cnt < argc ; cnt++) {
         args.push_back(argv[cnt]);
     }
 
     std::vector<std::string>::iterator iter = args.begin();
 
-    Tools::CheckDirExist(iter[1].c_str());
+    Tools::CheckDirExist(iter[1]); 
+    if (!iter[1].ends_with("/")) {
+        iter[1].append("/");
+    }
 
-    Args::DatabaseStoreDirctory = iter[1];
+    return iter[1];
 }
 
-void SetupEnvironment() {
+void SetupEnvironment(std::string dirname) {
     setlocale(LC_ALL, "");
+    DatabasePool::SetUpDatabase(dirname);
 }
 
 int main(int argc, char *argv[]) {
     std::cout << "   ___          _                 \n  / __\\___ _ __(_)_   _ _ __ ___  \n / /  / _ \\ '__| | | | | '_ ` _ \\\n/ /__|  __/ |  | | |_| | | | | | |\n\\____/\\___|_|  |_|\\__,_|_| |_| |_|" << std::endl;
-    SetupEnvironment();
-    ArgParser(argc, argv);
+    SetupEnvironment(ArgParser(argc, argv));
     AppInit();
     std::cout << TimeStamp::GetUtcTimeStamp() << std::endl;
     /*Connector *cn = new Connector("192.168.0.24", 1226);

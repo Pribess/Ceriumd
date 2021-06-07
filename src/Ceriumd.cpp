@@ -1,13 +1,11 @@
 //Copyright (c) 2021 Heewon Cho
 
 #include <iostream>
+#include <dirent.h>
 
-#include "tools/TimeStamp.hpp"
-#include "crypto/Crypto.hpp"
-#include "tools/CastingTools.hpp"
 #include "thread/ThreadRunner.hpp"
 #include "database/primitive/Sqlite.hpp"
-#include "net/protocol/Protocol.hpp"
+#include "constant/Args.hpp"
 
 namespace Initializer {
 
@@ -17,18 +15,39 @@ namespace Initializer {
 
 }
 
+namespace Tools {
+
+    void CheckDirExist(const char dirname[]) {
+        DIR *dir = opendir(dirname);
+        if (dir) {
+
+        } else if (ENOENT == errno) {
+            std::cout << "Ceriumd: " << dirname << ": No such file or directory" << std::endl;
+            exit(1);
+        } else {
+            std::cout << "Ceriumd: " << dirname << ": Failed to open directory" << std::endl;
+            exit(1);
+        }
+    }
+
+}
+
 void AppInit() {
     Initializer::NetInit();
 }
 
 void ArgParser(int argc, char *argv[]) {
-    std::vector<char *> args;
+    std::vector<std::string> args;
     
     for (char cnt = 0 ; cnt < argc ; cnt++) {
         args.push_back(argv[cnt]);
     }
 
+    std::vector<std::string>::iterator iter = args.begin();
 
+    Tools::CheckDirExist(iter[1].c_str());
+
+    Args::DatabaseStoreDirctory = iter[1];
 }
 
 void SetupEnvironment() {

@@ -4,7 +4,7 @@
 
 std::vector<std::vector<std::string>> Sqlite::buff;
 
-Sqlite::Sqlite(char dbname[]) {
+Sqlite::Sqlite(std::string dbname) {
     this->OpenDatabase(dbname);
 }
 
@@ -12,8 +12,8 @@ Sqlite::~Sqlite() {
     this->CloseDatabase();
 }
 
-void Sqlite::OpenDatabase(char dbname[]) {
-    if (sqlite3_open(dbname, &this->db)) {
+void Sqlite::OpenDatabase(std::string dbname) {
+    if (sqlite3_open(dbname.c_str(), &this->db)) {
         throw std::ios_base::failure("Opening Database Failed!");
     }
 }
@@ -41,7 +41,7 @@ std::vector<std::vector<std::string>> Sqlite::ExecuteQuery(std::string sql) {
     Sqlite::buff.clear();
 
     if (sqlite3_exec(this->db, sql.c_str(), Sqlite::HandleResult, NULL, &errmsg)) {
-        throw std::ios_base::failure(std::strcat("Get Execute Query Failed : ", errmsg));
+        throw std::ios_base::failure(std::strcat((char *)"Get Execute Query Failed : ", errmsg));
     }
 
     sqlite3_free(errmsg);

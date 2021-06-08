@@ -4,8 +4,9 @@
 #include <dirent.h>
 
 #include "thread/ThreadRunner.hpp"
-#include "database/primitive/Sqlite.hpp"
-#include "database/DatabasePool.hpp"
+#include "data/primitive/Sqlite.hpp"
+#include "data/DatabasePool.hpp"
+#include "constant/KeyValue.hpp"
 
 namespace Initializer {
 
@@ -30,7 +31,7 @@ void AppInit() {
     Initializer::NetInit();
 }
 
-std::string ArgParser(int argc, char *argv[]) {
+void ArgParser(int argc, char *argv[]) {
     std::vector<std::string> args;
     
     if (argc < 2) {
@@ -49,17 +50,18 @@ std::string ArgParser(int argc, char *argv[]) {
         iter[1].append("/");
     }
 
-    return iter[1];
+    KeyValue::SetKeyValue("DataDir", iter[1]);
 }
 
-void SetupEnvironment(std::string dirname) {
+void SetupEnvironment() {
     setlocale(LC_ALL, "");
-    DatabasePool::SetUpDatabase(dirname);
+    DatabasePool::SetUpDatabases();
 }
 
 int main(int argc, char *argv[]) {
     std::cout << "   ___          _                 \n  / __\\___ _ __(_)_   _ _ __ ___  \n / /  / _ \\ '__| | | | | '_ ` _ \\\n/ /__|  __/ |  | | |_| | | | | | |\n\\____/\\___|_|  |_|\\__,_|_| |_| |_|" << std::endl;
-    SetupEnvironment(ArgParser(argc, argv));
+    ArgParser(argc, argv);
+    SetupEnvironment();
     AppInit();
     std::cout << TimeStamp::GetUtcTimeStamp() << std::endl;
     /*Connector *cn = new Connector("192.168.0.24", 1226);

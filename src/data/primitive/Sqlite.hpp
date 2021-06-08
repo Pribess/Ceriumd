@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <string>
 #include <vector>
 #include <sqlite3.h>
 
@@ -12,11 +13,11 @@ class Sqlite {
     private:
         sqlite3 *db;
         static std::vector<std::vector<std::string>> buff;
-        void OpenDatabase(char dbname[]);
+        void OpenDatabase(std::string dbname);
         void CloseDatabase();
         static int HandleResult(void *ArgThrough, int argc, char **argv, char **azColName);
     public:
-        Sqlite(char dbname[]);
+        Sqlite(std::string dbname);
         ~Sqlite();
         std::vector<std::vector<std::string>> ExecuteQuery(std::string sql);
 };

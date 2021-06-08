@@ -6,14 +6,17 @@
 #include <iostream>
 #include <fstream>
 #include <unistd.h>
-#include <sqlite3.h>
 #include <cstring>
 #include <string>
 
+#include "constant/KeyValue.hpp"
+#include "data/primitive/Sqlite.hpp"
 
 class DatabasePool {
+    private:
+        static void SetUpNetdb();
     public:
-        static void SetUpDatabase(std::string dirname);
+        static void SetUpDatabases();
 };
 
 #endif

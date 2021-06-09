@@ -5,8 +5,8 @@
 
 #include <cstdint>
 
-static const uint32_t SeedNodes[] = {
-    0x1200a8c0
+static const std::pair<uint32_t, short> SeedNodes[] = {
+    std::pair<uint32_t, short>(0x1200A8C0, 0x04CA)
 };
 
 #endif

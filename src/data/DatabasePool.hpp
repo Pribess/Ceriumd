@@ -14,10 +14,17 @@
 
 class DatabasePool {
     private:
-        static Sqlite *netdb;
         static int SetUpNetdb();
     public:
         static void SetUpDatabases();
+        class NetDB {
+            public:
+                static Sqlite *netdb;
+
+                static std::vector<std::pair<uint32_t, short>> GetNetCache();
+                static void AddNetCache();
+                static void RmNetCache();
+        };
 };
 
 #endif

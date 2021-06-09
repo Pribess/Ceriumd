@@ -25,6 +25,7 @@ int DatabasePool::SetUpNetdb() {
             exit(1);
         }
     }
+    
 
     if (access(dirname.c_str(), R_OK)) {
         std::cout << "Ceriumd: fatal: unable to read file '" << dirname << "' Permission Denied" << std::endl; 
@@ -80,7 +81,7 @@ int DatabasePool::SetUpNetdb() {
 }
 
 std::vector<std::pair<uint32_t, short>> DatabasePool::NetDB::GetNetCache() {
-    
+
 }
 
 void DatabasePool::NetDB::AddNetCache() {

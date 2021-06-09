@@ -14,7 +14,8 @@
 
 class DatabasePool {
     private:
-        static void SetUpNetdb();
+        static Sqlite *netdb;
+        static int SetUpNetdb();
     public:
         static void SetUpDatabases();
 };

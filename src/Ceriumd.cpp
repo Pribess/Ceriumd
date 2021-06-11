@@ -2,11 +2,13 @@
 
 #include <iostream>
 #include <dirent.h>
+#include <vector>
 
 #include "thread/ThreadRunner.hpp"
 #include "data/primitive/Sqlite.hpp"
 #include "data/DatabasePool.hpp"
 #include "constant/KeyValue.hpp"
+#include "tools/CastingTools.hpp"
 
 namespace Initializer {
 
@@ -56,6 +58,14 @@ void ArgParser(int argc, char *argv[]) {
 void SetupEnvironment() {
     setlocale(LC_ALL, "");
     DatabasePool::SetUpDatabases();
+    std::vector<std::pair<uint32_t, unsigned short>> buff = DatabasePool::NetDB::GetNetCache();
+
+    for (int cnt = 0 ; cnt < buff.size() ; cnt++) {
+        std::cout << std::hex << inet_addr("192.168.0.2") << std::endl;
+        std::cout << htons(1226) << std::endl;
+        std::cout << "ad :" << buff.at(cnt).first <<std::endl;
+        std::cout << "po :" << buff.at(cnt).second <<std::endl;
+    }
 }
 
 int main(int argc, char *argv[]) {

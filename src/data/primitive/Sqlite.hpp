@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <sqlite3.h>
+#include <cstddef>
 
 class Sqlite {
     private:

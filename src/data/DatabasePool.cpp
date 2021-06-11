@@ -1,7 +1,7 @@
 //Copyright (c) 2021 Heewon Cho
 
 #include "DatabasePool.hpp"
-
+#include "tools/CastingTools.hpp"
 Sqlite *DatabasePool::NetDB::netdb;
 
 void DatabasePool::SetUpDatabases() {
@@ -46,7 +46,7 @@ int DatabasePool::SetUpNetdb() {
 
         if (rs.empty()) {
 
-            DatabasePool::NetDB::netdb->ExecuteQuery(R"(CREATE TABLE "AddrCache" ("NodeAddr"	BLOB);)");
+            DatabasePool::NetDB::netdb->ExecuteQuery(R"(CREATE TABLE "AddrCache" ("NodeAddr"	BLOB, "NodePort"	BLOB);)");
 
         } else if (std::string("AddrCache") != rs.front().front() ) {
 
@@ -56,7 +56,7 @@ int DatabasePool::SetUpNetdb() {
                 DatabasePool::NetDB::netdb->ExecuteQuery(clearsql.at(cnt).front());
             }
 
-            DatabasePool::NetDB::netdb->ExecuteQuery(R"(CREATE TABLE "AddrCache" ("NodeAddr"	BLOB);)");
+            DatabasePool::NetDB::netdb->ExecuteQuery(R"(CREATE TABLE "AddrCache" ("NodeAddr"	BLOB, "NodePort"	BLOB););)");
         
         } else if (1 < rs.size()) {
 
@@ -66,7 +66,7 @@ int DatabasePool::SetUpNetdb() {
                 DatabasePool::NetDB::netdb->ExecuteQuery(clearsql.at(cnt).front());
             }
 
-            DatabasePool::NetDB::netdb->ExecuteQuery(R"(CREATE TABLE "AddrCache" ("NodeAddr"	BLOB);)");
+            DatabasePool::NetDB::netdb->ExecuteQuery(R"(CREATE TABLE "AddrCache" ("NodeAddr"	BLOB, "NodePort"	BLOB););)");
 
         }
 
@@ -79,8 +79,21 @@ int DatabasePool::SetUpNetdb() {
     return 0;
 }
 
-std::vector<std::pair<uint32_t, short>> DatabasePool::NetDB::GetNetCache() {
+std::vector<std::pair<uint32_t, unsigned short>> DatabasePool::NetDB::GetNetCache() {
+    std::vector<std::vector<std::string>> rs = DatabasePool::NetDB::netdb->ExecuteQuery(R"(SELECT * FROM AddrCache)");
+    std::vector<std::pair<uint32_t, unsigned short>> buff;
 
+    for (int cnt = 0 ; cnt < rs.size() ; cnt++) {
+        uint32_t ui32;
+        unsigned short us;
+        
+        std::memcpy(&ui32, (unsigned char *)rs.at(cnt).at(0).c_str(), sizeof(uint32_t));
+        std::memcpy(&us, (unsigned char *)rs.at(cnt).at(1).c_str(), sizeof(unsigned short));
+        std::cout << std::hex << ui32 << std::endl;
+        buff.push_back(std::pair<uint32_t, unsigned short>(ui32, us));
+    }
+
+    return buff;
 }
 
 void DatabasePool::NetDB::AddNetCache() {

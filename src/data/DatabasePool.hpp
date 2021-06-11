@@ -21,7 +21,7 @@ class DatabasePool {
             public:
                 static Sqlite *netdb;
 
-                static std::vector<std::pair<uint32_t, short>> GetNetCache();
+                static std::vector<std::pair<uint32_t, unsigned short>> GetNetCache();
                 static void AddNetCache();
                 static void RmNetCache();
         };

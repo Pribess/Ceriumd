@@ -18,7 +18,7 @@ class Sqlite {
     public:
         Sqlite(std::string dbname);
         ~Sqlite();
-        std::vector<std::vector<std::pair<char *, size_t>>> ExecuteQuery(std::string sql, std::vector<std::pair<char *, size_t>> data);
+        std::vector<std::vector<std::pair<std::string, size_t>>> ExecuteQuery(std::string sql);
 };
 
 #endif

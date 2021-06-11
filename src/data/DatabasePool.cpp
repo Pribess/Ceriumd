@@ -80,20 +80,7 @@ int DatabasePool::SetUpNetdb() {
 }
 
 std::vector<std::pair<uint32_t, unsigned short>> DatabasePool::NetDB::GetNetCache() {
-    std::vector<std::vector<std::string>> rs = DatabasePool::NetDB::netdb->ExecuteQuery(R"(SELECT * FROM AddrCache)");
-    std::vector<std::pair<uint32_t, unsigned short>> buff;
-
-    for (int cnt = 0 ; cnt < rs.size() ; cnt++) {
-        uint32_t ui32;
-        unsigned short us;
-        
-        std::memcpy(&ui32, (unsigned char *)rs.at(cnt).at(0).c_str(), sizeof(uint32_t));
-        std::memcpy(&us, (unsigned char *)rs.at(cnt).at(1).c_str(), sizeof(unsigned short));
-        std::cout << std::hex << ui32 << std::endl;
-        buff.push_back(std::pair<uint32_t, unsigned short>(ui32, us));
-    }
-
-    return buff;
+    
 }
 
 void DatabasePool::NetDB::AddNetCache() {

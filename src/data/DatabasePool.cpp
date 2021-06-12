@@ -92,7 +92,7 @@ std::vector<std::pair<uint32_t, unsigned short>> DatabasePool::NetDB::GetNetCach
 }
 
 void DatabasePool::NetDB::AddNetCache() {
-
+    
 }
 
 void DatabasePool::NetDB::RmNetCache() {

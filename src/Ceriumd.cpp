@@ -58,7 +58,20 @@ void ArgParser(int argc, char *argv[]) {
 void SetupEnvironment() {
     setlocale(LC_ALL, "");
     DatabasePool::SetUpDatabases();
-    DatabasePool::NetDB::GetNetCache();
+    Sqlite *net = new Sqlite("src/net.db");
+    std::vector<std::vector<unsigned char>> asd;
+    std::vector<unsigned char> asdf;
+    std::vector<unsigned char> asdfa;
+    asdf.push_back(0xA3);
+    asdf.push_back(0xEF);
+    asdf.push_back(0xC1);
+    asdf.push_back(0x10);
+    asdfa.push_back(0xad);
+    asdfa.push_back(0xad);
+    asd.push_back(asdf);
+    asd.push_back(asdfa);
+    net->ExecuteQuery("UPDATE AddrCache SET NodeAddr = ? WHERE NodePort = ?", asd);
+    // DatabasePool::NetDB::GetNetCache();
 }
 
 int main(int argc, char *argv[]) {

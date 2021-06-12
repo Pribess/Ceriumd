@@ -21,6 +21,7 @@ class Sqlite {
         Sqlite(std::string dbname);
         ~Sqlite();
         std::vector<std::vector<std::vector<unsigned char>>> ExecuteQuery(std::string sql);
+        std::vector<std::vector<std::vector<unsigned char>>> ExecuteQuery(std::string sql, std::vector<std::vector<unsigned char>> data);
 };
 
 #endif

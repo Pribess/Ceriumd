@@ -1,6 +1,7 @@
 //Copyright (c) 2021 Heewon Cho
 
 #include "Sqlite.hpp"
+#include "tools/CastingTools.hpp"
 
 Sqlite::Sqlite(std::string dbname) {
     this->OpenDatabase(dbname);
@@ -22,24 +23,29 @@ void Sqlite::CloseDatabase() {
     }
 }
 
-std::vector<std::vector<std::pair<std::string, size_t>>> Sqlite::ExecuteQuery(std::string sql) {
-    std::vector<std::vector<std::pair<std::string, size_t>>> rs;
+std::vector<std::vector<std::vector<unsigned char>>> Sqlite::ExecuteQuery(std::string sql) {
+    std::vector<std::vector<std::vector<unsigned char>>> rs;
     sqlite3_stmt *stmt;
 
     if (sqlite3_prepare(this->db, sql.c_str(), sql.length(), &stmt, nullptr)) {
-        throw std::ios_base::failure("Prepare Statement Failed!");
+        throw std::ios_base::failure("Prepareing Statement Failed!");
     }
-    
+
     while (SQLITE_ROW == sqlite3_step(stmt)) {
-        std::vector<std::pair<std::string, size_t>> row;
-        // row.push_back(std::pair<std::string, size_t>());
-        printf("%d\n", sqlite3_column_bytes(stmt, 0));
-        printf("%d\n", sqlite3_column_bytes(stmt, 1));
-        uint32_t as;
-        memcpy(&as, sqlite3_column_blob(stmt, 0), sqlite3_column_bytes(stmt, 0));
-        printf("%x\n", as);
-        printf("%x\n", sqlite3_column_blob(stmt, 0));
-        printf("%x\n", sqlite3_column_blob(stmt, 1));
+        std::vector<std::vector<unsigned char>> row;
+
+        for (int cntcol = 0 ; cntcol < sqlite3_column_count(stmt) ; cntcol++) {
+            std::vector<unsigned char> col;
+            
+            const char *rsbyte = (const char *)sqlite3_column_blob(stmt, cntcol);
+
+            for (int cntbyte = 0 ; cntbyte < sqlite3_column_bytes(stmt, cntcol) ; cntbyte++) {
+                col.push_back((unsigned char)rsbyte[cntbyte]);
+            }
+            
+            row.push_back(col);
+        }
+
         rs.push_back(row);
     }
 

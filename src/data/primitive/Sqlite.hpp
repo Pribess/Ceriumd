@@ -9,6 +9,8 @@
 #include <vector>
 #include <sqlite3.h>
 #include <cstddef>
+#include <array>
+
 
 class Sqlite {
     private:
@@ -18,7 +20,7 @@ class Sqlite {
     public:
         Sqlite(std::string dbname);
         ~Sqlite();
-        std::vector<std::vector<std::pair<std::string, size_t>>> ExecuteQuery(std::string sql);
+        std::vector<std::vector<std::vector<unsigned char>>> ExecuteQuery(std::string sql);
 };
 
 #endif

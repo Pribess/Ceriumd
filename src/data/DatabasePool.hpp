@@ -18,9 +18,11 @@ class DatabasePool {
     public:
         static void SetUpDatabases();
         class NetDB {
-            public:
+            private:
                 static Sqlite *netdb;
-
+            public:
+                static Sqlite *GetDB();
+                static void SetDB(Sqlite *netdb);
                 static std::vector<std::pair<uint32_t, unsigned short>> GetNetCache();
                 static void AddNetCache();
                 static void RmNetCache();

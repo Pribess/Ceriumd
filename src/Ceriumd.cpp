@@ -58,8 +58,7 @@ void ArgParser(int argc, char *argv[]) {
 void SetupEnvironment() {
     setlocale(LC_ALL, "");
     DatabasePool::SetUpDatabases();
-    Sqlite *s = new Sqlite("src/net.db");
-    s->ExecuteQuery("SELECT * FROM AddrCache");
+    DatabasePool::NetDB::GetNetCache();
 }
 
 int main(int argc, char *argv[]) {

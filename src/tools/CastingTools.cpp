@@ -19,6 +19,17 @@ const char *CastingTools::ctoh(const char *Buff, size_t size) {
     return Buff_RET;
 }
 
+const char *CastingTools::ctoh(const unsigned char *Buff, size_t size) {
+    static char Buff_RET[256];
+    std::stringstream ss;
+    for (int cnt = 0; cnt < size; cnt++) {
+        ss << std::hex << (int)Buff[cnt];
+        ss << " ";
+    }
+    std::strcpy(Buff_RET, ss.str().c_str());
+    return Buff_RET;
+}
+
 const char *CastingTools::ctod(const char *Buff, size_t size) {
     static char Buff_RET[256];
     std::stringstream ss;

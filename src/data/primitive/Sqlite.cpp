@@ -1,7 +1,6 @@
 //Copyright (c) 2021 Heewon Cho
 
 #include "Sqlite.hpp"
-#include "tools/CastingTools.hpp"
 
 Sqlite::Sqlite(std::string dbname) {
     this->OpenDatabase(dbname);

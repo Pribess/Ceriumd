@@ -43,31 +43,16 @@ int DatabasePool::SetUpNetdb() {
         std::string sql(R"(SELECT name FROM sqlite_master WHERE type IN ('table', 'view') AND name NOT LIKE 'sqlite_%' UNION ALL SELECT name FROM sqlite_temp_master WHERE type IN ('table', 'view') ORDER BY 1;)");
 
         std::vector<std::vector<std::vector<unsigned char>>> rs = DatabasePool::NetDB::GetDB()->ExecuteQuery(sql);
+        int cnt = DatabasePool::NetDB::GetDB()->ExecuteQuery("PRAGMA table_info(AddrCache);").size();
 
         if (rs.empty()) {
-
             DatabasePool::NetDB::GetDB()->ExecuteQuery(R"(CREATE TABLE "AddrCache" ("NodeAddr"	BLOB, "NodePort"	BLOB);)");
-
         } else if (std::string("AddrCache") != std::string(rs.front().front().begin(), rs.front().front().end()) ) {
-
-            std::vector<std::vector<std::vector<unsigned char>>> clearsql = DatabasePool::NetDB::GetDB()->ExecuteQuery(R"(SELECT 'DROP TABLE ' || name || ';' FROM sqlite_master WHERE type = 'table';)");
-
-            for (int cnt = 0 ; cnt < clearsql.size() ; cnt++) {
-                DatabasePool::NetDB::GetDB()->ExecuteQuery(std::string(clearsql.at(cnt).front().begin(), clearsql.at(cnt).front().end()));
-            }
-
-            DatabasePool::NetDB::GetDB()->ExecuteQuery(R"(CREATE TABLE "AddrCache" ("NodeAddr"	BLOB, "NodePort"	BLOB););)");
-        
-        } else if (1 < rs.size()) {
-
-            std::vector<std::vector<std::vector<unsigned char>>> clearsql = DatabasePool::NetDB::GetDB()->ExecuteQuery(R"(SELECT 'DROP TABLE ' || name || ';' FROM sqlite_master WHERE type = 'table';)");
-
-            for (int cnt = 0 ; cnt < clearsql.size() ; cnt++) {
-                DatabasePool::NetDB::GetDB()->ExecuteQuery(std::string(clearsql.at(cnt).front().begin(), clearsql.at(cnt).front().end()));
-            }
-
-            DatabasePool::NetDB::GetDB()->ExecuteQuery(R"(CREATE TABLE "AddrCache" ("NodeAddr"	BLOB, "NodePort"	BLOB););)");
-
+            DatabasePool::NetDB::ResetDB();
+        } else if (rs.size() != 1) {
+            DatabasePool::NetDB::ResetDB();
+        } else if (cnt != 2) {
+            DatabasePool::NetDB::ResetDB();     
         }
 
     } catch (std::exception e) {
@@ -87,6 +72,18 @@ void DatabasePool::NetDB::SetDB(Sqlite *netdb) {
     DatabasePool::NetDB::netdb = netdb;
 }
 
+void DatabasePool::NetDB::ResetDB() {
+
+    std::vector<std::vector<std::vector<unsigned char>>> clearsql = DatabasePool::NetDB::GetDB()->ExecuteQuery(R"(SELECT 'DROP TABLE ' || name || ';' FROM sqlite_master WHERE type = 'table';)");
+
+    for (int cnt = 0 ; cnt < clearsql.size() ; cnt++) {
+        DatabasePool::NetDB::GetDB()->ExecuteQuery(std::string(clearsql.at(cnt).front().begin(), clearsql.at(cnt).front().end()));
+    }
+
+    DatabasePool::NetDB::GetDB()->ExecuteQuery(R"(CREATE TABLE "AddrCache" ("NodeAddr"	BLOB, "NodePort"	BLOB););)");
+
+}
+
 std::vector<std::pair<uint32_t, unsigned short>> DatabasePool::NetDB::GetNetCache() {
     std::vector<std::pair<uint32_t, unsigned short>> buff;
     std::vector<std::vector<std::vector<unsigned char>>> rs = DatabasePool::NetDB::GetDB()->ExecuteQuery("SELECT * FROM AddrCache");
@@ -104,7 +101,7 @@ std::vector<std::pair<uint32_t, unsigned short>> DatabasePool::NetDB::GetNetCach
 
 void DatabasePool::NetDB::AddNetCache(std::vector<std::pair<uint32_t, unsigned short>> data) {
     std::vector<std::vector<unsigned char>> binddata;
-    std::string sql("INSERT INTO AddrCache VALUES ");
+    std::string sql("INSERT INTO AddrCache (NodeAddr, NodePort) VALUES ");
 
     for (int cnt = 0 ; cnt < data.size() ; cnt++) {
         sql.append("(?, ?)");

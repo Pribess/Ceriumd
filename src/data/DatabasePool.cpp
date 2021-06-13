@@ -131,6 +131,24 @@ void DatabasePool::NetDB::AddNetCache(std::vector<std::pair<uint32_t, unsigned s
     DatabasePool::NetDB::GetDB()->ExecuteQuery(sql, binddata);
 }
 
-void DatabasePool::NetDB::RmNetCache() {
+void DatabasePool::NetDB::RmNetCache(std::vector<std::pair<uint32_t, unsigned short>> data) {
+    std::string sql("DELETE FROM AddrCache WHERE NodeAddr = ? AND NodePort = ?");
 
+    for (int cnt = 0 ; cnt < data.size() ; cnt++) {
+        std::vector<std::vector<unsigned char>> binddata;
+
+        std::vector<unsigned char> addr;
+        std::vector<unsigned char> port;
+
+        addr.resize(sizeof(uint32_t));
+        port.resize(sizeof(unsigned short));
+
+        std::memcpy(addr.data(), &data.at(cnt).first, sizeof(uint32_t));
+        std::memcpy(port.data(), &data.at(cnt).second, sizeof(unsigned short));
+
+        binddata.push_back(addr);
+        binddata.push_back(port);
+
+        DatabasePool::NetDB::GetDB()->ExecuteQuery(sql, binddata);
+    }
 }

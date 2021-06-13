@@ -61,7 +61,7 @@ void SetupEnvironment() {
     DatabasePool::SetUpDatabases();
     std::vector<std::pair<uint32_t, unsigned short>> net;
     net.push_back(std::pair<uint32_t, unsigned short>(SeedNodes[0].first, SeedNodes[0].second));
-    DatabasePool::NetDB::AddNetCache(net);
+    DatabasePool::NetDB::RmNetCache(net);
 }
 
 int main(int argc, char *argv[]) {

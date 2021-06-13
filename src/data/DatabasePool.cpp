@@ -88,7 +88,18 @@ void DatabasePool::NetDB::SetDB(Sqlite *netdb) {
 }
 
 std::vector<std::pair<uint32_t, unsigned short>> DatabasePool::NetDB::GetNetCache() {
+    std::vector<std::pair<uint32_t, unsigned short>> buff;
     std::vector<std::vector<std::vector<unsigned char>>> rs = DatabasePool::NetDB::GetDB()->ExecuteQuery("SELECT * FROM AddrCache");
+    
+        for (int cnt = 0 ; cnt < rs.size() ; cnt++) {
+            uint32_t addr;
+            unsigned short port;
+            std::memcpy(&addr, rs.at(cnt).at(0).data(), sizeof(uint32_t));
+            std::memcpy(&port, rs.at(cnt).at(1).data(), sizeof(port));
+            buff.push_back(std::pair<uint32_t, unsigned short>(addr, port));
+        }
+
+    return buff;
 }
 
 void DatabasePool::NetDB::AddNetCache() {

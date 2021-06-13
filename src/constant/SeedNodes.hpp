@@ -6,7 +6,7 @@
 #include <cstdint>
 
 static const std::pair<uint32_t, unsigned short> SeedNodes[] = {
-    std::pair<uint32_t, unsigned short>(inet_addr("192.168.0.2"), 1226)
+    std::pair<uint32_t, unsigned short>(0x0200A8C0, 0x04CA)
 };
 
 #endif

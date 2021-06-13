@@ -39,10 +39,9 @@ std::vector<std::vector<std::vector<unsigned char>>> Sqlite::ExecuteQuery(std::s
             
             const char *rsbyte = (const char *)sqlite3_column_blob(stmt, cntcol);
 
-            for (int cntbyte = 0 ; cntbyte < sqlite3_column_bytes(stmt, cntcol) ; cntbyte++) {
-                col.push_back((unsigned char)rsbyte[cntbyte]);
-            }
-            
+            col.resize(sqlite3_column_bytes(stmt, cntcol));
+            std::memcpy(col.data(), sqlite3_column_blob(stmt, cntcol), sqlite3_column_bytes(stmt, cntcol));
+
             row.push_back(col);
         }
 
@@ -52,6 +51,7 @@ std::vector<std::vector<std::vector<unsigned char>>> Sqlite::ExecuteQuery(std::s
     if (sqlite3_finalize(stmt)) {
         throw std::ios_base::failure("Finalize Statement Failed!");
     }
+
 
     return rs;
 }

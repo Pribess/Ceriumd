@@ -9,6 +9,7 @@
 #include "data/DatabasePool.hpp"
 #include "constant/KeyValue.hpp"
 #include "tools/CastingTools.hpp"
+#include "constant/SeedNodes.hpp"
 
 namespace Initializer {
 
@@ -62,16 +63,18 @@ void SetupEnvironment() {
     std::vector<std::vector<unsigned char>> asd;
     std::vector<unsigned char> asdf;
     std::vector<unsigned char> asdfa;
-    asdf.push_back(0xA3);
-    asdf.push_back(0xEF);
-    asdf.push_back(0xC1);
-    asdf.push_back(0x10);
+    asdf.resize(4);
+    std::memcpy(asdf.data(), (const char *)&SeedNodes[0].first, 4);
     asdfa.push_back(0xad);
     asdfa.push_back(0xad);
     asd.push_back(asdf);
     asd.push_back(asdfa);
     net->ExecuteQuery("UPDATE AddrCache SET NodeAddr = ? WHERE NodePort = ?", asd);
-    // DatabasePool::NetDB::GetNetCache();
+    std::vector<std::pair<uint32_t, unsigned short>> rs = DatabasePool::NetDB::GetNetCache();
+    for (int cnt = 0 ; cnt < rs.size() ; cnt++) {
+        std::cout << CastingTools::ctoh((const unsigned char *)&rs.at(cnt).first, sizeof(uint32_t)) << std::endl;
+        std::cout << CastingTools::ctoh((const unsigned char *)&rs.at(cnt).second, sizeof(unsigned short)) << std::endl;
+    }
 }
 
 int main(int argc, char *argv[]) {

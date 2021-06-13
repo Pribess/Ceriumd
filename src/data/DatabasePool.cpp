@@ -102,8 +102,36 @@ std::vector<std::pair<uint32_t, unsigned short>> DatabasePool::NetDB::GetNetCach
     return buff;
 }
 
-void DatabasePool::NetDB::AddNetCache() {
-    
+void DatabasePool::NetDB::AddNetCache(std::vector<std::pair<uint32_t, unsigned short>> data) {
+    std::vector<std::vector<unsigned char>> binddata;
+    std::string sql("INSERT INTO AddrCache VALUES ");
+
+    for (int cnt = 0 ; cnt < data.size() ; cnt++) {
+        sql.append("(?, ?)");
+        if (cnt < data.size() - 1) {
+            sql.append(", ");
+        } else {
+            sql.append(";");
+        }
+
+        for (int cntdata = 0 ; cntdata < data.size() ; cntdata++) {
+            std::vector<unsigned char> addr;
+            std::vector<unsigned char> port;
+
+            for (int cntaddr = 0 ; cntaddr < 4 ; cntaddr++) {
+                addr.push_back(((unsigned char *)&data.at(cntdata).first)[cntaddr]);
+            }
+
+            for (int cntport = 0 ; cntport < 2 ; cntport++) {
+                port.push_back(((unsigned char *)&data.at(cntdata).second)[cntport]);
+            }
+
+            binddata.push_back(addr);
+            binddata.push_back(port);
+        }
+    }
+
+    DatabasePool::NetDB::GetDB()->ExecuteQuery(sql, binddata);
 }
 
 void DatabasePool::NetDB::RmNetCache() {

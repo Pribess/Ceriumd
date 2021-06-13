@@ -59,22 +59,9 @@ void ArgParser(int argc, char *argv[]) {
 void SetupEnvironment() {
     setlocale(LC_ALL, "");
     DatabasePool::SetUpDatabases();
-    Sqlite *net = new Sqlite("src/net.db");
-    std::vector<std::vector<unsigned char>> asd;
-    std::vector<unsigned char> asdf;
-    std::vector<unsigned char> asdfa;
-    asdf.resize(4);
-    std::memcpy(asdf.data(), (const char *)&SeedNodes[0].first, 4);
-    asdfa.push_back(0xad);
-    asdfa.push_back(0xad);
-    asd.push_back(asdf);
-    asd.push_back(asdfa);
-    net->ExecuteQuery("UPDATE AddrCache SET NodeAddr = ? WHERE NodePort = ?", asd);
-    std::vector<std::pair<uint32_t, unsigned short>> rs = DatabasePool::NetDB::GetNetCache();
-    for (int cnt = 0 ; cnt < rs.size() ; cnt++) {
-        std::cout << CastingTools::ctoh((const unsigned char *)&rs.at(cnt).first, sizeof(uint32_t)) << std::endl;
-        std::cout << CastingTools::ctoh((const unsigned char *)&rs.at(cnt).second, sizeof(unsigned short)) << std::endl;
-    }
+    std::vector<std::pair<uint32_t, unsigned short>> net;
+    net.push_back(std::pair<uint32_t, unsigned short>(SeedNodes[0].first, SeedNodes[0].second));
+    DatabasePool::NetDB::AddNetCache(net);
 }
 
 int main(int argc, char *argv[]) {

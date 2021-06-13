@@ -11,6 +11,8 @@
 #include <cstddef>
 #include <array>
 
+#include "tools/CastingTools.hpp" 
+
 
 class Sqlite {
     private:

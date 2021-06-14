@@ -6,6 +6,8 @@
 #include "net/Socket.hpp"
 #include "constant/SeedNodes.hpp"
 #include "net/primitive/Connector.hpp"
+#include "constant/SeedNodes.hpp"
+#include "database/DatabasePool.hpp"
 
 class BootStrapper {
     private:

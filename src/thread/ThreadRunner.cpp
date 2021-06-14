@@ -7,8 +7,8 @@ void ThreadRunner::StartSocketListenerThread() {
     ThreadPool::AddThread(SocketListenerThread);
 }
 
-void ThreadRunner::StartSocketConnectorThread() {
-    std::thread *SocketConnectorThread = new std::thread(ThreadFunction::SocketConnector);
+void ThreadRunner::StartSocketConnectorThread(Socket *socket) {
+    std::thread *SocketConnectorThread = new std::thread(ThreadFunction::SocketConnector, socket);
     ThreadPool::AddThread(SocketConnectorThread);
 }
 

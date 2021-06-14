@@ -5,10 +5,10 @@
 #include <vector>
 
 #include "thread/ThreadRunner.hpp"
-#include "data/primitive/Sqlite.hpp"
-#include "data/DatabasePool.hpp"
+#include "database/DatabasePool.hpp"
 #include "constant/KeyValue.hpp"
 #include "tools/CastingTools.hpp"
+#include "net/tools/BootStrapper.hpp"
 #include "constant/SeedNodes.hpp"
 
 namespace Initializer {
@@ -59,9 +59,8 @@ void ArgParser(int argc, char *argv[]) {
 void SetupEnvironment() {
     setlocale(LC_ALL, "");
     DatabasePool::SetUpDatabases();
-    std::vector<std::pair<uint32_t, unsigned short>> net;
-    net.push_back(std::pair<uint32_t, unsigned short>(SeedNodes[0].first, SeedNodes[0].second));
-    DatabasePool::NetDB::RmNetCache(net);
+    BootStrapper::BootStrap();
+    
 }
 
 int main(int argc, char *argv[]) {

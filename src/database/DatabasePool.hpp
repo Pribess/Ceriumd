@@ -10,7 +10,7 @@
 #include <string>
 
 #include "constant/KeyValue.hpp"
-#include "data/primitive/Sqlite.hpp"
+#include "database/primitive/Sqlite.hpp"
 
 class DatabasePool {
     private:

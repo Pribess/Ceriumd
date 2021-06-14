@@ -1,7 +1,7 @@
 //Copyright (c) 2021 Heewon Cho
 
 #include "DatabasePool.hpp"
-#include "tools/CastingTools.hpp"
+
 Sqlite *DatabasePool::NetDB::netdb;
 
 void DatabasePool::SetUpDatabases() {

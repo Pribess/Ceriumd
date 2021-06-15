@@ -60,7 +60,6 @@ void SetupEnvironment() {
     setlocale(LC_ALL, "");
     DatabasePool::SetUpDatabases();
     BootStrapper::BootStrap();
-    
 }
 
 int main(int argc, char *argv[]) {

@@ -15,6 +15,7 @@ namespace Initializer {
 
     void NetInit() {
         ThreadRunner::StartSocketListenerThread();
+        ThreadRunner::StartSocketConnectorThread();
     }
 
 }

@@ -14,7 +14,15 @@ void ThreadFunction::SocketListener() {
     }
 }
 
-void ThreadFunction::SocketConnector(Socket *socket) {
+void ThreadFunction::SocketConnector() {
+    try {
+        ThreadRunner::StartClientSocketHandlerThread(BootStrapper::BootStrap());
+    } catch (std::exception e) {
+        throw e;
+    }
+}
+
+void ThreadFunction::ServerSocketHandler(Socket *socket) {
     try {
         
     } catch (std::exception e) {
@@ -22,7 +30,7 @@ void ThreadFunction::SocketConnector(Socket *socket) {
     }
 }
 
-void ThreadFunction::ServerSocketHandler(Socket *socket) {
+void ThreadFunction::ClientSocketHandler(Socket *socket) {
     try {
         
     } catch (std::exception e) {

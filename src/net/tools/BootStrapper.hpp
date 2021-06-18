@@ -11,10 +11,10 @@
 
 class BootStrapper {
     private:
-        static Socket *CacheStrap();
-        static Socket *SeedStrap();
+        static std::pair<uint32_t, Socket *> CacheStrap();
+        static std::pair<uint32_t, Socket *> SeedStrap();
     public:
-        static Socket *BootStrap();
+        static std::pair<uint32_t, Socket *> BootStrap();
 };
 
 #endif

@@ -20,3 +20,19 @@ void Protocol::Version(Socket *socket) {
         throw e;
     }
 }
+
+void Protocol::VersionRecv(Socket *socket) {
+    try {
+        PacketDecoder::Version(socket->RecvData());
+
+        char buff[sizeof(NetByte::header)];
+
+        NetByte::header header = PacketBuilder::HeaderBuilder(CERIUM_PACKET_TYPE_VERACK, NULL, 0);
+
+        std::memcpy(buff, &header, sizeof(NetByte::header));
+        
+        socket->SendData(buff, sizeof(buff));
+    } catch (std::exception e) {
+        throw e;
+    }
+}

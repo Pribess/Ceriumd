@@ -11,6 +11,7 @@
 class Protocol {
     public:
         static void Version(Socket *socket);
+        static void VersionRecv(Socket *socket);
 };
 
 #endif

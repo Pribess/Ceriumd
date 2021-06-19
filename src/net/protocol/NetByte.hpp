@@ -22,9 +22,14 @@ namespace NetByte {
         uint64_t timestamp;
     } version;
 
+    typedef struct addrset {
+        uint32_t address;
+        unsigned short port;
+    } addrset;
+
     typedef struct addr {
         uint64_t count;
-        uint32_t addr[];
+        NetByte::addrset addr[];
     } addr;
 }
 

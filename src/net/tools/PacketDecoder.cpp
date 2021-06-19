@@ -43,3 +43,18 @@ void PacketDecoder::Verack(std::pair<char *, size_t> pair) {
         throw std::ios_base::failure("CheckSum Not Matched!");
     }
 }
+
+void PacketDecoder::GetAddr(std::pair<char *, size_t> pair) {
+
+}
+
+std::vector<std::pair<uint32_t, unsigned short>> PacketDecoder::Addr(std::pair<char *, size_t> pair) {
+    NetByte::header headerbuff;
+    
+    std::memcpy(&headerbuff, &pair.first, sizeof(NetByte::header));
+
+    NetByte::addr addrbuff;
+
+    
+    std::vector<std::pair<uint32_t, unsigned short>> list;
+}

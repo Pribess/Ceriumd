@@ -36,3 +36,7 @@ void Protocol::VersionRecv(Socket *socket) {
         throw e;
     }
 }
+
+std::vector<std::pair<uint32_t, unsigned short>> GetAddr() {
+    
+}

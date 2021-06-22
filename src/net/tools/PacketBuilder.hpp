@@ -8,11 +8,14 @@
 #include "crypto/Crypto.hpp"
 #include "tools/TimeStamp.hpp"
 #include "constant/Version.hpp"
+#include "database/DatabasePool.hpp"
 
 class PacketBuilder {
     public:
         static NetByte::header HeaderBuilder(short type, void *payload, size_t size);
+
         static NetByte::version VersionBuilder();
+        static std::vector<unsigned char> AddrBuilder();
 };
 
 #endif

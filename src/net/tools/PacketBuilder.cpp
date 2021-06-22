@@ -23,3 +23,34 @@ NetByte::version PacketBuilder::VersionBuilder() {
 
     return payloadbuilder;
 }
+
+std::vector<unsigned char> PacketBuilder::AddrBuilder() {
+    std::vector<unsigned char> payloadbuilder;
+
+    std::vector<std::pair<uint32_t, unsigned short>> addrlist = DatabasePool::NetDB::GetNetCache();
+
+    NetByte::addrheader addrheader;
+    std::vector<NetByte::addrset> addr;
+
+    addrheader.count = addrlist.size();
+
+    for (int cnt = 0 ; cnt < addrlist.size() ; cnt++) {
+        NetByte::addrset buff;
+        
+        buff.address = addrlist.at(cnt).first;
+        buff.port = addrlist.at(cnt).second;
+
+        addr.push_back(buff);
+
+        if (cnt > 100) {
+            break;
+        }
+    }
+
+    payloadbuilder.resize(sizeof(addrheader) + addr.size());
+
+    std::memcpy(payloadbuilder.data(), &addrheader, sizeof(NetByte::addrheader));
+    std::memcpy(payloadbuilder.data() + sizeof(NetByte::addrheader), addr.data(), addr.size());
+
+    return payloadbuilder;
+}

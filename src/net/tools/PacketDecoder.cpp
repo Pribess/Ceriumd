@@ -67,7 +67,7 @@ std::vector<std::pair<uint32_t, unsigned short>> PacketDecoder::Addr(char *data)
     
     std::memcpy(&headerbuff, data, sizeof(NetByte::header));
 
-    NetByte::addr addrbuff;
+    NetByte::addrheader addrbuff;
 
 
     std::vector<std::pair<uint32_t, unsigned short>> list;

@@ -8,6 +8,7 @@
 #include <arpa/inet.h>
 #include <iostream>
 #include <unistd.h>
+#include <vector>
 
 class Socket {
     private:
@@ -17,8 +18,7 @@ class Socket {
         Socket(int SocketDesc);
         ~Socket();
         int CloseSocket();
-        int SendData(int data, size_t size);
-        int SendData(char *data, size_t size);
+        int SendData(std::vector<unsigned char> data);
         unsigned char *RecvData();
 };
 

@@ -10,6 +10,7 @@
 #include "tools/CastingTools.hpp"
 #include "net/tools/BootStrapper.hpp"
 #include "constant/SeedNodes.hpp"
+#include "tools/TimeStamp.hpp"
 
 namespace Initializer {
 

@@ -1,7 +1,7 @@
 //Copyright (c) 2021 Heewon Cho
 
-#ifndef _CERIUM_NET_TOOLS_PACKETSENDER
-#define _CERIUM_NET_TOOLS_PACKETSENDER
+#ifndef _CERIUM_NET_TOOLS_PACKETBUILDER
+#define _CERIUM_NET_TOOLS_PACKETBUILDER
 
 #include "net/protocol/NetByte.hpp"
 #include "net/Socket.hpp"

@@ -11,12 +11,16 @@
 #include "crypto/Crypto.hpp"
 
 class PacketDecoder {
+    private:
+        static void CheckSum(char *data, unsigned char checksum[4]);
     public:
-        static NetByte::version Version(std::pair<char *, size_t> pair);
-        static void Verack(std::pair<char *, size_t> pair);
+        static short PacketClassifier(char *data);
 
-        static void GetAddr(std::pair<char *, size_t> pair);
-        static std::vector<std::pair<uint32_t, unsigned short>> Addr(std::pair<char *, size_t> pair);
+        static NetByte::version Version(char *data);
+        static void Verack(char *data);
+
+        static void GetAddr(char *data);
+        static std::vector<std::pair<uint32_t, unsigned short>> Addr(char *data);
 };
 
 #endif

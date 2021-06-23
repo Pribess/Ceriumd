@@ -37,3 +37,13 @@ void ThreadFunction::ClientSocketHandler(Socket *socket) {
         throw e;
     }
 }
+
+void ThreadFunction::SocketReaderThread(Socket *socket) {
+    try {
+        while (true) {
+            PacketDecoder::PacketHandler(socket->RecvData());
+        }
+    } catch (std::exception e) {
+        
+    }
+}

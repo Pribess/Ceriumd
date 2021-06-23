@@ -2,7 +2,7 @@
 
 #include "PacketDecoder.hpp"
 
-short PacketDecoder::PacketClassifier(char *data) {
+short PacketDecoder::PacketHandler(unsigned char *data) {
     NetByte::header headerbuff;
     
     std::memcpy(&headerbuff, data, sizeof(NetByte::header));
@@ -13,8 +13,9 @@ short PacketDecoder::PacketClassifier(char *data) {
 
     switch (headerbuff.type) {
         case CERIUM_PACKET_TYPE_VERSION:
-            PacketDecoder::CheckSum(data + sizeof(NetByte::header), headerbuff.checksum);
+            PacketDecoder::CheckSum(data, headerbuff.checksum);
             PacketDecoder::Version(data);
+        case CERIUM_PACKET_TYPE_VERACK:
         default:
             throw std::ios_base::failure("Cannot Classify Packet Type!");
     }
@@ -22,17 +23,17 @@ short PacketDecoder::PacketClassifier(char *data) {
 
 }
 
-void PacketDecoder::CheckSum(char *data, unsigned char checksumorigin[4]) {
+void PacketDecoder::CheckSum(unsigned char *data, unsigned char checksumorigin[4]) {
     unsigned char checksum[4];
 
-    std::memcpy(checksum, (const char *)Crypto::SHA256(data, 4), 4);
+    std::memcpy(checksum, (const char *)Crypto::SHA256((const char *)data + sizeof(NetByte::header), 4), 4);
 
     if (checksumorigin != checksum) {
         throw std::ios_base::failure("Checksum Not Matched!");
     }
 }
 
-NetByte::version PacketDecoder::Version(char *data) {
+NetByte::version PacketDecoder::Version(unsigned char *data) {
     NetByte::version versionbuff;
 
     std::memcpy(&versionbuff, data + sizeof(NetByte::header), sizeof(NetByte::version));
@@ -40,7 +41,7 @@ NetByte::version PacketDecoder::Version(char *data) {
     return versionbuff;
 }
 
-void PacketDecoder::Verack(char *data) {
+void PacketDecoder::Verack(unsigned char *data) {
     NetByte::header headerbuff;
     
     std::memcpy(&headerbuff, data, sizeof(NetByte::header));
@@ -53,12 +54,12 @@ void PacketDecoder::Verack(char *data) {
         throw std::ios_base::failure("Type Not Matched!");
     }
 
-    if (headerbuff.checksum != Crypto::SHA256(data + sizeof(NetByte::header), 0)) {
+    if (headerbuff.checksum != Crypto::SHA256((const char *)data + sizeof(NetByte::header), 0)) {
         throw std::ios_base::failure("CheckSum Not Matched!");
     }
 }
 
-void PacketDecoder::GetAddr(char *data) {
+void PacketDecoder::GetAddr(unsigned char *data) {
 
 }
 

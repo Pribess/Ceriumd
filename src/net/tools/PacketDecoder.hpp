@@ -12,14 +12,14 @@
 
 class PacketDecoder {
     private:
-        static void CheckSum(char *data, unsigned char checksum[4]);
+        static void CheckSum(unsigned char *data, unsigned char checksum[4]);
     public:
-        static short PacketClassifier(char *data);
+        static short PacketHandler(unsigned char *data);
 
-        static NetByte::version Version(char *data);
-        static void Verack(char *data);
+        static NetByte::version Version(unsigned char *data);
+        static void Verack(unsigned char *data);
 
-        static void GetAddr(char *data);
+        static void GetAddr(unsigned char *data);
         static std::vector<std::pair<uint32_t, unsigned short>> Addr(char *data);
 };
 

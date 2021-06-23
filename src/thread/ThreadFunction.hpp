@@ -17,8 +17,11 @@ class ThreadFunction {
     public:
         static void SocketListener();
         static void SocketConnector();
+
         static void ServerSocketHandler(Socket *socket);
         static void ClientSocketHandler(Socket *socket);
+
+        static void SocketReaderThread(Socket *socket);
 };
 
 #endif

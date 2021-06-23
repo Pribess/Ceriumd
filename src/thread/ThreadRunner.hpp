@@ -13,8 +13,11 @@ class ThreadRunner {
     public:
         static void StartSocketListenerThread();
         static void StartSocketConnectorThread();
+
         static void StartServerSocketHandlerThread(Socket *socket);
         static void StartClientSocketHandlerThread(Socket *socket);
+        
+        static void StartSocketReaderThread(Socket *socket);
 };
 
 #endif

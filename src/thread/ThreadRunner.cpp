@@ -21,3 +21,8 @@ void ThreadRunner::StartClientSocketHandlerThread(Socket *socket) {
     std::thread *SocketHandlerThread = new std::thread(ThreadFunction::ClientSocketHandler, socket);
     ThreadPool::AddThread(SocketHandlerThread);
 }
+
+void ThreadRunner::StartSocketReaderThread(Socket *socket) {
+    std::thread *SocketReaderThread = new std::thread(ThreadFunction::SocketReaderThread, socket);
+    ThreadPool::AddThread(SocketReaderThread);
+}

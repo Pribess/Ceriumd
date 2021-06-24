@@ -69,10 +69,5 @@ int main(int argc, char *argv[]) {
     ArgParser(argc, argv);
     SetupEnvironment();
     AppInit();
-    std::cout << TimeStamp::GetUtcTimeStamp() << std::endl;
-    /*Connector *cn = new Connector("192.168.0.24", 1226);
-    std::pair<std::string, Socket *> p1;
-    p1 = cn->Connect();
-    Protocol::Version(p1.second);*/
     return 0;
 }

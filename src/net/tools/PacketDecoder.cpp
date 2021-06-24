@@ -10,10 +10,11 @@ short PacketDecoder::PacketHandler(unsigned char *data) {
     if (headerbuff.magic != CERIUM_PACKET_MAGIC) {
         throw std::ios_base::failure("Unknown Magic Byte!");
     }
-
+    
+    PacketDecoder::CheckSum(data);
+    
     switch (headerbuff.type) {
         case CERIUM_PACKET_TYPE_VERSION:
-            PacketDecoder::CheckSum(data, headerbuff.checksum);
             PacketDecoder::Version(data);
         case CERIUM_PACKET_TYPE_VERACK:
         default:
@@ -23,12 +24,20 @@ short PacketDecoder::PacketHandler(unsigned char *data) {
 
 }
 
-void PacketDecoder::CheckSum(unsigned char *data, unsigned char checksumorigin[4]) {
+template <typename T>
+T PacketDecoder::RecvPacket(int type) {
+
+}
+
+void PacketDecoder::CheckSum(unsigned char *data) {
     unsigned char checksum[4];
+    NetByte::header headerbuff;
 
-    std::memcpy(checksum, (const char *)Crypto::SHA256((const char *)data + sizeof(NetByte::header), 4), 4);
+    std::memcpy(&headerbuff, data, sizeof(NetByte::header));
 
-    if (checksumorigin != checksum) {
+    std::memcpy(checksum, (const char *)Crypto::SHA256((const char *)data + sizeof(NetByte::header), headerbuff.length), 4);
+
+    if (headerbuff.checksum != checksum) {
         throw std::ios_base::failure("Checksum Not Matched!");
     }
 }
@@ -46,21 +55,19 @@ void PacketDecoder::Verack(unsigned char *data) {
     
     std::memcpy(&headerbuff, data, sizeof(NetByte::header));
 
-    if (headerbuff.magic != CERIUM_PACKET_MAGIC) {
-        throw std::ios_base::failure("Unknown Magic Byte!");
-    }
-
     if (headerbuff.type != CERIUM_PACKET_TYPE_VERSION) {
         throw std::ios_base::failure("Type Not Matched!");
-    }
-
-    if (headerbuff.checksum != Crypto::SHA256((const char *)data + sizeof(NetByte::header), 0)) {
-        throw std::ios_base::failure("CheckSum Not Matched!");
     }
 }
 
 void PacketDecoder::GetAddr(unsigned char *data) {
+    NetByte::header headerbuff;
+    
+    std::memcpy(&headerbuff, data, sizeof(NetByte::header));
 
+    if (headerbuff.type != CERIUM_PACKET_TYPE_VERSION) {
+        throw std::ios_base::failure("Type Not Matched!");
+    }
 }
 
 std::vector<std::pair<uint32_t, unsigned short>> PacketDecoder::Addr(char *data) {

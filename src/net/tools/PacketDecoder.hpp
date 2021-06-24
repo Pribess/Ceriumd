@@ -12,9 +12,12 @@
 
 class PacketDecoder {
     private:
-        static void CheckSum(unsigned char *data, unsigned char checksum[4]);
+        static void CheckSum(unsigned char *data);
     public:
         static short PacketHandler(unsigned char *data);
+
+        template <typename T>
+        static T RecvPacket(int type);
 
         static NetByte::version Version(unsigned char *data);
         static void Verack(unsigned char *data);

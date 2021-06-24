@@ -43,3 +43,7 @@ unsigned char *Socket::RecvData() {
     }
     throw std::ios_base::failure("Recieve Data Failed!");
 }
+
+unsigned char *Socket::ResData() {
+    this->cv.wait();
+}

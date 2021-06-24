@@ -6,7 +6,7 @@
 #include <cstdint>
 
 #include "constant/Define.hpp"
-#include "PacketTypes.hpp"
+#include "Opcodes.hpp"
 
 namespace NetByte {
 

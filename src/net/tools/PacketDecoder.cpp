@@ -13,31 +13,28 @@ short PacketDecoder::PacketHandler(unsigned char *data) {
     
     PacketDecoder::CheckSum(data);
     
-    switch (headerbuff.type) {
-        case CERIUM_PACKET_TYPE_VERSION:
-            PacketDecoder::Version(data);
-        case CERIUM_PACKET_TYPE_VERACK:
-        default:
-            throw std::ios_base::failure("Cannot Classify Packet Type!");
+    if (headerbuff.type % 2 == 1) {
+
     }
-
-
 }
 
 template <typename T>
-T PacketDecoder::RecvPacket(int type) {
+T PacketDecoder::RecvPacket() {
 
 }
 
 void PacketDecoder::CheckSum(unsigned char *data) {
-    unsigned char checksum[4];
+    uint32_t checksum;
+    uint32_t checksumorigin;
+
     NetByte::header headerbuff;
 
     std::memcpy(&headerbuff, data, sizeof(NetByte::header));
 
-    std::memcpy(checksum, (const char *)Crypto::SHA256((const char *)data + sizeof(NetByte::header), headerbuff.length), 4);
+    std::memcpy(&checksumorigin, headerbuff.checksum, sizeof(checksumorigin));
+    std::memcpy(&checksum, (const char *)Crypto::SHA256((const char *)data + sizeof(NetByte::header), headerbuff.length), 4);
 
-    if (headerbuff.checksum != checksum) {
+    if (checksumorigin != checksum) {
         throw std::ios_base::failure("Checksum Not Matched!");
     }
 }

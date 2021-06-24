@@ -17,7 +17,7 @@ class PacketDecoder {
         static short PacketHandler(unsigned char *data);
 
         template <typename T>
-        static T RecvPacket(int type);
+        static T RecvPacket();
 
         static NetByte::version Version(unsigned char *data);
         static void Verack(unsigned char *data);

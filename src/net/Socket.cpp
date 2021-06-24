@@ -45,5 +45,10 @@ unsigned char *Socket::RecvData() {
 }
 
 unsigned char *Socket::ResData() {
-    this->cv.wait();
+    std::mutex mu;
+    std::unique_lock<std::mutex> ul(mu);
+    this->cv.wait(ul);
+    unsigned char *data = queue.front();
+    queue.pop();
+    return data;
 }

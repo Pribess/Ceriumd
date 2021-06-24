@@ -25,7 +25,7 @@ class Socket {
         unsigned char *RecvData();
         void PutQueue(unsigned char *);
         unsigned char *ResData();
-        std::condition_variable_any cv;
+        std::condition_variable cv;
 };
 
 #endif

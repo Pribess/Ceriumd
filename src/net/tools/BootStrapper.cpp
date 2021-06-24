@@ -21,7 +21,7 @@ std::pair<uint32_t, Socket *> BootStrapper::CacheStrap() {
             continue;
         }
     }
-    throw std::ios_base::failure("Failed To Strapping!");
+    throw std::ios_base::failure("Failed To CacheStrapping!");
 }
 
 std::pair<uint32_t, Socket *> BootStrapper::SeedStrap() {
@@ -33,5 +33,5 @@ std::pair<uint32_t, Socket *> BootStrapper::SeedStrap() {
             continue;
         }
     }
-    throw std::ios_base::failure("Failed To Strapping!");
+    throw std::ios_base::failure("Failed To SeedStrapping!");
 }

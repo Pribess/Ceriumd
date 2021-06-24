@@ -15,10 +15,10 @@ class PacketDecoder {
     private:
         static void CheckSum(unsigned char *data);
     public:
-        static void PacketHandler(unsigned char *data, std::condition_variable *cv);
+        static void PacketHandler(unsigned char *data, Socket *socket);
 
         static void ReqHandler(unsigned char *data);
-        static void ResHandler(unsigned char *data);
+        static void ResHandler(unsigned char *data, Socket *socket);
 
         static NetByte::version Version(unsigned char *data);
         static void Verack(unsigned char *data);

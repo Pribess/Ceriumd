@@ -2,7 +2,7 @@
 
 #include "PacketDecoder.hpp"
 
-void PacketDecoder::PacketHandler(unsigned char *data, std::condition_variable *cv) {
+void PacketDecoder::PacketHandler(unsigned char *data, Socket *socket) {
     NetByte::header headerbuff;
     
     std::memcpy(&headerbuff, data, sizeof(NetByte::header));
@@ -16,8 +16,17 @@ void PacketDecoder::PacketHandler(unsigned char *data, std::condition_variable *
     if (headerbuff.type % 2 == 0) {
         PacketDecoder::ReqHandler(data);
     } else {
-        PacketDecoder::ResHandler(data);
+        PacketDecoder::ResHandler(data, socket);
     }
+}
+
+void PacketDecoder::ReqHandler(unsigned char *data) {
+    
+}
+
+void PacketDecoder::ResHandler(unsigned char *data, Socket *socket) {
+    socket->PushToQueue(data);
+    socket->cv.notify_all();
 }
 
 void PacketDecoder::CheckSum(unsigned char *data) {

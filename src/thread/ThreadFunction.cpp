@@ -41,7 +41,7 @@ void ThreadFunction::ClientSocketHandler(Socket *socket) {
 void ThreadFunction::SocketReaderThread(Socket *socket) {
     try {
         while (true) {
-            PacketDecoder::PacketHandler(socket->RecvData(), &socket->cv);
+            PacketDecoder::PacketHandler(socket->RecvData(), socket);
         }
     } catch (std::exception e) {
         

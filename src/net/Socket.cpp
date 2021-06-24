@@ -44,6 +44,10 @@ unsigned char *Socket::RecvData() {
     throw std::ios_base::failure("Recieve Data Failed!");
 }
 
+void Socket::PushToQueue(unsigned char *data) {
+    this->queue.push(data);
+}
+
 unsigned char *Socket::ResData() {
     std::mutex mu;
     std::unique_lock<std::mutex> ul(mu);

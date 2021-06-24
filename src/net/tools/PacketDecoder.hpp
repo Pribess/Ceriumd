@@ -9,15 +9,16 @@
 
 #include "net/protocol/NetByte.hpp"
 #include "crypto/Crypto.hpp"
+#include "net/Socket.hpp"
 
 class PacketDecoder {
     private:
         static void CheckSum(unsigned char *data);
     public:
-        static short PacketHandler(unsigned char *data);
+        static void PacketHandler(unsigned char *data, std::condition_variable *cv);
 
-        template <typename T>
-        static T RecvPacket();
+        static void ReqHandler(unsigned char *data);
+        static void ResHandler(unsigned char *data);
 
         static NetByte::version Version(unsigned char *data);
         static void Verack(unsigned char *data);

@@ -2,7 +2,7 @@
 
 #include "PacketDecoder.hpp"
 
-short PacketDecoder::PacketHandler(unsigned char *data) {
+void PacketDecoder::PacketHandler(unsigned char *data, std::condition_variable *cv) {
     NetByte::header headerbuff;
     
     std::memcpy(&headerbuff, data, sizeof(NetByte::header));
@@ -13,14 +13,11 @@ short PacketDecoder::PacketHandler(unsigned char *data) {
     
     PacketDecoder::CheckSum(data);
     
-    if (headerbuff.type % 2 == 1) {
-
+    if (headerbuff.type % 2 == 0) {
+        PacketDecoder::ReqHandler(data);
+    } else {
+        PacketDecoder::ResHandler(data);
     }
-}
-
-template <typename T>
-T PacketDecoder::RecvPacket() {
-
 }
 
 void PacketDecoder::CheckSum(unsigned char *data) {
@@ -73,7 +70,6 @@ std::vector<std::pair<uint32_t, unsigned short>> PacketDecoder::Addr(char *data)
     std::memcpy(&headerbuff, data, sizeof(NetByte::header));
 
     NetByte::addrheader addrbuff;
-
 
     std::vector<std::pair<uint32_t, unsigned short>> list;
 }

@@ -2,8 +2,6 @@
 
 #include "Socket.hpp"
 
-#include "tools/CastingTools.hpp"
-
 Socket::Socket(int SocketDesc) {
     this->SocketDesc = SocketDesc;
 }

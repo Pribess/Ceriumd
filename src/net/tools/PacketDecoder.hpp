@@ -10,6 +10,7 @@
 #include "net/protocol/NetByte.hpp"
 #include "crypto/Crypto.hpp"
 #include "net/Socket.hpp"
+#include "net/tools/PacketSender.hpp"
 
 class PacketDecoder {
     private:
@@ -17,7 +18,7 @@ class PacketDecoder {
     public:
         static void PacketHandler(unsigned char *data, Socket *socket);
 
-        static void ReqHandler(unsigned char *data);
+        static void ReqHandler(unsigned char *data, Socket *socket);
         static void ResHandler(unsigned char *data, Socket *socket);
 
         static NetByte::version Version(unsigned char *data);

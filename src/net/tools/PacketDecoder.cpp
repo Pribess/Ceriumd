@@ -13,16 +13,30 @@ void PacketDecoder::PacketHandler(unsigned char *data, Socket *socket) {
     }
     
     PacketDecoder::CheckSum(data);
-    
+
     if (headerbuff.type % 2 == 0) {
-        PacketDecoder::ReqHandler(data);
+        PacketDecoder::ReqHandler(data, socket);
     } else {
         PacketDecoder::ResHandler(data, socket);
     }
 }
 
-void PacketDecoder::ReqHandler(unsigned char *data) {
+void PacketDecoder::ReqHandler(unsigned char *data, Socket *socket) {
+    NetByte::header headerbuff;
     
+    std::memcpy(&headerbuff, data, sizeof(NetByte::header));
+   
+    switch (headerbuff.type)
+    {
+        case CERIUM_PACKET_TYPE_VERSION:
+            PacketSender::Verack(socket);
+            break;
+        case CERIUM_PACKET_TYPE_GETADDR:
+            PacketSender::Addr(socket);
+            break;
+        default:
+            break;
+    }
 }
 
 void PacketDecoder::ResHandler(unsigned char *data, Socket *socket) {

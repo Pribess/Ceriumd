@@ -1,6 +1,7 @@
 //Copyright (c) 2021 Heewon Cho
 
 #include "PacketDecoder.hpp"
+#include "tools/CastingTools.hpp"
 
 void PacketDecoder::PacketHandler(unsigned char *data, Socket *socket) {
     NetByte::header headerbuff;

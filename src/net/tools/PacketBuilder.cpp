@@ -8,10 +8,7 @@ NetByte::header PacketBuilder::HeaderBuilder(short type, void *payload, size_t p
     headerbuilder.type = type;
     headerbuilder.length = payload_size;
 
-    char checksumbuff[payload_size];
-
-    std::memcpy(checksumbuff, payload, payload_size);
-    std::memcpy(headerbuilder.checksum, (const char *)Crypto::SHA256(checksumbuff, sizeof(checksumbuff)), sizeof(headerbuilder.checksum));
+    std::memcpy(headerbuilder.checksum, (const char *)Crypto::SHA256((const char *)payload, payload_size), sizeof(headerbuilder.checksum));
     return headerbuilder;
 }
 

@@ -24,7 +24,7 @@ void ThreadFunction::SocketConnector() {
 
 void ThreadFunction::ServerSocketHandler(Socket *socket) {
     try {
-
+        
     } catch (std::exception e) {
         throw e;
     }
@@ -32,7 +32,7 @@ void ThreadFunction::ServerSocketHandler(Socket *socket) {
 
 void ThreadFunction::ClientSocketHandler(Socket *socket) {
     try {
-        
+        Protocol::Version(socket);
     } catch (std::exception e) {
         throw e;
     }

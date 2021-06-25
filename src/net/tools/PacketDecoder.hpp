@@ -24,7 +24,7 @@ class PacketDecoder {
         static void Verack(unsigned char *data);
 
         static void GetAddr(unsigned char *data);
-        static std::vector<std::pair<uint32_t, unsigned short>> Addr(char *data);
+        static std::vector<std::pair<uint32_t, unsigned short>> Addr(unsigned char *data);
 };
 
 #endif

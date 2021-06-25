@@ -73,12 +73,26 @@ void PacketDecoder::GetAddr(unsigned char *data) {
     }
 }
 
-std::vector<std::pair<uint32_t, unsigned short>> PacketDecoder::Addr(char *data) {
+std::vector<std::pair<uint32_t, unsigned short>> PacketDecoder::Addr(unsigned char *data) {
+    std::vector<std::pair<uint32_t, unsigned short>> addrlist;
+
     NetByte::header headerbuff;
     
     std::memcpy(&headerbuff, data, sizeof(NetByte::header));
 
     NetByte::addrheader addrbuff;
 
-    std::vector<std::pair<uint32_t, unsigned short>> list;
+    std::memcpy(&addrbuff, data + sizeof(NetByte::header), sizeof(NetByte::addrheader));
+
+    std::vector<NetByte::addrset> listbuff;
+
+    listbuff.resize(addrbuff.count * sizeof(NetByte::addrset));
+
+    std::memcpy(listbuff.data(), data + sizeof(NetByte::header) + sizeof(NetByte::addrheader), addrbuff.count * sizeof(NetByte::addrheader));
+
+    for (NetByte::addrset cnt : listbuff) {
+        addrlist.push_back(std::pair<uint32_t, unsigned short>(cnt.address, cnt.port));
+    }
+
+    return addrlist;
 }

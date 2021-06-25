@@ -7,8 +7,8 @@
 
 class Protocol {
     public:
-        void Version();
-        std::vector<std::pair<uint32_t, unsigned short>> GetAddr();
+        void Version(Socket *socket);
+        std::vector<std::pair<uint32_t, unsigned short>> GetAddr(Socket *socket);
 };
 
 #endif

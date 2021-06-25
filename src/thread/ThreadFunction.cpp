@@ -16,7 +16,7 @@ void ThreadFunction::SocketListener() {
 
 void ThreadFunction::SocketConnector() {
     try {
-        // ThreadRunner::StartClientSocketHandlerThread(BootStrapper::BootStrap());
+        ThreadRunner::StartClientSocketHandlerThread(BootStrapper::BootStrap());
     } catch (std::exception e) {
         throw e;
     }

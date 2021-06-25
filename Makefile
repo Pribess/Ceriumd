@@ -1,6 +1,6 @@
 #Copyright (c) 2021 Heewon Cho
 
-CC:=g++
+CC:=clang++
 TARGET=ceriumd
 INCFLAGS:=-I ${shell pwd}/src
 CXXFLAGSC:=-Wno-deprecated-declarations -c ${INCFLAGS}

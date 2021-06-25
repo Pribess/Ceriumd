@@ -24,7 +24,7 @@ void ThreadFunction::SocketConnector() {
 
 void ThreadFunction::ServerSocketHandler(Socket *socket) {
     try {
-        
+        ThreadFunction::SocketReaderThread(socket);
     } catch (std::exception e) {
         throw e;
     }

@@ -40,8 +40,21 @@ void PacketDecoder::ReqHandler(unsigned char *data, Socket *socket) {
 }
 
 void PacketDecoder::ResHandler(unsigned char *data, Socket *socket) {
-    socket->PushToQueue(data);
-    socket->cv.notify_all();
+    NetByte::header headerbuff;
+    
+    std::memcpy(&headerbuff, data, sizeof(NetByte::header));
+
+    switch (headerbuff.type) {
+    case CERIUM_PACKET_TYPE_VERACK:
+        PacketDecoder::Verack(data);
+        break;
+    case CERIUM_PACKET_TYPE_ADDR:
+        socket->PushToQueue(data);
+        socket->cv.notify_all();
+        break;
+    default:
+        break;
+    }
 }
 
 void PacketDecoder::CheckSum(unsigned char *data) {

@@ -1,6 +1,7 @@
 //Copyright (c) 2021 Heewon Cho
 
 #include "Socket.hpp"
+#include "tools/CastingTools.hpp"
 
 Socket::Socket(int SocketDesc) {
     this->SocketDesc = SocketDesc;
@@ -18,6 +19,7 @@ int Socket::CloseSocket() {
 }
 
 int Socket::SendData(std::vector<unsigned char> data) {
+    std::cout << CastingTools::ctoh(data.data(), data.size()) << std::endl;
     char cnt = 5;
     while (cnt) {
         if (0 > write(this->SocketDesc, data.data(), data.size())) {
@@ -36,6 +38,7 @@ unsigned char *Socket::RecvData() {
         if (0 > read(this->SocketDesc, this->buff, sizeof(this->buff))) {
             cnt--;
         } else {
+            std::cout << CastingTools::ctoh(this->buff, 20) << std::endl;
             return this->buff;
         }
     }

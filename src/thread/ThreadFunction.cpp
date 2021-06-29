@@ -25,9 +25,6 @@ void ThreadFunction::SocketConnector() {
 void ThreadFunction::ServerSocketHandler(Socket *socket) {
     try {
         ThreadRunner::StartSocketReaderThread(socket);
-        // std::vector<std::pair<uint32_t, unsigned short>> buff = Protocol::GetAddr(socket);
-        // printf("%d", buff.at(0).first);
-        // printf("%d", buff.at(0).second);
     } catch (std::exception e) {
         throw e;
     }
@@ -37,6 +34,9 @@ void ThreadFunction::ClientSocketHandler(Socket *socket) {
     try {
         ThreadRunner::StartSocketReaderThread(socket);
         Protocol::Version(socket);
+        std::vector<std::pair<uint32_t, unsigned short>> buff = Protocol::GetAddr(socket);
+        printf("%d", buff.at(0).first);
+        printf("%d", buff.at(0).second);
     } catch (std::exception e) {
         throw e;
     }

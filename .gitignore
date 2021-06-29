@@ -1,7 +1,7 @@
 # general stuff
 
 *.o
-Ceriumd
+ceriumd
 
 # db stuff
 

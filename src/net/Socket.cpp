@@ -50,10 +50,14 @@ void Socket::PushToQueue(unsigned char *data) {
 }
 
 unsigned char *Socket::ResData() {
-    std::mutex mu;
-    std::unique_lock<std::mutex> ul(mu);
-    this->cv.wait(ul);
-    unsigned char *data = queue.front();
-    queue.pop();
-    return data;
+    try {
+        std::mutex mu;
+        std::unique_lock<std::mutex> ul(mu);
+        this->cv.wait(ul);
+        unsigned char *data = queue.front();
+        queue.pop();
+        return data;
+    } catch (std::exception e) {
+        throw e;
+    }
 }

@@ -29,8 +29,6 @@ std::vector<unsigned char> PacketBuilder::AddrBuilder() {
     NetByte::addrheader addrheader;
     std::vector<NetByte::addrset> addr;
 
-    addrheader.count = addrlist.size();
-
     for (int cnt = 0 ; cnt < addrlist.size() ; cnt++) {
         NetByte::addrset buff;
         
@@ -43,6 +41,8 @@ std::vector<unsigned char> PacketBuilder::AddrBuilder() {
             break;
         }
     }
+
+    addrheader.count = addr.size();
 
     payloadbuilder.resize(sizeof(addrheader) + addr.size());
 

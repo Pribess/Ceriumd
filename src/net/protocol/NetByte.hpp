@@ -23,7 +23,7 @@ namespace NetByte {
     } version;
 
     typedef struct addrheader {
-        uint64_t count;
+        unsigned short count;
     } addrheader;
 
     typedef struct addrset {

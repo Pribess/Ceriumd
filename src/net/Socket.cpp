@@ -21,28 +21,22 @@ int Socket::CloseSocket() {
 int Socket::SendData(std::vector<unsigned char> data) {
     std::cout << "Send: " << CastingTools::ctoh(data.data(), data.size()) << std::endl;
     char cnt = 5;
-    while (cnt) {
-        if (0 > write(this->SocketDesc, data.data(), data.size())) {
-            cnt--;
-        } else {
-            return 0;
-        }
+    if (0 > write(this->SocketDesc, data.data(), data.size())) {
+        throw std::ios_base::failure("Write Data Failed!");
+    } else {
+        return 0;
     }
-    throw std::ios_base::failure("Write Data Failed!");
 }
 
 unsigned char *Socket::RecvData() {
     char cnt = 5;
     memset(this->buff, 0, sizeof(this->buff));
-    while (cnt) {
-        if (0 > read(this->SocketDesc, this->buff, sizeof(this->buff))) {
-            cnt--;
-        } else {
-            std::cout << "Recv: " << CastingTools::ctoh(this->buff, 20) << std::endl;
-            return this->buff;
-        }
+    if (0 > read(this->SocketDesc, this->buff, sizeof(this->buff))) {
+        throw std::ios_base::failure("Recieve Data Failed!");
+    } else {
+        std::cout << "Recv: " << CastingTools::ctoh(this->buff, 20) << std::endl;
+        return this->buff;
     }
-    throw std::ios_base::failure("Recieve Data Failed!");
 }
 
 void Socket::PushToQueue(unsigned char *data) {

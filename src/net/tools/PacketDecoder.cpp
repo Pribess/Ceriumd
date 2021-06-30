@@ -1,7 +1,6 @@
 //Copyright (c) 2021 Heewon Cho
 
 #include "PacketDecoder.hpp"
-#include "tools/CastingTools.hpp"
 
 void PacketDecoder::PacketHandler(unsigned char *data, Socket *socket) {
     NetByte::header headerbuff;
@@ -56,6 +55,8 @@ void PacketDecoder::CheckSum(unsigned char *data) {
     std::memcpy(&checksum, (const char *)Crypto::SHA256((const char *)data + sizeof(NetByte::header), headerbuff.length), 4);
 
     if (checksumorigin != checksum) {
+        printf("!\n");
+
         throw std::ios_base::failure("Checksum Not Matched!");
     }
 }
@@ -92,7 +93,7 @@ std::vector<std::pair<uint32_t, unsigned short>> PacketDecoder::Addr(unsigned ch
     std::vector<std::pair<uint32_t, unsigned short>> addrlist;
 
     NetByte::header headerbuff;
-    
+
     std::memcpy(&headerbuff, data, sizeof(NetByte::header));
 
     NetByte::addrheader addrbuff;
@@ -104,7 +105,7 @@ std::vector<std::pair<uint32_t, unsigned short>> PacketDecoder::Addr(unsigned ch
     listbuff.resize(addrbuff.count * sizeof(NetByte::addrset));
 
     std::memcpy(listbuff.data(), data + sizeof(NetByte::header) + sizeof(NetByte::addrheader), addrbuff.count * sizeof(NetByte::addrheader));
-
+    
     for (NetByte::addrset cnt : listbuff) {
         addrlist.push_back(std::pair<uint32_t, unsigned short>(cnt.address, cnt.port));
     }

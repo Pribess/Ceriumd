@@ -7,7 +7,7 @@ std::unordered_map<std::string, std::string> KeyValue::KeyDatabase;
 void KeyValue::SetKeyValue(std::string key, std::string value) {
     try {
         KeyValue::KeyDatabase[key] = value;
-    } catch (std::exception e) {
+    } catch (std::runtime_error e) {
         throw e;
     }
 }
@@ -15,7 +15,7 @@ void KeyValue::SetKeyValue(std::string key, std::string value) {
 std::string KeyValue::GetKeyValue(std::string key) {
     try {
         return KeyValue::KeyDatabase[key];
-    } catch (std::exception e) {
+    } catch (std::runtime_error e) {
         throw e;
     }
 }

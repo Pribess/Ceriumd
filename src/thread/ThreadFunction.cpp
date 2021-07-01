@@ -9,7 +9,7 @@ void ThreadFunction::SocketListener() {
             ThreadRunner::StartServerSocketHandlerThread(ConnectionPool::AddSocket(listener->Listen()));
         }
         delete listener;
-    } catch (std::exception e) {
+    } catch (std::runtime_error e) {
         throw e;
     }
 }
@@ -17,7 +17,7 @@ void ThreadFunction::SocketListener() {
 void ThreadFunction::SocketConnector() {
     try {
         ThreadRunner::StartClientSocketHandlerThread(BootStrapper::BootStrap());
-    } catch (std::exception e) {
+    } catch (std::runtime_error e) {
         throw e;
     }
 }
@@ -25,7 +25,7 @@ void ThreadFunction::SocketConnector() {
 void ThreadFunction::ServerSocketHandler(Socket *socket) {
     try {
         ThreadRunner::StartSocketReaderThread(socket);
-    } catch (std::exception e) {
+    } catch (std::runtime_error e) {
         throw e;
     }
 }
@@ -37,7 +37,7 @@ void ThreadFunction::ClientSocketHandler(Socket *socket) {
         std::vector<std::pair<uint32_t, unsigned short>> buff = Protocol::GetAddr(socket);
         printf("%d", buff.at(0).first);
         printf("%d", buff.at(0).second);
-    } catch (std::exception e) {
+    } catch (std::runtime_error e) {
         throw e;
     }
 }
@@ -47,7 +47,7 @@ void ThreadFunction::SocketReaderThread(Socket *socket) {
         while (true) {
             PacketDecoder::PacketHandler(socket->RecvData(), socket);
         }
-    } catch (std::exception e) {
+    } catch (std::runtime_error e) {
         throw e;
     }
 }

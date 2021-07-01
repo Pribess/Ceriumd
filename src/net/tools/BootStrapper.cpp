@@ -5,7 +5,7 @@
 Socket *BootStrapper::BootStrap() {
     try {
         return BootStrapper::CacheStrap();
-    } catch (std::ios_base::failure e) {
+    } catch (std::runtime_error e) {
         return BootStrapper::SeedStrap();
     }
 }
@@ -17,11 +17,11 @@ Socket *BootStrapper::CacheStrap() {
         try {
             Connector *soc = new Connector(rs.at(cnt).first, rs.at(cnt).second);
             return soc->Connect();
-        } catch (std::ios_base::failure e) {
+        } catch (std::runtime_error e) {
             continue;
         }
     }
-    throw std::ios_base::failure("Failed To CacheStrapping!");
+    throw std::runtime_error("Failed To CacheStrapping!");
 }
 
 Socket *BootStrapper::SeedStrap() {
@@ -29,9 +29,9 @@ Socket *BootStrapper::SeedStrap() {
         try {
             Connector *soc = new Connector(Seed::SeedNodes[cnt].first, Seed::SeedNodes[cnt].second);
             return soc->Connect();
-        } catch (std::ios_base::failure e) {
+        } catch (std::runtime_error e) {
             continue;
         }
     }
-    throw std::ios_base::failure("Failed To SeedStrapping!");
+    throw std::runtime_error("Failed To SeedStrapping!");
 }

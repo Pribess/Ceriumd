@@ -12,13 +12,13 @@ Sqlite::~Sqlite() {
 
 void Sqlite::OpenDatabase(std::string dbname) {
     if (sqlite3_open_v2(dbname.c_str(), &this->db, SQLITE_OPEN_READWRITE, NULL)) {
-        throw std::ios_base::failure("Opening Database Failed!");
+        throw std::runtime_error("Opening Database Failed!");
     }
 }
 
 void Sqlite::CloseDatabase() {
     if (sqlite3_close(this->db)) {
-        throw std::ios_base::failure("Closing Database Failed!");
+        throw std::runtime_error("Closing Database Failed!");
     }
 }
 
@@ -27,7 +27,7 @@ std::vector<std::vector<std::vector<unsigned char>>> Sqlite::ExecuteQuery(std::s
     sqlite3_stmt *stmt;
 
     if (sqlite3_prepare(this->db, sql.c_str(), sql.length(), &stmt, nullptr)) {
-        throw std::ios_base::failure("Prepareing Statement Failed!");
+        throw std::runtime_error("Prepareing Statement Failed!");
     }
     
     while (SQLITE_ROW == sqlite3_step(stmt)) {
@@ -48,7 +48,7 @@ std::vector<std::vector<std::vector<unsigned char>>> Sqlite::ExecuteQuery(std::s
     }
 
     if (sqlite3_finalize(stmt)) {
-        throw std::ios_base::failure("Finalize Statement Failed!");
+        throw std::runtime_error("Finalize Statement Failed!");
     }
 
 
@@ -60,12 +60,12 @@ std::vector<std::vector<std::vector<unsigned char>>> Sqlite::ExecuteQuery(std::s
     sqlite3_stmt *stmt;
 
     if (sqlite3_prepare_v2(this->db, sql.c_str(), sql.length(), &stmt, nullptr)) {
-        throw std::ios_base::failure("Prepareing Statement Failed!");
+        throw std::runtime_error("Prepareing Statement Failed!");
     }
     
     for (int cnt = 0 ; cnt < data.size() ; cnt++) {
         if (sqlite3_bind_blob(stmt, cnt + 1, (const char *)data.at(cnt).data(), data.at(cnt).size(), SQLITE_TRANSIENT)) {
-            throw std::ios_base::failure("Binding Statement Failed!");
+            throw std::runtime_error("Binding Statement Failed!");
         }
     }
 
@@ -88,7 +88,7 @@ std::vector<std::vector<std::vector<unsigned char>>> Sqlite::ExecuteQuery(std::s
     }
 
     if (sqlite3_finalize(stmt)) {
-        throw std::ios_base::failure("Finalize Statement Failed!");
+        throw std::runtime_error("Finalize Statement Failed!");
     }
 
     return rs;

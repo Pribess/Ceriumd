@@ -29,7 +29,7 @@ int Connector::CreateSocket() {
             return 0;
         }
     }
-    throw std::ios_base::failure("Socket Creation Failed!");
+    throw std::runtime_error("Socket Creation Failed!");
 }
 
 Socket *Connector::Connect() {
@@ -42,5 +42,5 @@ Socket *Connector::Connect() {
             return socket;
         }
     }
-    throw std::ios_base::failure("Socket Connection Failed!");
+    throw std::runtime_error("Socket Connection Failed!");
 }

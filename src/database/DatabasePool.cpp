@@ -20,7 +20,7 @@ int DatabasePool::SetUpNetdb() {
             DatabasePool::NetDB::SetDB(new Sqlite(dirname));
             DatabasePool::NetDB::GetDB()->ExecuteQuery(R"(CREATE TABLE "AddrCache" ("NodeAddr"	BLOB, "NodePort"	BLOB);)");
             return 0;
-        } catch (std::exception e) {
+        } catch (std::runtime_error e) {
             std::cout << "Ceriumd: fatal: unable to create file '" << dirname << "' Permission Denied" << std::endl; 
             exit(1);
         }
@@ -55,7 +55,7 @@ int DatabasePool::SetUpNetdb() {
             DatabasePool::NetDB::ResetDB();     
         }
 
-    } catch (std::exception e) {
+    } catch (std::runtime_error e) {
         throw e;
         std::cout << "Ceriumd: fatal: unable to read file '" << dirname << "' Permission Denied" << std::endl; 
         exit(1); 

@@ -25,13 +25,13 @@ int Listener::CreateSocket() {
         } else {
             const int arg = 1;
             if (0 > setsockopt(this->ListenSocketDesc, SOL_SOCKET, SO_REUSEADDR, &arg, sizeof(arg))) {
-                throw std::ios_base::failure("Set Socket Option Failed!");
+                throw std::runtime_error("Set Socket Option Failed!");
             } else {
                 return 0;
             }
         }
     }
-    throw std::ios_base::failure("Socket Creation Failed!");
+    throw std::runtime_error("Socket Creation Failed!");
 }
 
 int Listener::CloseSocket() {
@@ -50,17 +50,17 @@ int Listener::BindSocket() {
             return 0;
         }
     }
-    throw std::ios_base::failure("Socket Bind Failed!");
+    throw std::runtime_error("Socket Bind Failed!");
 }
 
 std::pair<uint32_t, Socket *> Listener::Listen() {
     this->LenBuff = sizeof(sockaddr_in);;
     if (0 > listen(this->ListenSocketDesc, 1)) {
-        throw std::ios_base::failure("Socket Listen Failed!");
+        throw std::runtime_error("Socket Listen Failed!");
     } else {
         this->SocketDesc = accept(this->ListenSocketDesc, (sockaddr *)&this->SinOppo, &LenBuff);
         if(0 > this->SocketDesc) {
-            throw std::ios_base::failure("Socket Accept Failed!");
+            throw std::runtime_error("Socket Accept Failed!");
         } else {
             Socket *socket = new Socket(this->SocketDesc);
             return std::pair<uint32_t, Socket *>(SinOppo.sin_addr.s_addr, socket);

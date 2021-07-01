@@ -15,7 +15,7 @@ void PacketSender::Version(Socket *socket) {
         std::memcpy(buff.data() + sizeof(NetByte::header), &payload, sizeof(NetByte::version));
 
         socket->SendData(buff);
-    } catch (std::exception e) {
+    } catch (std::runtime_error e) {
         throw e;
     }
 }
@@ -31,7 +31,7 @@ void PacketSender::Verack(Socket *socket) {
         std::memcpy(buff.data(), &header, sizeof(NetByte::header));
         
         socket->SendData(buff);
-    } catch (std::exception e) {
+    } catch (std::runtime_error e) {
         throw e;
     }
 }
@@ -47,7 +47,7 @@ void PacketSender::GetAddr(Socket *socket) {
         std::memcpy(buff.data(), &header, sizeof(NetByte::header));
         
         socket->SendData(buff);
-    } catch (std::exception e) {
+    } catch (std::runtime_error e) {
         throw e;
     }
 }
@@ -65,7 +65,7 @@ void PacketSender::Addr(Socket *socket) {
         std::memcpy(buff.data() + sizeof(NetByte::header), payload.data(), payload.size());
 
         socket->SendData(buff);
-    } catch (std::exception e) {
+    } catch (std::runtime_error e) {
         throw e;
     }
 }

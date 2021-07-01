@@ -8,7 +8,7 @@ void PacketDecoder::PacketHandler(unsigned char *data, Socket *socket) {
     std::memcpy(&headerbuff, data, sizeof(NetByte::header));
     
     if (headerbuff.magic != CERIUM_PACKET_MAGIC) {
-        throw std::runtime_error("Unknown Magic Byte!");
+        return;
     }
 
     PacketDecoder::CheckSum(data);

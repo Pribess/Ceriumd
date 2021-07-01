@@ -34,9 +34,7 @@ void ThreadFunction::ClientSocketHandler(Socket *socket) {
     try {
         ThreadRunner::StartSocketReaderThread(socket);
         Protocol::Version(socket);
-        std::vector<std::pair<uint32_t, unsigned short>> buff = Protocol::GetAddr(socket);
-        printf("%d", buff.at(0).first);
-        printf("%d", buff.at(0).second);
+        Protocol::GetAddr(socket);
     } catch (std::runtime_error e) {
         throw e;
     }

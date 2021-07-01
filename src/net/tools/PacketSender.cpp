@@ -55,7 +55,7 @@ void PacketSender::GetAddr(Socket *socket) {
 void PacketSender::Addr(Socket *socket) {
     try {
         std::vector<unsigned char> payload = PacketBuilder::AddrBuilder();
-        NetByte::header header = PacketBuilder::HeaderBuilder(CERIUM_PACKET_TYPE_ADDR, &payload, payload.size());
+        NetByte::header header = PacketBuilder::HeaderBuilder(CERIUM_PACKET_TYPE_ADDR, payload.data(), payload.size());
 
         std::vector<unsigned char> buff;
 

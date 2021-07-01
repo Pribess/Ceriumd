@@ -52,8 +52,9 @@ void PacketDecoder::CheckSum(unsigned char *data) {
     std::memcpy(&headerbuff, data, sizeof(NetByte::header));
 
     std::memcpy(&checksumorigin, headerbuff.checksum, sizeof(checksumorigin));
-    std::memcpy(&checksum, (const char *)Crypto::SHA256((const char *)data + sizeof(NetByte::header), headerbuff.length), 4);
-
+    std::memcpy(&checksum, (const char *)Crypto::SHA256((const char *)data + sizeof(NetByte::header), headerbuff.length), sizeof(checksum));
+    
+    std::cout << std::hex << checksumorigin << "==" << checksum <<std::endl;
     if (checksumorigin != checksum) {
         throw std::ios_base::failure("Checksum Not Matched!");
     }

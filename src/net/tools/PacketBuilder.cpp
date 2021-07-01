@@ -44,10 +44,10 @@ std::vector<unsigned char> PacketBuilder::AddrBuilder() {
 
     addrheader.count = addr.size();
 
-    payloadbuilder.resize(sizeof(addrheader) + addr.size() * sizeof(NetByte::addrset));
+    payloadbuilder.resize(sizeof(NetByte::addrheader) + addr.size() * sizeof(NetByte::addrset));
 
     std::memcpy(payloadbuilder.data(), &addrheader, sizeof(NetByte::addrheader));
-    std::memcpy(payloadbuilder.data() + sizeof(NetByte::addrheader), addr.data(), addr.size() * sizeof(NetByte::header));
+    std::memcpy(payloadbuilder.data() + sizeof(NetByte::addrheader), addr.data(), addr.size() * sizeof(NetByte::addrset));
 
     return payloadbuilder;
 }

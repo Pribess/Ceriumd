@@ -2,13 +2,13 @@
 
 #include "PacketDecoder.hpp"
 
-void PacketDecoder::PacketHandler(unsigned char *data, Socket *socket) {
+int PacketDecoder::PacketHandler(unsigned char *data, Socket *socket) {
     NetByte::header headerbuff;
     
     std::memcpy(&headerbuff, data, sizeof(NetByte::header));
     
     if (headerbuff.magic != CERIUM_PACKET_MAGIC) {
-        return;
+        return 1;
     }
 
     PacketDecoder::CheckSum(data);
@@ -18,6 +18,8 @@ void PacketDecoder::PacketHandler(unsigned char *data, Socket *socket) {
     } else {
         PacketDecoder::ResHandler(data, socket);
     }
+
+    return 0;
 }
 
 void PacketDecoder::ReqHandler(unsigned char *data, Socket *socket) {

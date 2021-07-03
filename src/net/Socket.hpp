@@ -24,6 +24,8 @@ class Socket {
         int SendData(std::vector<unsigned char> data);
         unsigned char *RecvData();
 
+        bool CheckSocketAlive();
+
         std::condition_variable cv;
         void PushToQueue(unsigned char *data);
         unsigned char *ResData();

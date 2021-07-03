@@ -16,7 +16,7 @@ void ThreadFunction::SocketListener() {
 
 void ThreadFunction::SocketConnector() {
     try {
-        ThreadRunner::StartClientSocketHandlerThread(BootStrapper::BootStrap());
+        // ThreadRunner::StartClientSocketHandlerThread(BootStrapper::BootStrap());
     } catch (std::runtime_error e) {
         throw e;
     }
@@ -43,7 +43,9 @@ void ThreadFunction::ClientSocketHandler(Socket *socket) {
 void ThreadFunction::SocketReaderThread(Socket *socket) {
     try {
         while (true) {
-            PacketDecoder::PacketHandler(socket->RecvData(), socket);
+            if (PacketDecoder::PacketHandler(socket->RecvData(), socket)) {
+                return;
+            }
         }
     } catch (std::runtime_error e) {
         throw e;

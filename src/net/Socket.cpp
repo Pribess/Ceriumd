@@ -19,11 +19,11 @@ int Socket::CloseSocket() {
 }
 
 int Socket::SendData(std::vector<unsigned char> data) {
-    std::cout << "Send: " << CastingTools::ctoh(data.data(), data.size()) << std::endl;
     char cnt = 5;
-    if (0 > write(this->SocketDesc, data.data(), data.size())) {
-        throw std::runtime_error("Write Data Failed!");
+    if (0 > send(this->SocketDesc, data.data(), data.size(), MSG_NOSIGNAL)) {
+        throw std::runtime_error("Send Data Failed!");
     } else {
+        std::cout << "Send: " << CastingTools::ctoh(data.data(), data.size()) << std::endl;
         return 0;
     }
 }
@@ -31,8 +31,8 @@ int Socket::SendData(std::vector<unsigned char> data) {
 unsigned char *Socket::RecvData() {
     char cnt = 5;
     memset(this->buff, 0, sizeof(this->buff));
-    if (0 > read(this->SocketDesc, this->buff, sizeof(this->buff))) {
-        throw std::runtime_error("Recieve Data Failed!");
+    if (0 > recv(this->SocketDesc, this->buff, sizeof(this->buff), MSG_NOSIGNAL)) {
+        throw std::runtime_error("Recv Data Failed!");
     } else {
         std::cout << "Recv: " << CastingTools::ctoh(this->buff, 20) << std::endl;
         return this->buff;

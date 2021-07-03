@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <thread>
 #include <vector>
 
 #include "net/protocol/NetByte.hpp"
@@ -16,7 +17,7 @@ class PacketDecoder {
     private:
         static void CheckSum(unsigned char *data);
     public:
-        static void PacketHandler(unsigned char *data, Socket *socket);
+        static int PacketHandler(unsigned char *data, Socket *socket);
 
         static void ReqHandler(unsigned char *data, Socket *socket);
         static void ResHandler(unsigned char *data, Socket *socket);

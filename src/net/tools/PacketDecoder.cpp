@@ -42,7 +42,6 @@ void PacketDecoder::ReqHandler(unsigned char *data, Socket *socket) {
 
 void PacketDecoder::ResHandler(unsigned char *data, Socket *socket) {
     socket->PushToQueue(data);
-    socket->cv.notify_all();
 }
 
 void PacketDecoder::CheckSum(unsigned char *data) {

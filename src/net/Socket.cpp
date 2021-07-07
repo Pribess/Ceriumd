@@ -40,15 +40,16 @@ unsigned char *Socket::RecvData() {
 }
 
 void Socket::PushToQueue(unsigned char *data) {
-    this->queue.push(data);
+    this->queue.front()->set_value(data);
 }
 
 unsigned char *Socket::ResData() {
     try {
-        std::mutex mu;
-        std::unique_lock<std::mutex> ul(mu);
-        this->cv.wait(ul);
-        unsigned char *data = queue.front();
+        std::promise<unsigned char *> *promise = new std::promise<unsigned char *>;
+        this->queue.push(promise);
+        std::future<unsigned char *> future = queue.front()->get_future();
+        unsigned char *data = future.get();
+        delete queue.front();
         queue.pop();
         return data;
     } catch (std::exception e) {

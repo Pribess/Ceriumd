@@ -9,14 +9,14 @@
 #include <iostream>
 #include <unistd.h>
 #include <vector>
-#include <condition_variable>
+#include <future>
 #include <queue>
 
 class Socket {
     private:
         int SocketDesc;
         unsigned char buff[1024];
-        std::queue<unsigned char *> queue;
+        std::queue<std::promise<unsigned char *> *> queue;
     public:
         Socket(int SocketDesc);
         ~Socket();
@@ -26,7 +26,6 @@ class Socket {
 
         bool CheckSocketAlive();
 
-        std::condition_variable cv;
         void PushToQueue(unsigned char *data);
         unsigned char *ResData();
 

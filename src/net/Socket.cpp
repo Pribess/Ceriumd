@@ -40,13 +40,13 @@ unsigned char *Socket::RecvData() {
 }
 
 void Socket::PushToQueue(unsigned char *data) {
-    std::promise<unsigned char *> *promise = new std::promise<unsigned char *>;
-    this->queue.push(promise);
     this->queue.front()->set_value(data);
 }
 
 unsigned char *Socket::ResData() {
     try {
+        std::promise<unsigned char *> *promise = new std::promise<unsigned char *>;
+        this->queue.push(promise);
         std::future<unsigned char *> future = queue.front()->get_future();
         unsigned char *data = future.get();
         delete queue.front();

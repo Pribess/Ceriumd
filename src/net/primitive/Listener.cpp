@@ -17,21 +17,17 @@ Listener::~Listener() {
 }
 
 int Listener::CreateSocket() {
-    char cnt = 5;
-    while (cnt) {
-        this->ListenSocketDesc = socket(this->Sin.sin_family, SOCK_STREAM, IPPROTO_TCP);
-        if (0 > this->ListenSocketDesc) {
-            cnt--;
+    this->ListenSocketDesc = socket(this->Sin.sin_family, SOCK_STREAM, IPPROTO_TCP);
+    if (0 > this->ListenSocketDesc) {
+        throw std::runtime_error("Socket Creation Failed!");
+    } else {
+        const int arg = 1;
+        if (0 > setsockopt(this->ListenSocketDesc, SOL_SOCKET, SO_REUSEADDR, &arg, sizeof(arg))) {
+            throw std::runtime_error("Set Socket Option Failed!");
         } else {
-            const int arg = 1;
-            if (0 > setsockopt(this->ListenSocketDesc, SOL_SOCKET, SO_REUSEADDR, &arg, sizeof(arg))) {
-                throw std::runtime_error("Set Socket Option Failed!");
-            } else {
-                return 0;
-            }
+            return 0;
         }
     }
-    throw std::runtime_error("Socket Creation Failed!");
 }
 
 int Listener::CloseSocket() {
@@ -42,15 +38,11 @@ int Listener::CloseSocket() {
 }
 
 int Listener::BindSocket() {
-    char cnt = 5;
-    while (cnt) {
-        if (0 > bind(this->ListenSocketDesc, (sockaddr *)&this->Sin, sizeof(sockaddr_in))) {
-            cnt--;
-        } else {
-            return 0;
-        }
+    if (0 > bind(this->ListenSocketDesc, (sockaddr *)&this->Sin, sizeof(sockaddr_in))) {
+        throw std::runtime_error("Socket Bind Failed!");
+    } else {
+        return 0;
     }
-    throw std::runtime_error("Socket Bind Failed!");
 }
 
 std::pair<uint32_t, Socket *> Listener::Listen() {

@@ -20,27 +20,19 @@ Connector::Connector(in_addr_t sin_addr, int sin_port) {
 
 
 int Connector::CreateSocket() {
-    char cnt = 5;
-    while (cnt) {
-        this->SocketDesc = socket(this->SinOppo.sin_family, SOCK_STREAM, IPPROTO_TCP);
-        if (0 > this->SocketDesc) {
-            cnt--;
-        } else {
-            return 0;
-        }
+    this->SocketDesc = socket(this->SinOppo.sin_family, SOCK_STREAM, IPPROTO_TCP);
+    if (0 > this->SocketDesc) {
+        throw std::runtime_error("Socket Creation Failed!");
+    } else {
+        return 0;
     }
-    throw std::runtime_error("Socket Creation Failed!");
 }
 
 Socket *Connector::Connect() {
-    char cnt = 5;
-    while (cnt) {
-        if (0 > connect(this->SocketDesc, (sockaddr *)&this->SinOppo, sizeof(SinOppo))) {
-            cnt--;
-        } else {
-            Socket *socket = new Socket(this->SocketDesc);
-            return socket;
-        }
+    if (0 > connect(this->SocketDesc, (sockaddr *)&this->SinOppo, sizeof(SinOppo))) {
+        throw std::runtime_error("Socket Connection Failed!");
+    } else {
+        Socket *socket = new Socket(this->SocketDesc);
+        return socket;
     }
-    throw std::runtime_error("Socket Connection Failed!");
 }

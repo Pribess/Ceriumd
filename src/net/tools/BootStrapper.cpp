@@ -13,9 +13,9 @@ Socket *BootStrapper::BootStrap() {
 Socket *BootStrapper::CacheStrap() {
     std::vector<std::pair<uint32_t, unsigned short>> rs = DatabasePool::NetDB::GetNetCache();
 
-    for (int cnt = 0 ; cnt < rs.size() ; cnt++) {
+    for (std::pair<uint32_t, unsigned short> cnt : rs) {
         try {
-            Connector *soc = new Connector(rs.at(cnt).first, rs.at(cnt).second);
+            Connector *soc = new Connector(cnt.first, cnt.second);
             return soc->Connect();
         } catch (std::runtime_error e) {
             continue;

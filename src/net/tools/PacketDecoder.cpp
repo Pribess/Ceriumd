@@ -75,7 +75,7 @@ void PacketDecoder::Verack(unsigned char *data) {
     std::memcpy(&headerbuff, data, sizeof(NetByte::header));
 
     if (headerbuff.type != CERIUM_PACKET_TYPE_VERSION) {
-        throw std::runtime_error("Type Not Matched!");
+        throw std::runtime_error("Type Not Matched! (Version)");
     }
 }
 
@@ -85,7 +85,7 @@ void PacketDecoder::GetAddr(unsigned char *data) {
     std::memcpy(&headerbuff, data, sizeof(NetByte::header));
 
     if (headerbuff.type != CERIUM_PACKET_TYPE_VERSION) {
-        throw std::runtime_error("Type Not Matched!");
+        throw std::runtime_error("Type Not Matched! (GetAddr)");
     }
 }
 

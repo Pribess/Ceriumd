@@ -6,6 +6,8 @@
 #include <netinet/in.h>
 #include <string>
 #include <cstddef>
+#include <fcntl.h>
+#include <sys/socket.h>
 
 #include "net/Socket.hpp"
 

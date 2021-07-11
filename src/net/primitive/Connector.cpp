@@ -29,6 +29,11 @@ int Connector::CreateSocket() {
 }
 
 Socket *Connector::Connect() {
+    timeval timeout;
+    timeout.tv_sec = 1;
+    if (0 > setsockopt(this->SocketDesc, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeval))) {
+        throw std::runtime_error("Set Socket Timeout Failed!");
+    }
     if (0 > connect(this->SocketDesc, (sockaddr *)&this->SinOppo, sizeof(SinOppo))) {
         throw std::runtime_error("Socket Connection Failed!");
     } else {

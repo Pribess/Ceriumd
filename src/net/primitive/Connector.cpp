@@ -39,8 +39,7 @@ int Connector::ConnectWithTimeout(int sd, const sockaddr *addrst, socklen_t sock
     }
 
     if (0 != connect(sd, addrst, socklen)) {
-        if (errno != EINPROGRESS)
-        {
+        if (errno != EINPROGRESS) {
             return -1;
         }
     }
@@ -52,7 +51,7 @@ int Connector::ConnectWithTimeout(int sd, const sockaddr *addrst, socklen_t sock
     if (0 >= select(sd+1, NULL, &writefds, NULL, &timeout)) {
         return -1;
     }
-    
+
     int err;
     socklen_t len = sizeof(err);
     getsockopt(sd, SOL_SOCKET, SO_ERROR, (char *)&err, &len);

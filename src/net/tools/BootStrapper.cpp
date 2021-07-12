@@ -3,11 +3,11 @@
 #include "BootStrapper.hpp"
 
 Socket *BootStrapper::BootStrap() {
-    try {
+    // try {
         return BootStrapper::CacheStrap();
-    } catch (std::runtime_error e) {
-        return BootStrapper::SeedStrap();
-    }
+    // } catch (std::runtime_error e) {
+    //     return BootStrapper::SeedStrap();
+    // }
 }
 
 Socket *BootStrapper::CacheStrap() {

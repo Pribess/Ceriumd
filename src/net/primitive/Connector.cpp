@@ -28,14 +28,57 @@ int Connector::CreateSocket() {
     }
 }
 
-Socket *Connector::Connect() {
-    timeval timeout;
-    timeout.tv_sec = 1;
-    if (0 > setsockopt(this->SocketDesc, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeval))) {
-        throw std::runtime_error("Set Socket Timeout Failed!");
+int Connector::ConnectWithTimeout(int sd, const sockaddr *addrst, socklen_t socklen, unsigned long time) {
+    fd_set writefds;
+    FD_ZERO(&writefds);
+    int flags = fcntl(sd, F_GETFL);
+    flags = (flags | O_NONBLOCK);
+    if (fcntl(sd, F_SETFL, flags) != 0)
+    {
+        perror("fcntl() error\n");
+        return -1;
     }
-    if (0 > connect(this->SocketDesc, (sockaddr *)&this->SinOppo, sizeof(SinOppo))) {
-        throw std::runtime_error("Socket Connection Failed!");
+    if (connect(sd, addrst, socklen) != 0)
+    {
+        if (errno != EINPROGRESS)
+        {
+            perror("connect() error\n");
+            return -1;
+        }
+    }
+    timeval timeout;
+    timeout.tv_sec = time / 1000;
+    timeout.tv_usec = (time % 1000) * 1000;
+    FD_SET(sd, &writefds);
+    if (select(sd+1, NULL, &writefds, NULL, &timeout) <= 0)
+    {
+        perror("connection timeout\n");
+        return -1;
+    }
+    int err;
+    socklen_t len = sizeof(err);
+    getsockopt(sd, SOL_SOCKET, SO_ERROR, (char *)&err, &len);
+    if (err)
+    {
+        perror("fcntl() error\n");
+        return -1;
+    }
+    fcntl(sd, F_GETFL);
+    flags = (flags & ~O_NONBLOCK);
+    if (fcntl(sd, F_SETFL, flags) != 0)
+    {
+        perror("fcntl() error\n");
+        return -1;
+    }
+    return 0;
+}
+
+Socket *Connector::Connect() {
+    if (0 > fcntl(this->SocketDesc, F_SETFL, O_NONBLOCK)) {
+        throw std::runtime_error("Alter Socket Mode Failed!");
+    }
+    if (0 > Connector::ConnectWithTimeout(this->SocketDesc, (sockaddr *)&this->SinOppo, sizeof(SinOppo), 1000)) {
+        throw std::runtime_error("Socket Connecting Failed!");
     } else {
         Socket *socket = new Socket(this->SocketDesc);
         return socket;

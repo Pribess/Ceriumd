@@ -18,7 +18,7 @@ class Connector {
         sockaddr_in SinOppo;
         char Buff[256];
         int CreateSocket();
-        int CloseSocket();
+        static int ConnectWithTimeout(int sd, const sockaddr *addrst, socklen_t len, unsigned long time);
     public:
         Connector(char sin_addr[], int sin_port);
         Connector(in_addr_t sin_addr, int sin_port);

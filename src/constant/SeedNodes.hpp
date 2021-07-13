@@ -7,11 +7,15 @@
 #include <array>
 
 namespace Seed {
+    typedef struct Addrset {
+        uint32_t addr;
+        unsigned short port;
+    } Addrset;
 
     static const int SeedNodesLength = 1;
 
-    static const std::pair<uint32_t, unsigned short> SeedNodes[SeedNodesLength] = {
-        std::pair<uint32_t, unsigned short>(0x0200A8C0, 0xCA04)
+    static const Seed::Addrset SeedNodes[SeedNodesLength] = {
+        { 0x0200A8C0, 0xCA04 }
     };
 
 };

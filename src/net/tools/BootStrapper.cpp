@@ -3,11 +3,11 @@
 #include "BootStrapper.hpp"
 
 Socket *BootStrapper::BootStrap() {
-    // try {
+    try {
         return BootStrapper::CacheStrap();
-    // } catch (std::runtime_error e) {
-    //     return BootStrapper::SeedStrap();
-    // }
+    } catch (std::runtime_error e) {
+        return BootStrapper::SeedStrap();
+    }
 }
 
 Socket *BootStrapper::CacheStrap() {
@@ -27,7 +27,7 @@ Socket *BootStrapper::CacheStrap() {
 Socket *BootStrapper::SeedStrap() {
     for (int cnt = 0 ; cnt < Seed::SeedNodesLength ; cnt++) {
         try {
-            Connector *soc = new Connector(Seed::SeedNodes[cnt].first, Seed::SeedNodes[cnt].second);
+            Connector *soc = new Connector(Seed::SeedNodes[cnt].addr, Seed::SeedNodes[cnt].port);
             return soc->Connect();
         } catch (std::runtime_error e) {
             continue;

@@ -25,7 +25,8 @@ Socket *BootStrapper::CacheStrap() {
 }
 
 Socket *BootStrapper::SeedStrap() {
-    for (int cnt = 0 ; cnt < Seed::SeedNodesLength ; cnt++) {
+
+    for (int cnt = 0 ; cnt < std::size(Seed::SeedNodes) ; cnt++) {
         try {
             Connector *soc = new Connector(Seed::SeedNodes[cnt].addr, Seed::SeedNodes[cnt].port);
             return soc->Connect();

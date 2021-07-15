@@ -12,9 +12,7 @@ namespace Seed {
         unsigned short port;
     } Addrset;
 
-    static const int SeedNodesLength = 1;
-
-    static const Seed::Addrset SeedNodes[SeedNodesLength] = {
+    static const Seed::Addrset SeedNodes[] = {
         { 0x0200A8C0, 0xCA04 }
     };
 

@@ -50,8 +50,9 @@ void ArgParser(int argc, char *argv[]) {
 
     std::vector<std::string>::iterator iter = args.begin();
 
-    Tools::CheckDirExist(iter[1]); 
-    if (!iter[1].ends_with("/")) {
+    Tools::CheckDirExist(iter[1]);
+
+    if (iter[1].back() != '/') {
         iter[1].append("/");
     }
 

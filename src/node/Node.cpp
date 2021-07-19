@@ -7,3 +7,7 @@ Node::Node(Socket *socket, uint32_t addr, unsigned short port) {
     this->addr = addr;
     this->port = port;
 }
+
+Node::~Node() {
+    this->socket->CloseSocket();
+}

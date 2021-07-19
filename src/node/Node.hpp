@@ -11,6 +11,7 @@ class Node {
         uint32_t addr;
         unsigned short port;
     public:
+        Node(Socket *socket, uint32_t addr, unsigned short port);
 };
 
 #endif

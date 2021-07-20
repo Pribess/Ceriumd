@@ -45,7 +45,7 @@ int Listener::BindSocket() {
     }
 }
 
-std::pair<uint32_t, Socket *> Listener::Listen() {
+std::pair<Socket *, uint32_t> Listener::Listen() {
     this->LenBuff = sizeof(sockaddr_in);;
     if (0 > listen(this->ListenSocketDesc, 1)) {
         throw std::runtime_error("Socket Listen Failed!");
@@ -55,7 +55,7 @@ std::pair<uint32_t, Socket *> Listener::Listen() {
             throw std::runtime_error("Socket Accept Failed!");
         } else {
             Socket *socket = new Socket(this->SocketDesc);
-            return std::pair<uint32_t, Socket *>(SinOppo.sin_addr.s_addr, socket);
+            return std::pair<Socket *, uint32_t>(socket, SinOppo.sin_addr.s_addr);
         }
     }
 }

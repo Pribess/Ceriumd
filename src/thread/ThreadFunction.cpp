@@ -6,7 +6,8 @@ void ThreadFunction::SocketListener() {
     try {
         Listener *listener = new Listener(CERIUM_PORT);
         while (true) {
-            ThreadRunner::StartServerSocketHandlerThread(ConnectionPool::AddSocket(listener->Listen()));
+            std::pair<Socket *, uint32_t> buff = listener->Listen();
+            ThreadRunner::StartServerSocketHandlerThread(buff.first);
         }
         delete listener;
     } catch (std::runtime_error e) {
@@ -16,7 +17,8 @@ void ThreadFunction::SocketListener() {
 
 void ThreadFunction::SocketConnector() {
     try {
-        ThreadRunner::StartClientSocketHandlerThread(BootStrapper::BootStrap());
+        std::pair<Socket *, std::pair<uint32_t, unsigned short>> buff = BootStrapper::BootStrap();
+        ThreadRunner::StartClientSocketHandlerThread(buff.first);
     } catch (std::runtime_error e) {
         throw e;
     }

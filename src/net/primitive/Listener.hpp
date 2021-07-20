@@ -23,7 +23,7 @@ class Listener {
     public:
         Listener(int sin_port);
         ~Listener();
-        std::pair<uint32_t, Socket*> Listen();
+        std::pair<Socket *, uint32_t> Listen();
 };
 
 #endif

@@ -10,8 +10,10 @@ class Node {
         Socket *socket;
         uint32_t addr;
         unsigned short port;
+        bool NetWorkForwarded;
     public:
         Node(Socket *socket, uint32_t addr, unsigned short port);
+        Node(Socket *socket, uint32_t addr);
         ~Node();
 };
 

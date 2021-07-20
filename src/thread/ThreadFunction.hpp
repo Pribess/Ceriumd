@@ -6,8 +6,8 @@
 #include <iostream>
 
 #include "constant/Define.hpp"
-#include "net/tools/ConnectionPool.hpp"
 #include "net/protocol/Protocol.hpp"
+#include "net/primitive/Listener.hpp"
 #include "ThreadRunner.hpp"
 #include "ThreadPool.hpp"
 #include "net/tools/BootStrapper.hpp"

@@ -9,7 +9,6 @@
 #include "net/protocol/Protocol.hpp"
 #include "net/primitive/Listener.hpp"
 #include "ThreadRunner.hpp"
-#include "ThreadPool.hpp"
 #include "net/tools/BootStrapper.hpp"
 
 class ThreadFunction {
@@ -17,9 +16,6 @@ class ThreadFunction {
     public:
         static void SocketListener();
         static void SocketConnector();
-
-        static void ServerSocketHandler(Socket *socket);
-        static void ClientSocketHandler(Socket *socket);
 
         static void SocketReaderThread(Socket *socket);
 };

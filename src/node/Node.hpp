@@ -4,6 +4,7 @@
 #define _CERIUM_NODE_NODE
 
 #include "net/Socket.hpp"
+#include "thread/ThreadFunction.hpp"
 
 class Node {
     private:
@@ -15,6 +16,7 @@ class Node {
         Node(Socket *socket, uint32_t addr, unsigned short port);
         Node(Socket *socket, uint32_t addr);
         ~Node();
+        std::thread *StartSocketReceiver();
 };
 
 #endif

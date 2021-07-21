@@ -18,3 +18,6 @@ Node::Node(Socket *socket, uint32_t addr) {
 Node::~Node() {
     this->socket->CloseSocket();
 }
+std::thread *Node::StartSocketReceiver() {
+    std::thread *buff = new std::thread(ThreadFunction::SocketReaderThread, this->socket);
+}

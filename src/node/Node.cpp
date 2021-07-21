@@ -7,12 +7,14 @@ Node::Node(Socket *socket, uint32_t addr, unsigned short port) {
     this->addr = addr;
     this->port = port;
     this->isNetWorkForwarded = true;
+    this->StartSocketReceiver();
 }
 
 Node::Node(Socket *socket, uint32_t addr) {
     this->socket = socket;
     this->addr = addr;
     this->isNetWorkForwarded = false;
+    this->StartSocketReceiver();
 }
 
 Node::~Node() {

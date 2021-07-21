@@ -17,6 +17,7 @@ Node::Node(Socket *socket, uint32_t addr) {
 
 Node::~Node() {
     this->socket->CloseSocket();
+    this->SocketReceiver->detach();
 }
 
 void Node::StartSocketReceiver() {

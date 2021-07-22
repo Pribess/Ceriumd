@@ -5,7 +5,7 @@
 std::pair<Socket *, std::pair<uint32_t, unsigned short>> BootStrapper::BootStrap() {
     try {
         return BootStrapper::CacheStrap();
-    } catch (std::runtime_error e) {
+    } catch (std::runtime_error &e) {
         return BootStrapper::SeedStrap();
     }
 }
@@ -17,7 +17,7 @@ std::pair<Socket *, std::pair<uint32_t, unsigned short>> BootStrapper::CacheStra
         try {
             Connector *soc = new Connector(cnt.first, cnt.second);
             return std::pair<Socket *, std::pair<uint32_t, unsigned short>>(soc->Connect(), std::pair<uint32_t, unsigned short>(cnt.first, cnt.second));
-        } catch (std::runtime_error e) {
+        } catch (std::runtime_error &e) {
             continue;
         }
     }
@@ -30,7 +30,7 @@ std::pair<Socket *, std::pair<uint32_t, unsigned short>> BootStrapper::SeedStrap
         try {
             Connector *soc = new Connector(Seed::SeedNodes[cnt].addr, Seed::SeedNodes[cnt].port);
             return std::pair<Socket *, std::pair<uint32_t, unsigned short>>(soc->Connect(), std::pair<uint32_t, unsigned short>(Seed::SeedNodes[cnt].addr, Seed::SeedNodes[cnt].port));
-        } catch (std::runtime_error e) {
+        } catch (std::runtime_error &e) {
             continue;
         }
     }

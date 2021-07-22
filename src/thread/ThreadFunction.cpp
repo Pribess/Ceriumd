@@ -9,7 +9,7 @@ void ThreadFunction::SocketListener() {
             std::pair<Socket *, uint32_t> buff = listener->Listen();
         }
         delete listener;
-    } catch (std::runtime_error e) {
+    } catch (std::runtime_error &e) {
         throw e;
     }
 }
@@ -17,7 +17,7 @@ void ThreadFunction::SocketListener() {
 void ThreadFunction::SocketConnector() {
     try {
         std::pair<Socket *, std::pair<uint32_t, unsigned short>> buff = BootStrapper::BootStrap();
-    } catch (std::runtime_error e) {
+    } catch (std::runtime_error &e) {
         throw e;
     }
 }
@@ -29,7 +29,7 @@ void ThreadFunction::SocketReaderThread(Socket *socket) {
                 return;
             }
         }
-    } catch (std::runtime_error e) {
+    } catch (std::runtime_error &e) {
         throw e;
     }
 }

@@ -4,6 +4,7 @@
 #define _CERIUM_NODE_NODEPOOL
 
 #include <vector>
+#include <algorithm>
 
 #include "Node.hpp"
 
@@ -11,8 +12,8 @@ class NodePool {
     private:
         static std::vector<Node *> pool;
     public:
-        static void AddNode(Node *ptr);
-        static void RemoveNode(Node *ptr);
+        static void AddNode(Node *node);
+        static void RemoveNode(Node *node);
 };
 
 #endif

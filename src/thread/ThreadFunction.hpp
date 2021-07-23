@@ -10,6 +10,7 @@
 #include "net/primitive/Listener.hpp"
 #include "ThreadRunner.hpp"
 #include "net/tools/BootStrapper.hpp"
+#include "node/NodePool.hpp"
 
 class ThreadFunction {
     private:

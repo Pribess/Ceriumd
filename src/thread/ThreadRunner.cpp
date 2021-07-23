@@ -7,5 +7,5 @@ std::thread *ThreadRunner::StartSocketListenerThread() {
 }
 
 std::thread *ThreadRunner::StartSocketConnectorThread() {
-    return  new std::thread(ThreadFunction::SocketConnector);
+    return new std::thread(ThreadFunction::SocketConnector);
 }

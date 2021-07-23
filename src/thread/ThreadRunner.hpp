@@ -10,8 +10,8 @@
 class ThreadRunner {
     private:
     public:
-        static void StartSocketListenerThread();
-        static void StartSocketConnectorThread();
+        static std::thread *StartSocketListenerThread();
+        static std::thread *StartSocketConnectorThread();
 };
 
 #endif

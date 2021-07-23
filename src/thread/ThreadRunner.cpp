@@ -2,10 +2,10 @@
 
 #include "ThreadRunner.hpp"
 
-void ThreadRunner::StartSocketListenerThread() {
-    std::thread *SocketListenerThread = new std::thread(ThreadFunction::SocketListener);
+std::thread *ThreadRunner::StartSocketListenerThread() {
+    return new std::thread(ThreadFunction::SocketListener);
 }
 
-void ThreadRunner::StartSocketConnectorThread() {
-    std::thread *SocketConnectorThread = new std::thread(ThreadFunction::SocketConnector);
+std::thread *ThreadRunner::StartSocketConnectorThread() {
+    return  new std::thread(ThreadFunction::SocketConnector);
 }

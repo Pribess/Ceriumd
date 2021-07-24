@@ -13,3 +13,14 @@ void NodePool::RemoveNode(Node *node) {
         return;
     }
 }
+
+Node *NodePool::GetNode(uint32_t addr, unsigned short port) {
+    for (Node *cnt : NodePool::pool) {
+        std::pair<uint32_t, unsigned short> buff = cnt->GetNetData();
+
+        if (buff.first == addr && buff.second == port) {
+            return cnt;
+        }
+    }
+    return NULL;
+}

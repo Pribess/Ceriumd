@@ -14,6 +14,7 @@ class NodePool {
     public:
         static void AddNode(Node *node);
         static void RemoveNode(Node *node);
+        static Node *GetNode(uint32_t addr, unsigned short port);
 };
 
 #endif

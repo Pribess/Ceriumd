@@ -29,3 +29,7 @@ void Node::StartSocketReceiver() {
 std::pair<uint32_t, unsigned short> Node::GetNetData() {
     return std::pair<uint32_t, unsigned short>(this->addr, this->port);
 }
+
+Socket *Node::GetSocket() {
+    return this->socket;
+}

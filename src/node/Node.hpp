@@ -22,6 +22,7 @@ class Node {
         ~Node();
 
         std::pair<uint32_t, unsigned short> GetNetData();
+        Socket *GetSocket();
 };
 
 #endif

@@ -8,6 +8,7 @@ Node::Node(Socket *socket, uint32_t addr, unsigned short port) {
     this->port = port;
     this->isNetWorkForwarded = true;
     this->StartSocketReceiver();
+    this->StartSocketHandler();
 }
 
 Node::Node(Socket *socket, uint32_t addr) {
@@ -15,6 +16,7 @@ Node::Node(Socket *socket, uint32_t addr) {
     this->addr = addr;
     this->isNetWorkForwarded = false;
     this->StartSocketReceiver();
+    this->StartSocketHandler();
 }
 
 Node::~Node() {
@@ -27,7 +29,11 @@ void Node::StartSocketReceiver() {
 }
 
 void Node::StartSocketHandler() {
-    this->SocketHandler = new std::thread();
+    if (this->isNetWorkForwarded) {
+        this->SocketHandler = new std::thread(ThreadFunction::ServerSocketHandler, this->socket);
+    } else {
+        this->SocketHandler = new std::thread(ThreadFunction::ClientSocketHandler, this->socket);
+    }
 }
 
 std::pair<uint32_t, unsigned short> Node::GetNetData() {

@@ -7,7 +7,9 @@ void ThreadFunction::SocketListener() {
         Listener *listener = new Listener(CERIUM_PORT);
         while (true) {
             std::pair<Socket *, uint32_t> buff = listener->Listen();
-            NodePool::AddNode(new Node(buff.first, buff.second));
+            Node *node = new Node(buff.first, buff.second);
+            NodePool::AddNode(node);
+            
         }
         delete listener;
     } catch (std::runtime_error &e) {
@@ -18,7 +20,8 @@ void ThreadFunction::SocketListener() {
 void ThreadFunction::SocketConnector() {
     try {
         std::pair<Socket *, std::pair<uint32_t, unsigned short>> buff = BootStrapper::BootStrap();
-        NodePool::AddNode(new Node(buff.first, buff.second.first, buff.second.second));
+        Node *node = new Node(buff.first, buff.second.first, buff.second.second);
+        NodePool::AddNode(node);
     } catch (std::runtime_error &e) {
         throw e;
     }

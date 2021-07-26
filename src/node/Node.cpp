@@ -26,6 +26,10 @@ void Node::StartSocketReceiver() {
     this->SocketReceiver = new std::thread(ThreadFunction::SocketReaderThread, this->socket);
 }
 
+void Node::StartSocketHandler() {
+    this->SocketHandler = new std::thread();
+}
+
 std::pair<uint32_t, unsigned short> Node::GetNetData() {
     return std::pair<uint32_t, unsigned short>(this->addr, this->port);
 }

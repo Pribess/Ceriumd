@@ -11,6 +11,7 @@
 class NodePool {
     private:
         static std::vector<Node *> pool;
+        
         static bool isNodeExist(uint32_t addr, unsigned short port);
         static bool isNodeExist(Node *node);
     public:

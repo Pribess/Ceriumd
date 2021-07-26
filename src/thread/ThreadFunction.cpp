@@ -38,3 +38,19 @@ void ThreadFunction::SocketReaderThread(Socket *socket) {
         throw e;
     }
 }
+
+void ThreadFunction::ServerSocketHandler(Socket *socket) {
+    try {
+        Protocol::Version(socket);
+    } catch (std::runtime_error &e) {
+        throw e;
+    }
+}
+
+void ThreadFunction::ClientSocketHandler(Socket *socket) {
+    try {
+        Protocol::Version(socket);        
+    } catch (std::runtime_error &e) {
+        throw e;
+    }
+}

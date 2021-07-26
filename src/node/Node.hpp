@@ -14,8 +14,12 @@ class Node {
         bool isNetWorkForwarded;
 
         std::thread *SocketReceiver;
+        std::thread *SocketHandler;
 
         void StartSocketReceiver();
+        void StartSocketHandler();
+
+
     public:
         Node(Socket *socket, uint32_t addr, unsigned short port);
         Node(Socket *socket, uint32_t addr);

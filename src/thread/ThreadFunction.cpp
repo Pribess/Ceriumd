@@ -49,7 +49,7 @@ void ThreadFunction::ServerSocketHandler(Socket *socket) {
 
 void ThreadFunction::ClientSocketHandler(Socket *socket) {
     try {
-        Protocol::Version(socket);        
+        Protocol::Version(socket);
     } catch (std::runtime_error &e) {
         throw e;
     }

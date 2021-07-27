@@ -2,6 +2,8 @@
 
 #include "NodePool.hpp"
 
+std::vector<Node *> NodePool::pool;
+
 bool NodePool::isNodeExist(uint32_t addr, unsigned short port) {
     for (Node *cnt : NodePool::pool) {
         std::pair<uint32_t, unsigned short> buff = cnt->GetNetData();

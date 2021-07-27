@@ -25,14 +25,36 @@ Node::~Node() {
 }
 
 void Node::StartSocketReceiver() {
-    this->SocketReceiver = new std::thread(ThreadFunction::SocketReaderThread, this->socket);
+    this->SocketReceiver = new std::thread([](Socket *socket) {
+        try {
+            while (true) {
+                if (PacketDecoder::PacketHandler(socket->RecvData(), socket)) {
+                    return;
+                }
+            }
+        } catch (std::runtime_error &e) {
+            throw e;
+        }
+    }, this->socket);
 }
 
 void Node::StartSocketHandler() {
     if (this->isNetWorkForwarded) {
-        this->SocketHandler = new std::thread(ThreadFunction::ServerSocketHandler, this->socket);
+        this->SocketHandler = new std::thread([](Socket *socket) {
+            try {
+                Protocol::Version(socket);
+            } catch (std::runtime_error &e) {
+                throw e;
+            }
+        }, this->socket);
     } else {
-        this->SocketHandler = new std::thread(ThreadFunction::ClientSocketHandler, this->socket);
+        this->SocketHandler = new std::thread([](Socket *socket) {
+            try {
+                Protocol::Version(socket);
+            } catch (std::runtime_error &e) {
+                throw e;
+            }
+        }, this->socket);
     }
 }
 

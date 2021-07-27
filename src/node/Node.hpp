@@ -4,7 +4,8 @@
 #define _CERIUM_NODE_NODE
 
 #include "net/Socket.hpp"
-#include "thread/ThreadFunction.hpp"
+#include "net/tools/BootStrapper.hpp"
+#include "net/protocol/Protocol.hpp"
 
 class Node {
     private:

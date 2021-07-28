@@ -13,8 +13,7 @@ namespace Seed {
     } Addrset;
 
     static const Seed::Addrset SeedNodes[] = {
-        { 0x0200A8C0, 0xCA04 },
-        { 0x656f1f01, 0xCA04}
+        { 0x656ff101, 0xCA04}
     };
 
 };

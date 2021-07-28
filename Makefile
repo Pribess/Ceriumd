@@ -5,7 +5,7 @@ TARGET=ceriumd
 INCFLAGS:=-I ${shell pwd}/src
 CXXFLAGSC:=-Wno-deprecated-declarations -c ${INCFLAGS}
 CXXFLAGSO:=-lcrypto -lsqlite3 -lpthread
-COMPILE_FLAGS:=-std=c++20
+COMPILE_FLAGS:=-std=c++17
 
 RM:=rm
 ECHO=echo ${ECHO_FLAGS}

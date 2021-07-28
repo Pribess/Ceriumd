@@ -21,10 +21,10 @@ std::thread *ThreadRunner::StartSocketListenerThread() {
 std::thread *ThreadRunner::StartSocketConnectorThread() {
     return new std::thread([]() {
         try {
-            std::pair<Socket *, std::pair<uint32_t, unsigned short>> buff = BootStrapper::BootStrap();
-            std::cout << "Bootstraped With : " << std::hex<< buff.second.first << "/" << buff.second.second << std::endl;
-            Node *node = new Node(buff.first, buff.second.first, buff.second.second);
-            NodePool::AddNode(node);
+            // std::pair<Socket *, std::pair<uint32_t, unsigned short>> buff = BootStrapper::BootStrap();
+            // std::cout << "Bootstraped With : " << std::hex<< buff.second.first << "/" << buff.second.second << std::endl;
+            // Node *node = new Node(buff.first, buff.second.first, buff.second.second);
+            // NodePool::AddNode(node);
         } catch (std::runtime_error &e) {
             throw e;
         } 

@@ -61,16 +61,6 @@ void PacketDecoder::CheckSum(unsigned char *data) {
     }
 }
 
-void PacketDecoder::CheckType(unsigned char *data, int type) {
-    NetByte::header headerbuff;
-    
-    std::memcpy(&headerbuff, data, sizeof(NetByte::header));
-
-    if (headerbuff.type != type) {
-        throw std::runtime_error("Type Not Matched!");
-    }
-}
-
 NetByte::version PacketDecoder::Version(unsigned char *data) {
     NetByte::version versionbuff;
 
@@ -80,11 +70,11 @@ NetByte::version PacketDecoder::Version(unsigned char *data) {
 }
 
 void PacketDecoder::Verack(unsigned char *data) {
-    PacketDecoder::CheckType(data, CERIUM_PACKET_TYPE_VERACK);
+    return;
 }
 
 void PacketDecoder::GetAddr(unsigned char *data) {
-    PacketDecoder::CheckType(data, CERIUM_PACKET_TYPE_GETADDR);
+    return;
 }
 
 std::vector<std::pair<uint32_t, unsigned short>> PacketDecoder::Addr(unsigned char *data) {

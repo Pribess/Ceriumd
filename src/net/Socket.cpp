@@ -30,7 +30,6 @@ int Socket::SendData(std::vector<unsigned char> data) {
 
 unsigned char *Socket::RecvData() {
     char cnt = 5;
-    memset(this->buff, 0, sizeof(this->buff));
     if (0 > recv(this->SocketDesc, this->buff, sizeof(this->buff), MSG_NOSIGNAL)) {
         throw std::runtime_error("Recv Data Failed!");
     } else {
@@ -48,7 +47,7 @@ unsigned char *Socket::ResData() {
         std::promise<unsigned char *> *promise = new std::promise<unsigned char *>;
         this->queue.push(promise);
         std::future<unsigned char *> future = queue.front()->get_future();
-        unsigned char *data = future.get();
+        static unsigned char *data = future.get();
         delete queue.front();
         queue.pop();
         return data;

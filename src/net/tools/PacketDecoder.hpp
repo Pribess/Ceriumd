@@ -22,6 +22,8 @@ class PacketDecoder {
         static void ReqHandler(unsigned char *data, Socket *socket);
         static void ResHandler(unsigned char *data, Socket *socket);
 
+        static void CheckType(unsigned char *data, int type);
+
         static NetByte::version Version(unsigned char *data);
         static void Verack(unsigned char *data);
 

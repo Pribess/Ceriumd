@@ -17,9 +17,9 @@ bool NodePool::isNodeExist(uint32_t addr, unsigned short port) {
 
 bool NodePool::isNodeExist(Node *node) {
     if (std::find(NodePool::pool.begin(), NodePool::pool.end(), node) == NodePool::pool.end()) {
-        return true;
+        return false;
     }
-    return false;
+    return true;
 }
 
 void NodePool::AddNode(Node *node) {

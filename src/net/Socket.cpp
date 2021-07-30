@@ -47,6 +47,7 @@ unsigned char *Socket::ResData() {
         std::promise<unsigned char *> *promise = new std::promise<unsigned char *>;
         this->queue.push(promise);
         std::future<unsigned char *> future = queue.front()->get_future();
+        future.wait();
         static unsigned char *data = future.get();
         delete queue.front();
         queue.pop();

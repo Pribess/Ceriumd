@@ -51,12 +51,6 @@ void Node::StartSocketHandler() {
         this->SocketHandler = new std::thread([](Socket *socket) {
             try {
                 Protocol::Version(socket);
-                Protocol::Version(socket);
-                std::vector<std::pair<uint32_t, unsigned short>> buff = Protocol::GetAddr(socket);
-                for (auto ads : buff) {
-                    printf("%d", buff.size());
-                    printf("%x and %x\n", ads.first, ads.second);
-                }
             } catch (std::runtime_error &e) {
                 throw e;
             }

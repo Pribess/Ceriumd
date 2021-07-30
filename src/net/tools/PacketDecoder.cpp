@@ -100,9 +100,9 @@ std::vector<std::pair<uint32_t, unsigned short>> PacketDecoder::Addr(unsigned ch
 
     std::vector<NetByte::addrset> listbuff;
 
-    listbuff.resize(addrbuff.count * sizeof(NetByte::addrset));
+    listbuff.resize(addrbuff.count);
 
-    std::memcpy(listbuff.data(), data + sizeof(NetByte::header) + sizeof(NetByte::addrheader), addrbuff.count * sizeof(NetByte::addrheader));
+    std::memcpy(listbuff.data(), data + sizeof(NetByte::header) + sizeof(NetByte::addrheader), addrbuff.count * sizeof(NetByte::addrset));
     
     for (NetByte::addrset cnt : listbuff) {
         addrlist.push_back(std::pair<uint32_t, unsigned short>(cnt.address, cnt.port));

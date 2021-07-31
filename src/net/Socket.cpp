@@ -56,3 +56,7 @@ unsigned char *Socket::ResData() {
         throw e;
     }
 }
+
+void Socket::ClearBuffer(unsigned char *buffer) {
+    std::memset(buffer, 0x00, sizeof(Socket::buff));
+}

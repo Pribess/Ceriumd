@@ -42,7 +42,7 @@ void Node::StartSocketHandler() {
     if (this->isNetWorkForwarded) {
         this->SocketHandler = new std::thread([](Socket *socket) {
             try {
-                Protocol::GetVersion(socket);
+                NetByte::version buff = Protocol::GetVersion(socket);
             } catch (std::runtime_error &e) {
                 throw e;
             }
@@ -50,7 +50,8 @@ void Node::StartSocketHandler() {
     } else {
         this->SocketHandler = new std::thread([](Socket *socket) {
             try {
-                Protocol::GetVersion(socket);
+                NetByte::version buff = Protocol::GetVersion(socket);
+                printf("%x , %x , version %x\n", buff.timestamp, TimeStamp::GetUtcTimeStamp(), buff.version);
             } catch (std::runtime_error &e) {
                 throw e;
             }

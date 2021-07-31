@@ -2,9 +2,9 @@
 
 #include "Protocol.hpp"
 
-void Protocol::GetVersion(Socket *socket) {
+NetByte::version Protocol::GetVersion(Socket *socket) {
     PacketSender::GetVersion(socket);
-    PacketDecoder::Version(socket->ResData());
+    return PacketDecoder::Version(socket->ResData());
 }
 
 std::vector<std::pair<uint32_t, unsigned short>> Protocol::GetAddr(Socket *socket) {

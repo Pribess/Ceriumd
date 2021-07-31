@@ -73,6 +73,7 @@ void PacketDecoder::CheckType(unsigned char *data, int type) {
 
 void PacketDecoder::GetVersion(unsigned char *data) {
     PacketDecoder::CheckType(data, CERIUM_PACKET_TYPE_GETVERSION);
+    Socket::ClearBuffer(data);
 }
 
 NetByte::version PacketDecoder::Version(unsigned char *data) {
@@ -80,11 +81,14 @@ NetByte::version PacketDecoder::Version(unsigned char *data) {
 
     std::memcpy(&versionbuff, data + sizeof(NetByte::header), sizeof(NetByte::version));
 
+    Socket::ClearBuffer(data);
+
     return versionbuff;
 }
 
 void PacketDecoder::GetAddr(unsigned char *data) {
     PacketDecoder::CheckType(data, CERIUM_PACKET_TYPE_GETADDR);
+    Socket::ClearBuffer(data);
 }
 
 std::vector<std::pair<uint32_t, unsigned short>> PacketDecoder::Addr(unsigned char *data) {
@@ -107,6 +111,8 @@ std::vector<std::pair<uint32_t, unsigned short>> PacketDecoder::Addr(unsigned ch
     for (NetByte::addrset cnt : listbuff) {
         addrlist.push_back(std::pair<uint32_t, unsigned short>(cnt.address, cnt.port));
     }
+
+    Socket::ClearBuffer(data);
 
     return addrlist;
 }

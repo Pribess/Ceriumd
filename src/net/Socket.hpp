@@ -29,6 +29,7 @@ class Socket {
         void PushToQueue(unsigned char *data);
         unsigned char *ResData();
 
+        static void ClearBuffer(unsigned char *buffer);
 };
 
 #endif

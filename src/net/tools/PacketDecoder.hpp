@@ -24,8 +24,8 @@ class PacketDecoder {
 
         static void CheckType(unsigned char *data, int type);
 
+        static void GetVersion(unsigned char *data);
         static NetByte::version Version(unsigned char *data);
-        static void Verack(unsigned char *data);
 
         static void GetAddr(unsigned char *data);
         static std::vector<std::pair<uint32_t, unsigned short>> Addr(unsigned char *data);

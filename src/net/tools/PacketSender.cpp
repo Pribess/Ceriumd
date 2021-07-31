@@ -2,6 +2,22 @@
 
 #include "PacketSender.hpp"
 
+void PacketSender::GetVersion(Socket *socket) {
+    try {
+        std::vector<unsigned char> buff;
+
+        buff.resize(sizeof(NetByte::header));
+
+        NetByte::header header = PacketBuilder::HeaderBuilder(CERIUM_PACKET_TYPE_GETVERSION, NULL, 0);
+
+        std::memcpy(buff.data(), &header, sizeof(NetByte::header));
+        
+        socket->SendData(buff);
+    } catch (std::runtime_error &e) {
+        throw e;
+    }
+}
+
 void PacketSender::Version(Socket *socket) {
     try {
         std::vector<unsigned char> buff;
@@ -14,22 +30,6 @@ void PacketSender::Version(Socket *socket) {
         std::memcpy(buff.data(), &header, sizeof(NetByte::header));
         std::memcpy(buff.data() + sizeof(NetByte::header), &payload, sizeof(NetByte::version));
 
-        socket->SendData(buff);
-    } catch (std::runtime_error &e) {
-        throw e;
-    }
-}
-
-void PacketSender::Verack(Socket *socket) {
-    try {
-        std::vector<unsigned char> buff;
-
-        buff.resize(sizeof(NetByte::header));
-
-        NetByte::header header = PacketBuilder::HeaderBuilder(CERIUM_PACKET_TYPE_VERACK, NULL, 0);
-
-        std::memcpy(buff.data(), &header, sizeof(NetByte::header));
-        
         socket->SendData(buff);
     } catch (std::runtime_error &e) {
         throw e;

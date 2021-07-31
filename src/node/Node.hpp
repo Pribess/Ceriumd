@@ -9,6 +9,8 @@
 
 class Node {
     private:
+        uint64_t NetVersion;
+
         Socket *socket;
         uint32_t addr;
         unsigned short port;

@@ -12,8 +12,8 @@
 
 class PacketSender {
     public:
+        static void GetVersion(Socket *socket);
         static void Version(Socket *socket);
-        static void Verack(Socket *socket);
 
         static void GetAddr(Socket *socket);
         static void Addr(Socket *socket);

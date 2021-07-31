@@ -29,8 +29,8 @@ void PacketDecoder::ReqHandler(unsigned char *data, Socket *socket) {
    
     switch (headerbuff.type)
     {
-        case CERIUM_PACKET_TYPE_VERSION:
-            PacketSender::Verack(socket);
+        case CERIUM_PACKET_TYPE_GETVERSION:
+            PacketSender::Version(socket);
             break;
         case CERIUM_PACKET_TYPE_GETADDR:
             PacketSender::Addr(socket);
@@ -71,16 +71,16 @@ void PacketDecoder::CheckType(unsigned char *data, int type) {
     }
 }
 
+void PacketDecoder::GetVersion(unsigned char *data) {
+    PacketDecoder::CheckType(data, CERIUM_PACKET_TYPE_GETVERSION);
+}
+
 NetByte::version PacketDecoder::Version(unsigned char *data) {
     NetByte::version versionbuff;
 
     std::memcpy(&versionbuff, data + sizeof(NetByte::header), sizeof(NetByte::version));
 
     return versionbuff;
-}
-
-void PacketDecoder::Verack(unsigned char *data) {
-    PacketDecoder::CheckType(data, CERIUM_PACKET_TYPE_VERACK);
 }
 
 void PacketDecoder::GetAddr(unsigned char *data) {

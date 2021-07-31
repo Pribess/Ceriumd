@@ -42,7 +42,7 @@ void Node::StartSocketHandler() {
     if (this->isNetWorkForwarded) {
         this->SocketHandler = new std::thread([](Socket *socket) {
             try {
-                Protocol::Version(socket);
+                Protocol::GetVersion(socket);
             } catch (std::runtime_error &e) {
                 throw e;
             }
@@ -50,7 +50,7 @@ void Node::StartSocketHandler() {
     } else {
         this->SocketHandler = new std::thread([](Socket *socket) {
             try {
-                Protocol::Version(socket);
+                Protocol::GetVersion(socket);
             } catch (std::runtime_error &e) {
                 throw e;
             }

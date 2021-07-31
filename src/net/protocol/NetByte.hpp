@@ -5,7 +5,7 @@
 
 #include <cstdint>
 
-#include "constant/Definition.hpp"
+#include "constant/Constant.hpp"
 #include "Opcodes.hpp"
 
 namespace NetByte {

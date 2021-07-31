@@ -9,7 +9,7 @@
 #include "node/Node.hpp"
 #include "node/NodePool.hpp"
 #include "net/primitive/Listener.hpp"
-#include "constant/Definition.hpp"
+#include "constant/Constant.hpp"
 #include "net/tools/BootStrapper.hpp"
 
 class ThreadRunner {

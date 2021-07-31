@@ -25,7 +25,7 @@ Node::~Node() {
 }
 
 void Node::StartSocketReceiver() {
-    this->SocketReceiver = new std::thread([](Socket *socket) {
+    this->SocketReceiver = new std::thread([&](Socket *socket) {
         try {
             while (true) {
                 if (PacketDecoder::PacketHandler(socket->RecvData(), socket)) {
@@ -40,18 +40,17 @@ void Node::StartSocketReceiver() {
 
 void Node::StartSocketHandler() {
     if (this->isNetWorkForwarded) {
-        this->SocketHandler = new std::thread([](Socket *socket) {
+        this->SocketHandler = new std::thread([&](Socket *socket) {
             try {
-                NetByte::version buff = Protocol::GetVersion(socket);
+                this->NetVersion = Protocol::GetVersion(socket).version;
             } catch (std::runtime_error &e) {
                 throw e;
             }
         }, this->socket);
     } else {
-        this->SocketHandler = new std::thread([](Socket *socket) {
+        this->SocketHandler = new std::thread([&](Socket *socket) {
             try {
-                NetByte::version buff = Protocol::GetVersion(socket);
-                printf("%x , %x , version %x\n", buff.timestamp, TimeStamp::GetUtcTimeStamp(), buff.version);
+                this->NetVersion = Protocol::GetVersion(socket).version;
             } catch (std::runtime_error &e) {
                 throw e;
             }

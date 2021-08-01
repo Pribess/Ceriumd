@@ -29,6 +29,7 @@ void Node::StartSocketReceiver() {
         try {
             while (true) {
                 if (PacketDecoder::PacketHandler(socket->RecvData(), socket)) {
+                    NodePool::RemoveNode(this);
                     return;
                 }
             }

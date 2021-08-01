@@ -6,6 +6,9 @@
 #include "net/Socket.hpp"
 #include "net/tools/BootStrapper.hpp"
 #include "net/protocol/Protocol.hpp"
+#include "node/NodePool.hpp"
+
+class NodePool;
 
 class Node {
     private:

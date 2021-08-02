@@ -1,4 +1,4 @@
-//Copyright (c) 2021 Heewon Cho
+// Copyright (c) 2021 Heewon Cho
 
 #ifndef _CERIUM_NET_PRIMITIVE_CONNECTOR
 #define _CERIUM_NET_PRIMITIVE_CONNECTOR

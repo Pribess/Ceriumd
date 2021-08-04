@@ -36,7 +36,7 @@ void AppInit() {
     Initializer::NetInit();
 }
 
-void ArgParser(int argc, char *argv[]) {
+void ArgParser(int argc, char **argv) {
     std::vector<std::string> args;
     
     if (argc < 2) {
@@ -64,7 +64,7 @@ void SetupEnvironment() {
     DatabasePool::SetUpDatabases();
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char **argv) {
     std::cout << "   ___          _                 \n  / __\\___ _ __(_)_   _ _ __ ___  \n / /  / _ \\ '__| | | | | '_ ` _ \\\n/ /__|  __/ |  | | |_| | | | | | |\n\\____/\\___|_|  |_|\\__,_|_| |_| |_|" << std::endl;
     ArgParser(argc, argv);
     SetupEnvironment();

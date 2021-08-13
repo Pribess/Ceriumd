@@ -2,9 +2,9 @@
 
 CC:=g++
 TARGET=ceriumd
-INCFLAGS:=-I ${shell pwd}/src
+INCFLAGS:=-I ${shell pwd}/src -I /usr/local/include
 CXXFLAGSC:=-Wno-deprecated-declarations -c ${INCFLAGS}
-CXXFLAGSO:=-lcrypto -lsqlite3 -lpthread
+CXXFLAGSO:=-lcrypto -lsqlite3 -lpthread -L /usr/local/lib
 COMPILE_FLAGS:=-std=c++17
 
 RM:=rm

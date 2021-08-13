@@ -24,7 +24,7 @@ NetByte::version PacketBuilder::VersionBuilder() {
 std::vector<unsigned char> PacketBuilder::AddrBuilder() {
     std::vector<unsigned char> payloadbuilder;
 
-    std::vector<std::pair<uint32_t, unsigned short>> addrlist = DatabasePool::NetDB::GetNetCache();
+    std::vector<std::pair<uint32_t, unsigned short>> addrlist = NetDB::GetNetCache();
 
     NetByte::addrheader addrheader;
     std::vector<NetByte::addrset> addr;

@@ -11,7 +11,7 @@ std::pair<Socket *, std::pair<uint32_t, unsigned short>> BootStrapper::BootStrap
 }
 
 std::pair<Socket *, std::pair<uint32_t, unsigned short>> BootStrapper::CacheStrap() {
-    std::vector<std::pair<uint32_t, unsigned short>> rs = DatabasePool::NetDB::GetNetCache();
+    std::vector<std::pair<uint32_t, unsigned short>> rs = NetDB::GetNetCache();
 
     for (std::pair<uint32_t, unsigned short> cnt : rs) {
         try {

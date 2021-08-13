@@ -11,23 +11,13 @@
 
 #include "constant/KeyValue.hpp"
 #include "database/primitive/Sqlite.hpp"
+#include "NetDB.hpp"
 
 class DatabasePool {
     private:
         static int SetUpNetdb();
     public:
         static void SetUpDatabases();
-        class NetDB {
-            private:
-                static Sqlite *netdb;
-            public:
-                static Sqlite *GetDB();
-                static void SetDB(Sqlite *netdb);
-                static void ResetDB();
-                static std::vector<std::pair<uint32_t, unsigned short>> GetNetCache();
-                static void AddNetCache(std::vector<std::pair<uint32_t, unsigned short>> data);
-                static void RmNetCache(std::vector<std::pair<uint32_t, unsigned short>> data);
-        };
 };
 
 #endif

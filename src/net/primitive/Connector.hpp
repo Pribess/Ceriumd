@@ -9,7 +9,7 @@
 #include <fcntl.h>
 #include <sys/socket.h>
 
-#include "net/Socket.hpp"
+#include "net/primitive/Socket.hpp"
 
 class Connector {
     private:

@@ -5,7 +5,7 @@
 
 #include <vector>
 
-#include "net/Socket.hpp"
+#include "net/primitive/Socket.hpp"
 #include "net/protocol/NetByte.hpp"
 #include "net/tools/PacketBuilder.hpp"
 #include "net/tools/PacketDecoder.hpp"

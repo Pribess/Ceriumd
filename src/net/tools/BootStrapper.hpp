@@ -5,7 +5,7 @@
 
 #include <iterator>
 
-#include "net/Socket.hpp"
+#include "net/primitive/Socket.hpp"
 #include "constant/SeedNodes.hpp"
 #include "net/primitive/Connector.hpp"
 #include "constant/SeedNodes.hpp"

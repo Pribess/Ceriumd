@@ -3,7 +3,7 @@
 #ifndef _CERIUM_NODE_NODE
 #define _CERIUM_NODE_NODE
 
-#include "net/Socket.hpp"
+#include "net/primitive/Socket.hpp"
 #include "net/tools/BootStrapper.hpp"
 #include "net/protocol/Protocol.hpp"
 #include "node/NodePool.hpp"

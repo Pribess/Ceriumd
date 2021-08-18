@@ -10,7 +10,7 @@
 
 #include "net/protocol/NetByte.hpp"
 #include "crypto/Crypto.hpp"
-#include "net/Socket.hpp"
+#include "net/primitive/Socket.hpp"
 #include "net/tools/PacketSender.hpp"
 
 class PacketDecoder {

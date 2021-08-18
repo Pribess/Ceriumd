@@ -7,7 +7,7 @@
 #include <string>
 #include <cstddef>
 
-#include "net/Socket.hpp"
+#include "net/primitive/Socket.hpp"
 
 class Listener {
     private:

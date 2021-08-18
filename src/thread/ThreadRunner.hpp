@@ -5,7 +5,7 @@
 
 #include <thread>
 
-#include "net/Socket.hpp"
+#include "net/primitive/Socket.hpp"
 #include "node/Node.hpp"
 #include "node/NodePool.hpp"
 #include "net/primitive/Listener.hpp"

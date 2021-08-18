@@ -4,7 +4,7 @@
 #define _CERIUM_NET_TOOLS_PACKETBUILDER
 
 #include "net/protocol/NetByte.hpp"
-#include "net/Socket.hpp"
+#include "net/primitive/Socket.hpp"
 #include "crypto/Crypto.hpp"
 #include "tools/TimeStamp.hpp"
 #include "constant/Version.hpp"

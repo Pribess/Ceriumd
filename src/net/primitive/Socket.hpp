@@ -1,7 +1,7 @@
 // Copyright (c) 2021 Heewon Cho
 
-#ifndef _CERIUM_NET_SOCKET
-#define _CERIUM_NET_SOCKET
+#ifndef _CERIUM_NET_PRIMITIVE_SOCKET
+#define _CERIUM_NET_PRIMITIVE_SOCKET
 
 #include <cstring>
 #include <sys/socket.h>

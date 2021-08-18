@@ -20,14 +20,10 @@ class Socket {
     public:
         Socket(int SocketDesc);
         ~Socket();
+        
         int CloseSocket();
         int SendData(std::vector<unsigned char> data);
         unsigned char *RecvData();
-
-        bool CheckSocketAlive();
-
-        void PushToQueue(unsigned char *data);
-        unsigned char *ResData();
 
         static void ClearBuffer(unsigned char *buffer);
 };

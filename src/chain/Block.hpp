@@ -22,6 +22,7 @@ class Block {
             char RootHash[32],
             uint64_t TimeStamp
         );
+        
         char *CalculateBlockHash();
 };
 

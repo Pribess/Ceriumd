@@ -22,6 +22,7 @@ class Connector {
     public:
         Connector(char sin_addr[], int sin_port);
         Connector(in_addr_t sin_addr, int sin_port);
+        
         Socket *Connect();
 };
 

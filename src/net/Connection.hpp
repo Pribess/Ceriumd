@@ -8,11 +8,12 @@
 class Connection {
     private:
         Socket *socket;
-        unsigned char buff[1024];
         std::queue<std::promise<unsigned char *> *> queue;
     public:
         Connection(Socket *socket);
         ~Connection();
+
+        int CloseConnection();
 
         int SendData(std::vector<unsigned char> data);
         unsigned char *RecvData();

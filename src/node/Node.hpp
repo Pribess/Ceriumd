@@ -7,6 +7,7 @@
 #include "net/tools/BootStrapper.hpp"
 #include "net/protocol/Protocol.hpp"
 #include "node/NodePool.hpp"
+#include "net/Connection.hpp"
 
 class NodePool;
 
@@ -14,7 +15,7 @@ class Node {
     private:
         uint64_t NetVersion;
 
-        Socket *socket;
+        Connection *con;
         uint32_t addr;
         unsigned short port;
         bool isNetWorkForwarded;
@@ -27,12 +28,12 @@ class Node {
 
 
     public:
-        Node(Socket *socket, uint32_t addr, unsigned short port);
-        Node(Socket *socket, uint32_t addr);
+        Node(Connection *con, uint32_t addr, unsigned short port);
+        Node(Connection *con, uint32_t addr);
         ~Node();
 
         std::pair<uint32_t, unsigned short> GetNetData();
-        Socket *GetSocket();
+        Connection *GetConnection();
 };
 
 #endif

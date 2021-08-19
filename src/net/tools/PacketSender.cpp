@@ -2,7 +2,7 @@
 
 #include "PacketSender.hpp"
 
-void PacketSender::GetVersion(Socket *socket) {
+void PacketSender::GetVersion(Connection *con) {
     try {
         std::vector<unsigned char> buff;
 
@@ -12,13 +12,13 @@ void PacketSender::GetVersion(Socket *socket) {
 
         std::memcpy(buff.data(), &header, sizeof(NetByte::header));
         
-        socket->SendData(buff);
+        con->SendData(buff);
     } catch (std::runtime_error &e) {
         throw e;
     }
 }
 
-void PacketSender::Version(Socket *socket) {
+void PacketSender::Version(Connection *con) {
     try {
         std::vector<unsigned char> buff;
 
@@ -30,13 +30,13 @@ void PacketSender::Version(Socket *socket) {
         std::memcpy(buff.data(), &header, sizeof(NetByte::header));
         std::memcpy(buff.data() + sizeof(NetByte::header), &payload, sizeof(NetByte::version));
 
-        socket->SendData(buff);
+        con->SendData(buff);
     } catch (std::runtime_error &e) {
         throw e;
     }
 }
 
-void PacketSender::GetAddr(Socket *socket) {
+void PacketSender::GetAddr(Connection *con) {
     try {
         std::vector<unsigned char> buff;
 
@@ -46,13 +46,13 @@ void PacketSender::GetAddr(Socket *socket) {
 
         std::memcpy(buff.data(), &header, sizeof(NetByte::header));
         
-        socket->SendData(buff);
+        con->SendData(buff);
     } catch (std::runtime_error &e) {
         throw e;
     }
 }
 
-void PacketSender::Addr(Socket *socket) {
+void PacketSender::Addr(Connection *con) {
     try {
         std::vector<unsigned char> payload = PacketBuilder::AddrBuilder();
         NetByte::header header = PacketBuilder::HeaderBuilder(CERIUM_PACKET_TYPE_ADDR, payload.data(), payload.size());
@@ -64,7 +64,7 @@ void PacketSender::Addr(Socket *socket) {
         std::memcpy(buff.data(), &header, sizeof(NetByte::header));
         std::memcpy(buff.data() + sizeof(NetByte::header), payload.data(), payload.size());
 
-        socket->SendData(buff);
+        con->SendData(buff);
     } catch (std::runtime_error &e) {
         throw e;
     }

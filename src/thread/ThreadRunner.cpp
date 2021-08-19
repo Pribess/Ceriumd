@@ -8,7 +8,8 @@ std::thread *ThreadRunner::StartSocketListenerThread() {
             Listener *listener = new Listener(CERIUM_PORT);
             while (true) {
                 std::pair<Socket *, uint32_t> buff = listener->Listen();
-                Node *node = new Node(buff.first, buff.second);
+                
+                Node *node = new Node(new Connection(buff.first), buff.second);
                 NodePool::AddNode(node);
             }
             delete listener;
@@ -23,7 +24,7 @@ std::thread *ThreadRunner::StartSocketConnectorThread() {
         try {
             std::pair<Socket *, std::pair<uint32_t, unsigned short>> buff = BootStrapper::BootStrap();
             std::cout << "Bootstraped With : " << std::hex<< buff.second.first << "/" << buff.second.second << std::endl;
-            Node *node = new Node(buff.first, buff.second.first, buff.second.second);
+            Node *node = new Node(new Connection(buff.first), buff.second.first, buff.second.second);
             NodePool::AddNode(node);
         } catch (std::runtime_error &e) {
             throw e;

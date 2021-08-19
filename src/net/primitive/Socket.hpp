@@ -16,12 +16,12 @@ class Socket {
     private:
         int SocketDesc;
         unsigned char buff[1024];
-        std::queue<std::promise<unsigned char *> *> queue;
     public:
         Socket(int SocketDesc);
         ~Socket();
         
         int CloseSocket();
+
         int SendData(std::vector<unsigned char> data);
         unsigned char *RecvData();
 

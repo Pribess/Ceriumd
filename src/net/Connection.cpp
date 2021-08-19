@@ -6,6 +6,10 @@ Connection::Connection(Socket *socket) {
     this->socket = socket;
 }
 
+int Connection::CloseConnection() {
+    return this->socket->CloseSocket();
+}
+
 int Connection::SendData(std::vector<unsigned char> data) {
     return this->socket->SendData(data);
 }

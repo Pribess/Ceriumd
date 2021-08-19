@@ -12,15 +12,16 @@
 #include "crypto/Crypto.hpp"
 #include "net/primitive/Socket.hpp"
 #include "net/tools/PacketSender.hpp"
+#include "net/Connection.hpp"
 
 class PacketDecoder {
     private:
         static void CheckSum(unsigned char *data);
     public:
-        static int PacketHandler(unsigned char *data, Socket *socket);
+        static int PacketHandler(unsigned char *data, Connection *con);
 
-        static void ReqHandler(unsigned char *data, Socket *socket);
-        static void ResHandler(unsigned char *data, Socket *socket);
+        static void ReqHandler(unsigned char *data, Connection *socket);
+        static void ResHandler(unsigned char *data, Connection *socket);
 
         static void CheckType(unsigned char *data, int type);
 

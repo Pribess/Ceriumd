@@ -9,14 +9,15 @@
 #include "net/protocol/NetByte.hpp"
 #include "net/tools/PacketBuilder.hpp"
 #include "net/tools/PacketDecoder.hpp"
+#include "net/Connection.hpp"
 
 class PacketSender {
     public:
-        static void GetVersion(Socket *socket);
-        static void Version(Socket *socket);
+        static void GetVersion(Connection *con);
+        static void Version(Connection *con);
 
-        static void GetAddr(Socket *socket);
-        static void Addr(Socket *socket);
+        static void GetAddr(Connection *con);
+        static void Addr(Connection *con);
 };
 
 #endif

@@ -7,8 +7,8 @@
 
 class Protocol {
     public:
-        static NetByte::version GetVersion(Socket *socket);
-        static std::vector<std::pair<uint32_t, unsigned short>> GetAddr(Socket *socket);
+        static NetByte::version GetVersion(Connection *con);
+        static std::vector<std::pair<uint32_t, unsigned short>> GetAddr(Connection *con);
 };
 
 #endif

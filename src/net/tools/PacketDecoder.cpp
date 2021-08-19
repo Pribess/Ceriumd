@@ -2,7 +2,7 @@
 
 #include "PacketDecoder.hpp"
 
-int PacketDecoder::PacketHandler(unsigned char *data, Socket *socket) {
+int PacketDecoder::PacketHandler(unsigned char *data, Connection *con) {
     NetByte::header headerbuff;
 
     std::memcpy(&headerbuff, data, sizeof(NetByte::header));
@@ -14,15 +14,15 @@ int PacketDecoder::PacketHandler(unsigned char *data, Socket *socket) {
     PacketDecoder::CheckSum(data);
 
     if (headerbuff.type % 2 == 0) {
-        PacketDecoder::ReqHandler(data, socket);
+        PacketDecoder::ReqHandler(data, con);
     } else {
-        PacketDecoder::ResHandler(data, socket);
+        PacketDecoder::ResHandler(data, con);
     }
 
     return 0;
 }
 
-void PacketDecoder::ReqHandler(unsigned char *data, Socket *socket) {
+void PacketDecoder::ReqHandler(unsigned char *data, Connection *con) {
     NetByte::header headerbuff;
     
     std::memcpy(&headerbuff, data, sizeof(NetByte::header));
@@ -30,17 +30,17 @@ void PacketDecoder::ReqHandler(unsigned char *data, Socket *socket) {
     switch (headerbuff.type)
     {
         case CERIUM_PACKET_TYPE_GETVERSION:
-            PacketSender::Version(socket);
+            PacketSender::Version(con);
             break;
         case CERIUM_PACKET_TYPE_GETADDR:
-            PacketSender::Addr(socket);
+            PacketSender::Addr(con);
             break;
         default:
             break;
     }
 }
 
-void PacketDecoder::ResHandler(unsigned char *data, Socket *socket) {
+void PacketDecoder::ResHandler(unsigned char *data, Connection *socket) {
     socket->PushToQueue(data);
 }
 

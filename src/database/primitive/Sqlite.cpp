@@ -11,7 +11,7 @@ Sqlite::~Sqlite() {
 }
 
 void Sqlite::OpenDatabase(std::string dbname) {
-    if (sqlite3_open_v2(dbname.c_str(), &this->db, SQLITE_OPEN_READWRITE, NULL)) {
+    if (sqlite3_open_v2(dbname.c_str(), &this->db, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL)) {
         throw std::runtime_error("Opening Database Failed!");
     }
 }

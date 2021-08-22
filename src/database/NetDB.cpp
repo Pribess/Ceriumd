@@ -4,29 +4,55 @@
 
 Sqlite *NetDB::netdb;
 
-Sqlite *NetDB::GetDB() {
-    return NetDB::netdb;
-}
+void NetDB::InitDB() {
+    std::string dirname = KeyValue::GetKeyValue("DataDir");
+    dirname.append("net.db");
 
-void NetDB::SetDB(Sqlite *netdb) {
-    NetDB::netdb = netdb;
+    try {
+        NetDB::netdb = new Sqlite(dirname);
+    } catch (std::runtime_error &e) {
+        std::cout << "Ceriumd: fatal: unable to open database file '" << dirname << "' Permission Denied" << std::endl; 
+        exit(1);
+    }
+    
+    try {
+        std::string sql(R"(SELECT name FROM sqlite_master WHERE type IN ('table', 'view') AND name NOT LIKE 'sqlite_%' UNION ALL SELECT name FROM sqlite_temp_master WHERE type IN ('table', 'view') ORDER BY 1;)");
+
+        std::vector<std::vector<std::vector<unsigned char>>> rs = NetDB::netdb->ExecuteQuery(sql);
+        int cnt = NetDB::netdb->ExecuteQuery("PRAGMA table_info(AddrCache);").size();
+
+        if (rs.empty()) {
+            NetDB::netdb->ExecuteQuery(R"(CREATE TABLE "AddrCache" ("NodeAddr"	BLOB, "NodePort"	BLOB);)");
+        } else if (std::string("AddrCache") != std::string(rs.front().front().begin(), rs.front().front().end()) ) {
+            NetDB::ResetDB();
+        } else if (rs.size() != 1) {
+            NetDB::ResetDB();
+        } else if (cnt != 2) {
+            NetDB::ResetDB();     
+        }
+
+    } catch (std::runtime_error &e) {
+        throw e;
+        std::cout << "Ceriumd: fatal: unable to read file '" << dirname << "' Permission Denied" << std::endl; 
+        exit(1); 
+    }
 }
 
 void NetDB::ResetDB() {
 
-    std::vector<std::vector<std::vector<unsigned char>>> clearsql = NetDB::GetDB()->ExecuteQuery(R"(SELECT 'DROP TABLE ' || name || ';' FROM sqlite_master WHERE type = 'table';)");
+    std::vector<std::vector<std::vector<unsigned char>>> clearsql = NetDB::netdb->ExecuteQuery(R"(SELECT 'DROP TABLE ' || name || ';' FROM sqlite_master WHERE type = 'table';)");
 
     for (int cnt = 0 ; cnt < clearsql.size() ; cnt++) {
-        NetDB::GetDB()->ExecuteQuery(std::string(clearsql.at(cnt).front().begin(), clearsql.at(cnt).front().end()));
+        NetDB::netdb->ExecuteQuery(std::string(clearsql.at(cnt).front().begin(), clearsql.at(cnt).front().end()));
     }
 
-    NetDB::GetDB()->ExecuteQuery(R"(CREATE TABLE "AddrCache" ("NodeAddr"	BLOB, "NodePort"	BLOB););)");
+    NetDB::netdb->ExecuteQuery(R"(CREATE TABLE "AddrCache" ("NodeAddr"	BLOB, "NodePort"	BLOB););)");
 
 }
 
 std::vector<std::pair<uint32_t, unsigned short>> NetDB::GetNetCache() {
     std::vector<std::pair<uint32_t, unsigned short>> buff;
-    std::vector<std::vector<std::vector<unsigned char>>> rs = NetDB::GetDB()->ExecuteQuery("SELECT * FROM AddrCache");
+    std::vector<std::vector<std::vector<unsigned char>>> rs = NetDB::netdb->ExecuteQuery("SELECT * FROM AddrCache");
     
         for (int cnt = 0 ; cnt < rs.size() ; cnt++) {
             uint32_t addr;
@@ -68,7 +94,7 @@ void NetDB::AddNetCache(std::vector<std::pair<uint32_t, unsigned short>> data) {
         }
     }
 
-    NetDB::GetDB()->ExecuteQuery(sql, binddata);
+    NetDB::netdb->ExecuteQuery(sql, binddata);
 }
 
 void NetDB::RmNetCache(std::vector<std::pair<uint32_t, unsigned short>> data) {
@@ -89,6 +115,6 @@ void NetDB::RmNetCache(std::vector<std::pair<uint32_t, unsigned short>> data) {
         binddata.push_back(addr);
         binddata.push_back(port);
 
-        NetDB::GetDB()->ExecuteQuery(sql, binddata);
+        NetDB::netdb->ExecuteQuery(sql, binddata);
     }
 }

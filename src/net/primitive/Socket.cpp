@@ -19,7 +19,6 @@ int Socket::CloseSocket() {
 }
 
 int Socket::SendData(std::vector<unsigned char> data) {
-    char cnt = 5;
     if (0 > send(this->SocketDesc, data.data(), data.size(), MSG_NOSIGNAL)) {
         throw std::runtime_error("Send Data Failed!");
     } else {
@@ -29,7 +28,6 @@ int Socket::SendData(std::vector<unsigned char> data) {
 }
 
 unsigned char *Socket::RecvData() {
-    char cnt = 5;
     if (0 > recv(this->SocketDesc, this->buff, sizeof(this->buff), MSG_NOSIGNAL)) {
         throw std::runtime_error("Recv Data Failed!");
     } else {

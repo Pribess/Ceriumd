@@ -40,7 +40,7 @@ void ArgParser(int argc, char **argv) {
     std::vector<std::string> args;
     
     if (argc < 2) {
-        std::cout << "Ceriumd: Usage <directory>" << std::endl; 
+        std::cout << "Ceriumd: Usage <directory> <option>" << std::endl; 
         exit(1);
     }
 
@@ -57,6 +57,13 @@ void ArgParser(int argc, char **argv) {
     }
 
     KeyValue::SetKeyValue("DataDir", iter[1]);
+
+    const char *optstring = "";
+    int opt;
+
+    while ((opt = getopt(argc, argv, optstring)) != -1) {
+    }
+        
 }
 
 void SetupEnvironment() {

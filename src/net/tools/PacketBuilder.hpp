@@ -8,7 +8,7 @@
 #include "crypto/Crypto.hpp"
 #include "tools/TimeStamp.hpp"
 #include "constant/Version.hpp"
-#include "database/DatabasePool.hpp"
+#include "database/NetDB.hpp"
 
 class PacketBuilder {
     public:

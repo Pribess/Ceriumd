@@ -9,7 +9,7 @@
 #include "constant/SeedNodes.hpp"
 #include "net/primitive/Connector.hpp"
 #include "constant/SeedNodes.hpp"
-#include "database/DatabasePool.hpp"
+#include "database/NetDB.hpp"
 
 class BootStrapper {
     private:

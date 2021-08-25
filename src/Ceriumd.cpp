@@ -5,7 +5,6 @@
 #include <vector>
 
 #include "thread/ThreadRunner.hpp"
-#include "database/DatabasePool.hpp"
 #include "constant/KeyValue.hpp"
 #include "tools/CastingTools.hpp"
 #include "net/tools/BootStrapper.hpp"
@@ -58,17 +57,20 @@ void ArgParser(int argc, char **argv) {
 
     KeyValue::SetKeyValue("DataDir", iter[1]);
 
-    const char *optstring = "";
+    const char *optstring = "f";
     int opt;
 
     while ((opt = getopt(argc, argv, optstring)) != -1) {
+        switch (opt) {
+            case 'f':
+                
+        }
     }
-        
 }
 
 void SetupEnvironment() {
     setlocale(LC_ALL, "");
-    DatabasePool::SetUpDatabases();
+    NetDB::InitDB();
 }
 
 int main(int argc, char **argv) {

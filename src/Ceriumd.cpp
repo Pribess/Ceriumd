@@ -1,15 +1,12 @@
 // Copyright (c) 2021 Heewon Cho
 
 #include <iostream>
-#include <dirent.h>
 #include <vector>
+#include <getopt.h>
+#include <cstdlib>
 
 #include "thread/ThreadRunner.hpp"
 #include "constant/KeyValue.hpp"
-#include "tools/CastingTools.hpp"
-#include "net/tools/BootStrapper.hpp"
-#include "constant/SeedNodes.hpp"
-#include "tools/TimeStamp.hpp"
 
 namespace Initializer {
 
@@ -55,17 +52,36 @@ void ArgParser(int argc, char **argv) {
         iter[1].append("/");
     }
 
-    KeyValue::SetKeyValue("DataDir", iter[1]);
+    KeyValue::SetKeyValue("optdatadir", iter[1]);
 
-    const char *optstring = "f";
+    static option optlist[] {
+        {"verbose", no_argument, NULL, 'v'},
+        {"server", no_argument, NULL, 's'}
+    };
+
     int opt;
+    const char *optstring = "vs";
+    int optidx;
 
-    while ((opt = getopt(argc, argv, optstring)) != -1) {
+    std::string optverbose;
+    std::string optnetforwarded;
+
+    while ((opt = getopt_long(argc, argv, optstring, optlist, &optidx)) != -1) {
         switch (opt) {
-            case 'f':
-                
+            case 'v':
+                optverbose.append("true");
+                break;
+            case 's':
+                optnetforwarded.append("true");
+                break;
         }
     }
+
+    optverbose.append("false");
+    optnetforwarded.append("false");
+
+    KeyValue::SetKeyValue("optverbose", optverbose);
+    KeyValue::SetKeyValue("optnetforwarded", optnetforwarded);
 }
 
 void SetupEnvironment() {
@@ -75,8 +91,8 @@ void SetupEnvironment() {
 
 int main(int argc, char **argv) {
     std::cout << "   ___          _                 \n  / __\\___ _ __(_)_   _ _ __ ___  \n / /  / _ \\ '__| | | | | '_ ` _ \\\n/ /__|  __/ |  | | |_| | | | | | |\n\\____/\\___|_|  |_|\\__,_|_| |_| |_|" << std::endl;
-    ArgParser(argc, argv);
     SetupEnvironment();
+    ArgParser(argc, argv);
     AppInit();
     while (true)
     {

@@ -5,7 +5,7 @@
 Sqlite *NetDB::netdb;
 
 void NetDB::InitDB() {
-    std::string dirname = KeyValue::GetKeyValue("DataDir");
+    std::string dirname = KeyValue::GetKeyValue("optdatadir");
     dirname.append("net.db");
 
     try {

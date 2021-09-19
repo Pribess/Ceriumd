@@ -10,3 +10,6 @@ ceriumd
 # osx stuff 
 .DS_Store
 .vscode
+
+# cmake stuff
+build/

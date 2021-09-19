@@ -1,0 +1,29 @@
+Cerium
+Integration between cloud computing and blockchain
+
+Contact at heewon6752@naver.com
+
+
+   ___          _                 
+  / __\___ _ __(_)_   _ _ __ ___  
+ / /  / _ \ '__| | | | | '_ ` _ \
+/ /__|  __/ |  | | |_| | | | | | |
+\____/\___|_|  |_|\__,_|_| |_| |_|
+
+
+Official Telegram Channel
+https://t.me/Ceriumd
+
+Official Discord Server
+https://discord.gg/tcYYBjKgmD
+
+
+CONTRIBUTING
+
+* The position of the braces must follow K&R.
+
+* The style of writing variable function names should follow the Pascal case.
+
+* The indentation is 4 spaces.
+
+* Only hpp file can include headers

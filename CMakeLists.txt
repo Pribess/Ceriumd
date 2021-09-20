@@ -36,6 +36,8 @@ if (APPLE)
 elseif(UNIX)
     target_link_libraries(
     ${TARGET}
+    dl
+    pthread
     ${OPENSSL_LIBRARIES}
     )
 elseif(MINGW)

@@ -4,21 +4,38 @@ project(Ceriumd)
 
 set(TARGET ceriumd)
 
-file(GLOB SRC_FILES src/*.cpp)
-
 set (CMAKE_CXX_STANDARD 20)
+
+
+include_directories(src/)
+
+find_package(OpenSSL REQUIRED)
+include_directories(${OPENSSL_INCLUDE_DIR})
+
+include_directories(deps/sqlite)
+list(APPEND LIB_FILES deps/sqlite/sqlite3.c)
+
+
+file(GLOB_RECURSE SRC_FILES src/*.cpp)
 
 add_executable(
     ${TARGET}
     ${SRC_FILES}
+    ${LIB_FILES}
 )
 
-include_directories(src/)
-
 if (APPLE)
-    target_link_libraries(${TARGET})
+    target_link_libraries(
+    ${TARGET}
+    ${OPENSSL_LIBRARIES}
+    )
 elseif(UNIX)
-    target_link_libraries(${TARGET})
+    target_link_libraries(
+    ${TARGET}
+    ${OPENSSL_LIBRARIES}
+    )
 elseif(MINGW)
-    target_link_libraries(${TARGET})
+    target_link_libraries(
+    ${TARGET}
+    )
 endif()

@@ -3,11 +3,14 @@
 #ifndef _CERIUM_NET_PRIMITIVE_SOCKET
 #define _CERIUM_NET_PRIMITIVE_SOCKET
 
+#ifdef WIN32
+    #include <winsock2.h>
+#else
+    #include <sys/socket.h>
+    #include <arpa/inet.h>
+#endif
 #include <cstring>
-#include <sys/socket.h>
-#include <arpa/inet.h>
 #include <iostream>
-#include <unistd.h>
 #include <vector>
 #include <future>
 #include <queue>

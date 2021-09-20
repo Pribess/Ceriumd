@@ -6,6 +6,10 @@ set(TARGET ceriumd)
 
 set (CMAKE_CXX_STANDARD 20)
 
+if(MINGW)
+    add_compile_definitions(WIN32)
+endif()
+
 
 include_directories(src/)
 

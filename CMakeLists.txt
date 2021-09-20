@@ -6,6 +6,8 @@ set(TARGET ceriumd)
 
 file(GLOB SRC_FILES src/*.cpp)
 
+set (CMAKE_CXX_STANDARD 20)
+
 add_executable(
     ${TARGET}
     ${SRC_FILES}
